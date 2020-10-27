@@ -1,0 +1,149 @@
+
+
+
+1.定义注解
+/**
+ * 数据源切换注解，默认main主库 -- 注解到服务类、服务方法级别(服务方法级别优先级更高)
+ */
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+public @interface DataSourceSwitch {
+    /**
+     * 数据源名称 -- 默认main数据源
+     * @return
+     */
+    String dataSource() default DataSourceConstant.MAIN_MASTER;
+}
+
+其中，数据库常量：
+public class DataSourceConstant {
+
+    /**
+     * main库主库
+     */
+    public static final String MAIN_MASTER = "main_master";
+
+
+    /**
+     * tms库主库
+     */
+    public static final String TMS_MASTER = "tms_master";
+
+
+    public static Set<String> getAllDataSource() {
+        return Sets.newHashSet(MAIN_MASTER, TMS_MASTER);
+    }
+
+    public static Boolean isLegal(String dataSource) {
+        return getAllDataSource().contains(dataSource);
+    }
+
+}
+
+2.借助切面,本地线程变量来切换数据源
+
+/**
+ * aop切换数据源 -- 支持类/方法维度切换（注意，不能开启事务，一个事务里是不允许切换数据源的）
+ */
+@Slf4j
+@Component
+@Aspect
+@Order(1)
+public class DataSourceSwitchAspect {
+
+    @Before("execution(* com.baturu.tms.biz.service..*.*(..))")
+    public void doBefore(JoinPoint joinPoint) {
+        Class clazz = joinPoint.getSignature().getDeclaringType();
+        this.switchDataSource(clazz.getDeclaredAnnotations());
+
+        Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
+        this.switchDataSource(method.getDeclaredAnnotations());
+    }
+
+    @After("execution(* com.baturu.tms.biz.service..*.*(..))")
+    public void doAfter(JoinPoint joinPoint) {
+        Class clazz = joinPoint.getSignature().getDeclaringType();
+        this.clearDataSource(clazz.getDeclaredAnnotations());
+
+        Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
+        this.clearDataSource(method.getDeclaredAnnotations());
+    }
+
+    private void switchDataSource(Annotation[] annotations) {
+        if(annotations != null && annotations.length > 0) {
+            for(Annotation annotation : annotations) {
+                if(DataSourceSwitch.class.isInstance(annotation)) {
+                    MultipleDataSource.switchDataSourceByAnnotation(annotation);
+                }
+            }
+        }
+    }
+
+    private void clearDataSource(Annotation[]annotations) {
+        if(annotations != null && annotations.length > 0) {
+            for(Annotation annotation : annotations) {
+                if(DataSourceSwitch.class.isInstance(annotation)) {
+                    MultipleDataSource.clearDataSource();
+                }
+            }
+        }
+    }
+}
+
+其中：
+/**
+ * 将数据源与本地线程变量绑定
+ */
+public class MultipleDataSource extends AbstractRoutingDataSource {
+    private static final ThreadLocal<String> dataSourceKey = new InheritableThreadLocal();
+
+    public static void switchDataSourceByAnnotation(Annotation annotation) {
+        //默认main库主库
+        dataSourceKey.set(DataSourceConstant.MAIN_MASTER);
+
+        if(annotation != null) {
+            String dataSource = ((DataSourceSwitch) annotation).dataSource();
+
+            if(DataSourceConstant.isLegal(dataSource)) {
+                dataSourceKey.set(dataSource);
+            }
+
+        }
+    }
+
+    public static void switchDataSourceManual(String dataSource) {
+        if(DataSourceConstant.isLegal(dataSource)) {
+            dataSourceKey.set(dataSource);
+        }
+    }
+
+    /**
+     * 获取数据源
+     * @return
+     */
+    public static String getDatasource() {
+        return dataSourceKey.get();
+    }
+
+
+    public static void clearDataSource() {
+        dataSourceKey.remove();
+    }
+
+    @Override
+    protected Object determineCurrentLookupKey() {
+        return dataSourceKey.get();
+    }
+}
+
+3.使用,直接放在类上，方法上即可使用(放在位置跟注解的@Target属性有关)
+@Slf4j
+@Service("aService")
+@DataSourceSwitch(dataSource = DataSourceConstant.TMS_MASTER)
+public class AImpl implements AService {
+}
+
+
+
+

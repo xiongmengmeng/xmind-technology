@@ -76,29 +76,29 @@ fig.show()
 input()
 
 #2.3.散点图（多变量）
-tips=sns.load_dataset("tips")
-print(tips)
+# tips=sns.load_dataset("tips")
+# print(tips)
 
-def recode_sex(sex):
-    if sex == 'Female':
-        return 0
-    else:
-        return 1
+# def recode_sex(sex):
+#     if sex == 'Female':
+#         return 0
+#     else:
+#         return 1
 
-tips['sex_color']=tips['sex'].apply(recode_sex)
+# tips['sex_color']=tips['sex'].apply(recode_sex)
 
-fig=plt.figure()
-scatter_plot=fig.add_subplot(1,1,1)
-scatter_plot.scatter(tips['total_bill'],
-    tips['tip'],
-    #根据聚餐人数设置点的大小，乘上10以放大不同
-    s=tips['size']*10,
-    #为sex设置颜色
-    c=tips['sex_color'],
-    #设置alpha值，增加点的透明度，以表现重叠的点
-    alpha=0.5)
-scatter_plot.set_title("Total Bill vs Tip Colored by Sex and Size by Size")
-scatter_plot.set_xlabel("Total Bill")
-scatter_plot.set_ylabel("Tip")
-fig.show()
-input()
+# fig=plt.figure()
+# scatter_plot=fig.add_subplot(1,1,1)
+# scatter_plot.scatter(tips['total_bill'],
+#     tips['tip'],
+#     #根据聚餐人数设置点的大小，乘上10以放大不同
+#     s=tips['size']*10,
+#     #为sex设置颜色
+#     c=tips['sex_color'],
+#     #设置alpha值，增加点的透明度，以表现重叠的点
+#     alpha=0.5)
+# scatter_plot.set_title("Total Bill vs Tip Colored by Sex and Size by Size")
+# scatter_plot.set_xlabel("Total Bill")
+# scatter_plot.set_ylabel("Tip")
+# fig.show()
+# input()

@@ -1,6 +1,6 @@
 import xmind
 from xmind.core.markerref import MarkerId
-w = xmind.load("c:\\Users\\btr\\Desktop\\mysql-log1.xmind") 
+w = xmind.load("c:\\Users\\btr\\Desktop\\mysql.xmind") 
 s2=w.createSheet()
 s2.setTitle("mysql-log1")
 r2=s2.getRootTopic()
@@ -157,4 +157,4 @@ topics=r2.getSubTopics()
 for topic in topics:
     topic.addMarker(MarkerId.starBlue)
 
-xmind.save(w,"c:\\Users\\btr\\Desktop\\mysql-log1.xmind") 
+xmind.save(w,"c:\\Users\\btr\\Desktop\\mysql.xmind") 

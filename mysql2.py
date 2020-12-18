@@ -1,10 +1,10 @@
 import xmind
 from xmind.core.markerref import MarkerId
-w = xmind.load("c:\\Users\\btr\\Desktop\\mysql2.xmind") 
+w = xmind.load("c:\\Users\\btr\\Desktop\\mysql.xmind") 
 s2=w.createSheet()
-s2.setTitle("mysql2")
+s2.setTitle("other")
 r2=s2.getRootTopic()
-r2.setTitle("mysql2")
+r2.setTitle("other")
 
 
 content={
@@ -18,7 +18,7 @@ content={
         '1.账号分离:开发DML权限，运维平时只读，必要时才更新',
         '2.制定操作规范：删表先改名，再在平台操作'
     ]}
-]
+],
 '11.数据库表的空间回收':[
     '现象：表数据删掉一半，表文件大小不变',
     '一个InnoDB表包含两部分:表结构定义+数据',
@@ -155,12 +155,12 @@ content={
         '方便的清理历史数据,alter table t drop partition删除'
     ]}
 ],
-{'自增id':[
+'自增id':[
     '无符号整型 (unsigned int) 是 4 个字节，上限就是 2的32次-1',
     '表定义的自增值达到上限后的逻辑是：再申请下一个 id 时，得到的值保持不变',
     'InnoDB 系统自增 row_id,范围，是从 0 到 2的48次-1',
     'Xid'
-]}
+]
     
 }
 
@@ -240,4 +240,4 @@ topics=r2.getSubTopics()
 for topic in topics:
     topic.addMarker(MarkerId.starBlue)
 
-xmind.save(w,"c:\\Users\\btr\\Desktop\\mysql2.xmind") 
+xmind.save(w,"c:\\Users\\btr\\Desktop\\mysql.xmind") 

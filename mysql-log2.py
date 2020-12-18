@@ -14,14 +14,14 @@ content={
     {'B状态':[
         '如redo log里事务是完整的(有commit标识）,直接提交',
         {'如redo log里事务有完整prepare，判断事务binlog是否完整':[
-            '是，则提交事务（保证主备库一致）',
+            '是，提交事务（保证主备一致）',
             '否则，回滚事务'
         ]}
     ]},
     'redo log 和 binlog通过XID关联',
-    {'一个事务的binlog 完整格式':[
-        'statement格式的，最后有 COMMIT',
-        'row格式的，最后有一个 XID event'
+    {'一个事务的binlog格式':[
+        'statement格式 : 最后有COMMIT',
+        'row格式 : 最后有一个XID event'
     ]},
     'binlog:不能支持崩溃恢复(没有能力恢复“数据页”)',
     'redo log:系统是 crash-safe,但无法归档（mysql高可用依赖binlogo）',

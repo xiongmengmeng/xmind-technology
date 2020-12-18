@@ -2,9 +2,9 @@ import xmind
 from xmind.core.markerref import MarkerId
 w = xmind.load("c:\\Users\\btr\\Desktop\\mysql.xmind") 
 s2=w.createSheet()
-s2.setTitle("mysql2")
+s2.setTitle("mysql")
 r2=s2.getRootTopic()
-r2.setTitle("mysql2")
+r2.setTitle("mysql")
 
 
 content={

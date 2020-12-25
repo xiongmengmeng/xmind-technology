@@ -1,6 +1,10 @@
+import os,sys 
+parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
+sys.path.insert(0,parentdir) 
+
 import xmind
-from xmind.core.markerref import MarkerId
-w = xmind.load("c:\\Users\\btr\\Desktop\\cpu.xmind") 
+xmind_name="cpu"
+w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
 s2.setTitle("cpu1_cpu")
 r2=s2.getRootTopic()
@@ -86,50 +90,8 @@ content={
     ]}]
 }
 
-for key in content:
-    t1 = r2.addSubTopic()
-    t1.setTopicHyperlink(s2.getID()) 
-    t1.setTitle(key)
-    for i in content[key]:
-        # print(type(i))
-        if(type(i).__name__=='dict'):
-            for t in i:
-                t11 = t1.addSubTopic()
-                t11.setTopicHyperlink(t1.getID()) 
-                t11.setTitle(t)
-                for j in i[t]:
-                    if(type(j).__name__=='dict'):
-                        for h in j:
-                            t111 = t11.addSubTopic()
-                            t111.setTopicHyperlink(t11.getID()) 
-                            t111.setTitle(h) 
-                            for m in j[h]:
-                                if(type(m).__name__=='dict'):
-                                    for n in m:
-                                        t1111 = t111.addSubTopic()
-                                        t1111.setTopicHyperlink(t111.getID()) 
-                                        t1111.setTitle(n) 
-                                        for l in m[n]:
-                                            t11111 = t1111.addSubTopic()
-                                            t11111.setTopicHyperlink(t111.getID()) 
-                                            t11111.setTitle(l) 
-                                else:
-                                    t1111 = t111.addSubTopic()
-                                    t1111.setTopicHyperlink(t111.getID()) 
-                                    t1111.setTitle(m) 
-                    else:
-                        t111 = t11.addSubTopic()
-                        t111.setTopicHyperlink(t11.getID()) 
-                        t111.setTitle(j) 
-        else:
-            t11 = t1.addSubTopic()
-            t11.setTopicHyperlink(t1.getID()) 
-            t11.setTitle(i) 
+#构建xmind
+xmind.build(content,r2)
 
-
-
-topics=r2.getSubTopics()
-for topic in topics:
-    topic.addMarker(MarkerId.starBlue)
-
-xmind.save(w,"c:\\Users\\btr\\Desktop\\cpu.xmind") 
+#保存xmind
+xmind.save(w,os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 

@@ -1,6 +1,11 @@
+import os,sys 
+parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
+sys.path.insert(0,parentdir) 
+
 import xmind
 from xmind.core.markerref import MarkerId
-w = xmind.load("c:\\Users\\btr\\Desktop\\jvm_memory.xmind") 
+xmind_name="jvm"
+w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
 s2.setTitle("jvm_memory")
 r2=s2.getRootTopic()
@@ -73,7 +78,8 @@ content={
     {'对象创建':[
         {'1.类加载检查':[
             '检查指令参数能否在常量池中定位到一个类的符号引用',
-            '检查符号引用代表的类是否已被加载、解析和初始化过'
+            '检查符号引用代表的类是否已被加载、解析和初始化过',
+            '如果没有，则先进行类加载过程'
         ]},
         {'2.分配内存':[
             '内存的大小类加载后可完全确定',
@@ -89,7 +95,8 @@ content={
             '分配到的内存空间（但不包括对象头）都初始化为零值'
         ]},
         '3.填充额外信息到对象头',
-        '4.对象初始化，执行<init>()方法'
+        '4.对象初始化，执行<init>()方法:统一赋值对象的属性',
+        '5.在栈中新建对象引用，并将其指向堆中新建的对象实例'
     ]},
     {'对象内存布局':[
         {'三部分':[
@@ -100,9 +107,17 @@ content={
         {'对象头':[
             '1.存储对象自身的运行时数据',
             '如哈希码（HashCode）、GC分代年龄、锁状态标志、线程持有的锁等',
-            '2.类型指针，即对象指向它的类型元数据的指针',
+            '2.类型指针，即对象指向它的类型元数据的指针，可没有',
             '可以没有'
         ]}
+    ]},
+    {'Person类调用过程':[
+        '1.JVM去方法区寻找Person类信息',
+        '2.如找不到，Classloader加载Person类信息进内存方法区',
+        '3.堆内存中创建Person对象，并持有方法区中Person类的引用',
+        '4.person添加到执行main()方法的主线程java调用栈中，指向堆中的内存对象',
+        '5.执行person.sayHello()，JVM根据person定位到堆空间的Person实例',
+        '6.根据Person实例定位到方法区Person类型信息，获得sayHello()字节码，执行'
     ]},
     {'对象访问定位':[
         '通过栈上的reference数据来操作堆上的具体对象',
@@ -133,69 +148,7 @@ content={
 
 }
 
-for key in content:
-    t1 = r2.addSubTopic()
-    list=key.split(":")
-    t1.setTitle(list[0])
-    if len(list)>1:
-        t1.setPlainNotes(list[1]) 
-    # print(content[key])
-    for i in content[key]:
-        # print(type(i))
-        if(type(i).__name__=='dict'):
-            for t in i:
-                t2 = t1.addSubTopic()
-                t2.setTitle(t)
-                for j in i[t]:
-                    #print(j)
-                    if(type(j).__name__=='dict'):
-                        for h in j:
-                            t3 = t2.addSubTopic()
-                            t3.setTitle(h) 
-                            for m in j[h]:
-                                if(type(m).__name__=='dict'):
-                                    for n in m:
-                                        t4 = t3.addSubTopic()
-                                        t4.setTitle(n) 
-                                        for l in m[n]:
-                                            if(type(l).__name__=='dict'):
-                                                for k in l:
-                                                    t5 = t4.addSubTopic()       
-                                                    t5.setTitle(k)
-                                                    for p in l[k]:
-                                                        if(type(p).__name__=='dict'):
-                                                            for u in p:
-                                                                t6 = t5.addSubTopic()
-                                                                t6.setTitle(u)
-                                                                for y in p[u]:
-                                                                    if(type(y).__name__=='dict'):
-                                                                        for a in y:
-                                                                            t7 = t6.addSubTopic()
-                                                                            t7.setTitle(a)
-                                                                            for b in y[a]:
-                                                                                t8 = t7.addSubTopic()
-                                                                                t8.setTitle(b)
-                                                                    else:
-                                                                        t7 = t6.addSubTopic()
-                                                                        t7.setTitle(y)              
-                                                        else:
-                                                            t6 = t5.addSubTopic()
-                                                            t6.setTitle(p)                                                        
-                                            else:
-                                                t5 = t4.addSubTopic()
-                                                t5.setTitle(l) 
-                                else:
-                                    t4 = t3.addSubTopic()
-                                    t4.setTitle(m) 
-                    else:
-                        t3 = t2.addSubTopic()
-                        t3.setTitle(j) 
-        else:
-            t2 = t1.addSubTopic()
-            t2.setTitle(i) 
-
-topics=r2.getSubTopics()
-for topic in topics:
-    topic.addMarker(MarkerId.starBlue)
-
-xmind.save(w,"c:\\Users\\btr\\Desktop\\jvm.xmind") 
+#构建xmind
+xmind.build(content,r2)
+#保存xmind
+xmind.save(w,os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 

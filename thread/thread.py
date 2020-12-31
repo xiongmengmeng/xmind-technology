@@ -224,7 +224,7 @@ content={
             'join(),一个synchronized方法，里面调用了wait()，目的是让持有这个对象锁(线程x)的线程z进入等待',
             '子线程x执行完毕后，JVM会调用lock.notify_all()',
             '唤醒持有对象锁(线程x)的线程，也就是主线程，继续执行'
-        ]}
+        ]},
         {'与synchronized区别':[
             'join在内部使用wait()方法进行等待，synchronized使用对象监视器'
         ]},
@@ -250,8 +250,8 @@ content={
             '5.ThreadLocalMap的键值为ThreadLocal对象，可以有多个threadLocal变量',
             '6.进行get前，必须先set，否则报空指针异常，也可以初始化一个(重写initialValue()方法)',
             '7.ThreadLocal本身并不存储值，它作为一个key来让线程从ThreadLocalMap获取value',
-            '8.通过threadLocalHashCode来标识每一个ThreadLocal的唯一性'
-            {'ThreadLocalMap中key为ThreadLocal的弱引用':][
+            '8.通过threadLocalHashCode来标识每一个ThreadLocal的唯一性',
+            {'ThreadLocalMap中key为ThreadLocal的弱引用':[
                 '如此对象只存在弱引用，下一次垃圾回收的时必被清理掉->',
                 'ThreadLocalMap中ThreadLocal的key会被清理掉',
                 '但value是强引用，不会被清理，会出现key为null的value',
@@ -262,6 +262,88 @@ content={
 
             ]}
         ]}
+    ]}
+],
+'Lock':[
+    {'ReentrantLock':[
+        '可重入锁',
+        {'分类':[
+            'New ReentrantLock(Boolean isFair)',
+            '公平锁：线程获取锁顺序按线程加锁顺序分配，FIFO先进先出顺序',
+            '非公平锁：线程抢占,随机获得锁，可能造成某些线程一直拿不到锁'
+        ]},
+        {'方法':[
+            'Lock lock=new ReentrantLock()',
+            'Condition condition=lock.newCondition()'
+            'lock():获取锁,线程是持有了对象监视器',
+            'unlock():释放锁',
+            'boolean tryLock():未被另一个线程持有，获取该锁定',
+            'boolean tryLock(long timeout，TimeUnit unit)：给定时间内未被另一个线程锁定，获取该锁定',
+            'boolean isHeldByCurrentThread():当前线程是否保持此锁定',
+            'boolean isLocked():此锁定是否由任意线程保持',
+            'int getHoldCount():当前线程保持此锁定的个数(即调用lock()方法的次数)',
+            'int getQueueLength():正等待获取此锁定的线程估计数',
+            'int getWaitQueueLength(Condition conditio):等待与此锁定相关的给定条件Condition的线程估计数'
+        ]},
+        {'与synchronized对比':[
+            '一个Lock对象中以创建多个condition(对象监视器)实例',
+            'synchronized只有一个对象监视器对象',
+            'condition可以实现选择性通知',
+            'notity()中被通知的线程是由jvm选择的'
+        ]},
+        {'使用condition实现等待/通知':[
+            '可实现"选择性通知"(唤醒指定种类的线程):类似wait()/notify()',
+            '生产者/消费者模式,不会出现线程假死',
+            'Object类wait()相当于Condition类await()',
+            'Object类notify()相当于Condition类signal()',
+            '注：condition.await()调用前需调lock.lock()获得同步监视器'
+        ]},
+    ]},
+    {'ReentrantReadWriteLock':[
+        '读写锁',
+        '有两个锁，一个读操作相关锁，共享锁；一个写相关锁，排他锁',
+        '读锁：lock.readLock()',
+        '写锁：lock.writeLock()',
+        '读读共享，读写、写写互斥'
+    ]},
+    'Lock可代替synchronized关键字，且具有更强的功能'
+],
+'Timer定时器类':[
+    'Timer类：设置计划任务，TimeTask类：封闭计划任务',
+    'Schedule(TimeTask timeTask,Date time)在指定时间执行一次某任务',
+    '一个timer可运行多个TimeTask，TimeTask以队列方式一个一个被顺序执行，执行的时间可能跟预计不一致（单线程执行）',
+    '3.Schedule(TimeTask timeTask,Date firstTime,long period)：指定日期后，按指定间隔周期性无限循环地执行某一任务'
+],
+'多线程下的单例':[
+    '立即加载：使用类时已将对象创建完毕，不存在线程安全问题',
+    '类加载的准备阶段为类变量分配空间，设初始值，初始化阶段为类变量赋值',
+    '延迟加载：兼顾效率与线程安全性，使用DCL双检查锁机制：volatile+synchronized',
+    'private volatile static MyObject myObject;'
+    '....'
+    'synchronized (MyObject.class) {',
+    '   if (object == null) {',
+    '       object = new MyObject();',
+    '   }',
+    '}',
+    '静态内置类实现:类加载的初始化阶段会执行类的静态语句块',
+],
+'其它':[
+    {'线程的状态':[
+        '状态枚举：Thread.State',
+        'NEW：尚未启动的线程，未执行start()',
+        'RUNNABLE：正在java虚拟机中执行的线程',
+        'BLOCKED：受阻塞，等待某个监视器锁的线程',
+        'WAITING：无限期等待另一线程来执行某一特定操作',
+        'TIMED_WAITING：有限期等待另一线程来执行某一特定操作',
+        'TERMINATED：已退出'
+    ]},
+    {'线程组':[
+        '线程组中可以有线程对象，也可以有线程组',
+        '作用:批量管理线程或线程组对象'
+    ]},
+    {'SimpleDateFormat非线程安全,解决方式':[
+        '1.建了多个SimpleDateFormat类的实例',
+        '2.ThreadLocal类能使线程绑定到指定的对象'
     ]}
 ]
 

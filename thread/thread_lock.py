@@ -35,6 +35,17 @@ content={
         'int getQueueLength():正等待获取此锁定的线程估计数',
         'int getWaitQueueLength(Condition conditio):等待与此锁定相关的给定条件Condition的线程估计数'
     ]},
+    {'lock()':[
+        '通过CAS设置状态值为1,CAS成功则表示当前线程获取到了锁',
+        '，然后setExclusiveOwnerThread设置该锁持有者是当前线程',
+        ''
+    ]},
+    {'unlock()':[
+        '如当前线程持有该锁，该线程持有的AQS状态值减1',
+        '如减去1后当前状态值为0，当前线程释放锁',
+        '否则仅仅减1',
+        '如当前线程没有持有该锁抛出IllegalMonitorStateException异常'
+    ]}
     {'与synchronized对比':[
         '一个Lock对象中以创建多个condition(对象监视器)实例',
         'synchronized只有一个对象监视器对象',
@@ -56,8 +67,9 @@ content={
 ],
 'ReentrantReadWriteLock':[
     '读写锁',
-    'AbstractQueuedSynchronizer (AQS)',
     '有两个锁，一个读操作相关锁，共享锁；一个写相关锁，排他锁',
+    '内部维护了一个ReadLock和一个WriteLock，它们依赖Sync实现具体功能。而Sync继承自AQS，并且也提供了公平和非公平的实现',
+    'state的高16位表示读状态，也就是获取到读锁的次数；使用低16位表示获取到写锁的线程的可重入次数',
     '读锁：lock.readLock()',
     '写锁：lock.writeLock()',
     '读读共享，读写、写写互斥'

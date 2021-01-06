@@ -45,7 +45,7 @@ content={
         '如减去1后当前状态值为0，当前线程释放锁',
         '否则仅仅减1',
         '如当前线程没有持有该锁抛出IllegalMonitorStateException异常'
-    ]}
+    ]},
     {'与synchronized对比':[
         '一个Lock对象中以创建多个condition(对象监视器)实例',
         'synchronized只有一个对象监视器对象',
@@ -72,7 +72,16 @@ content={
     'state的高16位表示读状态，也就是获取到读锁的次数；使用低16位表示获取到写锁的线程的可重入次数',
     '读锁：lock.readLock()',
     '写锁：lock.writeLock()',
-    '读读共享，读写、写写互斥'
+    '读读共享，读写、写写互斥',
+],
+'StampedLock':[
+    '提供的三种读写模式的锁',
+    '调用获取锁的系列函数时，会返回一个long型的变量，我们称之为戳记（stamp），代表锁的状态',
+    'try系列获取锁的函数，获取锁失败后会返回为0的stamp值',
+    '调用释放锁和转换锁的方法时需要传入获取锁时返回的stamp值',
+    '写锁writeLock:排它，不可重入'
+    '悲观读锁readLock：共享，不可重入',
+    '乐观读锁tryOptimisticRead:操作数据前并没有通过CAS设置锁的状态，仅仅通过位运算测试'
 ],
 '并发工具类':[
     {'Semaphore':[

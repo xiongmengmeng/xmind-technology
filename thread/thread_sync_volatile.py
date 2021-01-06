@@ -117,9 +117,6 @@ content={
     '4.volatile解决变量在多个线程之间的可见性',
     'synchronized解决多线程之间访问资源的同步性'
 ]
-
-
-
 }
 
 #构建xmind

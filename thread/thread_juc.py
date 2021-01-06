@@ -9,7 +9,7 @@ w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmin
 s2=w.createSheet()
 s2.setTitle("juc")
 r2=s2.getRootTopic()
-r2.setTitle("并发包")
+r2.setTitle("并发包_基础类")
 
 
 content={

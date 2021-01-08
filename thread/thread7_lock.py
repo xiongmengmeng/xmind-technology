@@ -68,7 +68,7 @@ content={
 'ReentrantReadWriteLock':[
     '读写锁',
     '有两个锁，一个读操作相关锁，共享锁；一个写相关锁，排他锁',
-    '内部维护了一个ReadLock和一个WriteLock，它们依赖Sync实现具体功能。而Sync继承自AQS，并且也提供了公平和非公平的实现',
+    '内部维护了一个ReadLock和一个WriteLock，依赖Sync(继承自AQS)实现，也提供了公平和非公平的实现',
     'state的高16位表示读状态，也就是获取到读锁的次数；使用低16位表示获取到写锁的线程的可重入次数',
     '读锁：lock.readLock()',
     '写锁：lock.writeLock()',
@@ -82,21 +82,6 @@ content={
     '写锁writeLock:排它，不可重入'
     '悲观读锁readLock：共享，不可重入',
     '乐观读锁tryOptimisticRead:操作数据前并没有通过CAS设置锁的状态，仅仅通过位运算测试'
-],
-'并发工具类':[
-    {'Semaphore':[
-        '共享锁:该锁可被多个线程所持有',
-        '可指定多个线程同时访问某个资源',
-        '适用于限制访问某些资源的线程数目，可以用它来做限流',
-        '不会实现数据的同步'
-    ]},
-    {'CountDownLatch':[
-        '共享锁:该锁可被多个线程所持有',
-        '可看成一个倒计数器，允许一个或多个线程等待其他线程完成操作',
-        'countDown():将计数器减1',
-        'await():会阻塞当前线程直到计数器变为0'
-    ]},
-    'CyclicBarrier'
 ],
 '分段锁':[
     'ConcurrentHashMap分段锁Segment(继承了ReentrantLock)',

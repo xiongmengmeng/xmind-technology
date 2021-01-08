@@ -26,7 +26,7 @@ content={
         {'state':[
             'volatile int state(代表共享资源)'
             'ReentrantLock:state表示当前线程获取锁的可重入次数',
-            'ReentrantReadWriteLock:state高16位表示读状态(获取该读锁的次数)，低16位表示写状态',
+            'ReentrantReadWriteLock:state高16位--读状态(获取读锁次数)，低16位--写状态',
             'semaphore:state表示当前可用信号个数',
             'CountDownlatch:state表示计数器当前值',
             {'三种访问方式':[
@@ -87,8 +87,16 @@ content={
         '1.isHeldExclusively():线程是否正在独占资源,只有用到condition才需去实现它',
         '2.tryAquire(int):独占方式,尝试获取资源，成功返回true，失败返回false',
         '3.tryRelease(int):独占方式,尝试释放资源，成功返回true，失败返回false',
-        '4.tryAcquireShared(int):共享方式,尝试获取资源,负数表示失败；0表示成功，但没有剩余可用资源；正数表示成功，且有剩余资源',
-        '5.tryReleaseShared(int):共享方式,尝试释放资源，如果释放后允许唤醒后续等待结点返回true，否则返回false'
+        {'4.tryAcquireShared(int)':[
+            '共享方式,尝试获取资源,负数表示失败',
+            '0表示成功，但没有剩余可用资源',
+            '正数表示成功，且有剩余资源'
+        ]},
+        {'5.tryReleaseShared(int)':[
+            '共享方式,尝试释放资源',
+            '如果释放后允许唤醒后续等待结点返回true',
+            '否则返回false'
+        ]}
     ]},
     {'两种资源共享方式':[
         'Exclusive（独占，只有一个线程能执行，如ReentrantLock）',

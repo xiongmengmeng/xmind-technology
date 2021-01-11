@@ -24,7 +24,7 @@ content={
     ]},
     {'重要元素':[
         {'state':[
-            'volatile int state(代表共享资源)'
+            'volatile int state(代表共享资源)',
             'ReentrantLock:state表示当前线程获取锁的可重入次数',
             'ReentrantReadWriteLock:state高16位--读状态(获取读锁次数)，低16位--写状态',
             'semaphore:state表示当前可用信号个数',

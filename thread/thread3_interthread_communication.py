@@ -87,6 +87,19 @@ content={
     ]},
     '陷阱:同步代码块中，join()后面的代码提前运行',
 ],
+'LockSupport':[
+    '作用:挂起和唤醒线程，是创建锁和其他同步类的基础',
+    'LockSupport类与每个使用它的线程都会关联一个许可证',
+    '默认情况下调用LockSupport类方法的线程不持有许可证',
+    {'方法':[
+        'park()：如调用线程已经拿到与LockSupport关联的许可证，直接返回，否则调用线程被挂起',
+        'unpark(Thread thread)：thread线程持有与LockSupport类关联的许可证',
+        {'park(Object blocker)':[
+            'Thread类里有变量volatile Object parkBlocker',
+            '存放park方法传递的blocker对象'
+        ]}
+    ]}
+],
 'ThreadLocal':[
     '每个线程有自己的共享变量，解决变量在不同线程间的隔离性',
     '通过覆盖initialValue()方法具有初始值',
@@ -110,7 +123,7 @@ content={
         '8.通过threadLocalHashCode来标识每一个ThreadLocal的唯一性',
         {'ThreadLocalMap中key':[
             '为ThreadLocal的弱引用',
-            '如对象只存在弱引用，下一次垃圾回收的时必被清理掉->',
+            '->',
             'ThreadLocalMap中ThreadLocal的key会被清理掉',
             '但value是强引用，不会被清理，会出现key为null的value',
             '优化是在调用 set()、get()、remove()方法时，清理掉key为null的记录',
@@ -118,6 +131,18 @@ content={
             '尤其在线程池场景下，线程经常被复用，不清理会影响后续业务逻辑和造成内存泄露',
             '尽量在代理中使用try-finally块进行回收'
         ]}
+    ]},
+    {'ThreadLocalMap中key要用弱引用':[
+        {'现象':[
+            '业务代码中使用完ThreadLocal, ThreadLocal ref被回收',
+            'threadLocalMap的Entry弱引用了threadLocal',
+            '->threadLocal下次GC时被回收'
+        ]},
+        ''
+        '弱引用:如对象只存在弱引用，下一次垃圾回收的时必被清理掉',
+        '实际：key使用哪种类型引用都无法完全避免内存泄漏',
+        '意义：set()、get()、remove()方法时，清理掉key为null的记录',
+        ''
     ]}
 
 ]

@@ -28,13 +28,9 @@ content={
             'ReentrantLock:state表示当前线程获取锁的可重入次数',
             'ReentrantReadWriteLock:state高16位--读状态(获取读锁次数)，低16位--写状态',
             'semaphore:state表示当前可用信号个数',
-            'CountDownlatch:state表示计数器当前值',
-            {'三种访问方式':[
-                'getState()',
-                'setState()',
-                'compareAndSetState()'
-            ]}
+            'CountDownlatch:state表示计数器当前值'
         ]},
+        'ExclusiveOwnerThread:记录当前加锁的是哪个线程',
         'FIFO线程等待队列（多线程争用资源被阻塞时进入此队列）',
         {'Node':[
             'thread：存放进入AQS队列里面的线程',
@@ -53,7 +49,7 @@ content={
         {'内部类ConditionObject':[
             '结合锁实现线程同步',
             '可直接访问AQS对象内部的变量，如state状态值和AQS队列',
-            '是条件变量，每个条件变量对应一个条件队列（单向链表）:',
+            '是条件变量，每个条件变量对应一个条件队列（单向链表）,类比monitor中的waitSet:',
             '用来存放调用条件变量的await方法后被阻塞的线程',
             {'await()':[
                 '1.构造一个类型为Node.CONDITION的node节点，然后将该节点插入条件队列末尾',

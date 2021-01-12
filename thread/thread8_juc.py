@@ -100,19 +100,6 @@ content={
     '写时复制的策略来保证list的一致性',
     '增删改的过程使用独占锁',
     '获取，遍历有弱一致性问题，看到的数据是快照'
-],
-'LockSupport':[
-    '作用:挂起和唤醒线程，是创建锁和其他同步类的基础',
-    'LockSupport类与每个使用它的线程都会关联一个许可证',
-    '默认情况下调用LockSupport类方法的线程不持有许可证',
-    {'方法':[
-        'park()：如调用线程已经拿到与LockSupport关联的许可证，直接返回，否则调用线程被挂起',
-        'unpark(Thread thread)：thread线程持有与LockSupport类关联的许可证',
-        {'park(Object blocker)':[
-            'Thread类里有变量volatile Object parkBlocker',
-            '存放park方法传递的blocker对象'
-        ]}
-    ]}
 ]
 
 

@@ -87,9 +87,6 @@ content={
     'ConcurrentHashMap分段锁Segment(继承了ReentrantLock)',
     '内部拥有一个Entry数组->',
     '数组中每个元素又是一个链表,同时是一个ReentrantLock'
-],
-'分布式锁':[
-    'RLock'
 ]
 
 

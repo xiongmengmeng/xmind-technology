@@ -16,7 +16,12 @@ content={
 '基础':[
     '非线程安全',
     'Thread方法',
-    'Thread状态'
+    'Thread状态',
+    {'线程安全解决方式':[
+        '加锁',
+        'ThreadLocal',
+        '写时复制'
+    ]}
 ],
 '关键字':[
     'synchronized',
@@ -41,14 +46,15 @@ content={
             'LongAccumulator'
         ]}
     ]},
-    'AQS'
+    {'AQS':[
+        {'应用':[
+            'ReentrantLock',
+            'ReentrantReadWriteLock',
+            'StampedLock'
+        ]}
+    ]}
 ],
-'常见锁':[
-    'ReentrantLock',
-    'ReentrantReadWriteLock',
-    'StampedLock'
-],
-'锁应用--队列':[
+'锁容器':[
     'ConcurrentLinkedQueue',
     'LinkedBlockingQueue',
     'ArrayBlockingQueue',

@@ -40,8 +40,7 @@ content={
             '实现Callable接囗（FutureTask接收返回值）'
         ]},
         'Future接口：获取异步计算结果',
-        'FutureTask类:Future接口的实现类',
-        ''
+        'FutureTask类:Future接口的实现类'
     ]},
     {'非线程安全':[
         '多个线程对同一个对象中的同一个实例变量进行操作->',

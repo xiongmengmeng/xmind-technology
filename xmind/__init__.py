@@ -40,10 +40,10 @@ def save(workbook, path=None):
 def build(content,r2):
     for key in content:
         t1 = r2.addSubTopic()
-        list=key.split(":")
-        t1.setTitle(list[0])
-        if len(list)>1:
-            t1.setPlainNotes(list[1]) 
+        # list=key.split(":")
+        t1.setTitle(key)
+        # if len(list)>1:
+        #     t1.setPlainNotes(list[1]) 
         # print(content[key])
         for i in content[key]:
             # print(type(i))

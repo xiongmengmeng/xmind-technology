@@ -14,13 +14,20 @@ r2.setTitle("多线程")
 
 content={
 '基础':[
-    '非线程安全',
+    {'非线程安全':[
+        '成员变量：共享的,有读写操作的',
+        '局部变量：引用对象逃离方法作用范围'
+    ]},
     'Thread方法',
     'Thread状态',
     {'线程安全解决方式':[
         '加锁',
         'ThreadLocal',
         '写时复制'
+    ]},
+    {'提高并发的方式':[
+        '队列',
+        '分段'
     ]}
 ],
 '关键字':[
@@ -31,12 +38,12 @@ content={
 '线程间通信':[
     'wait()/notify()',
     'join()',
-    'ThreadLocal',
+    'LockSupport',
     'CountDownLatch',
     'CycleBarrier',
     'Semaphore'
 ],
-'锁基础':[
+'锁基础及应用':[
     {'CAS':[
         'java使用:Unsafe',
         {'应用':[
@@ -54,12 +61,17 @@ content={
         ]}
     ]}
 ],
+'分布式锁':[
+    'Redisson+RLock',
+    'ZooKeeper'
+],
 '锁容器':[
     'ConcurrentLinkedQueue',
     'LinkedBlockingQueue',
     'ArrayBlockingQueue',
     'PriorityBlockingQueue',
-    'DelayQueue'
+    'DelayQueue',
+    'CopyOnWriteArrayList'
 ],
 '线程池':[
     '参数',

@@ -7,86 +7,74 @@ from xmind.core.markerref import MarkerId
 xmind_name="spring"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("JDK动态代理")
+s2.setTitle("Bean源码2")
 r2=s2.getRootTopic()
-r2.setTitle("JDK动态代理")
+r2.setTitle("Bean源码2")
 
 
 content={
-'代理模式':[
-    '实现：Java中有静态代理和动态代理',
-    '静态代理:代理对象直接持有目标对象的引用',
-    {'动态代理':[
-        '优点：代理类可作用于多个目标对象，代理对象和目标对象类型不耦合',
-        {'JDK动态代理缺点':[
-            '实现比静态代理更加复杂',
-            '存在一定限制，如要求需代理的对象必须实现某个接口',
-            '不够灵活，会为接口中声明的所有方法添加上相同的代理逻辑'
-        ]}
-    ]},
+'invokeBeanFactoryPostProcessors(beanFactory)':[
+    '将BeanFactoryPostProcessor作为bean注册到容器',
+    '1.先执行BeanDefinitionRegistryPostProcessors',
+    '2.在beanFactory中获取实现BeanFactoryPostProcessor这个接口的bean的名称',
+    '3.将获取到的BeanFactoryPostProcessors的bean分类，根据bean是否实现PriorityOrdered，Ordered这些接口',
+    '4.实例化实现BeanFactoryPostProcessor的bean:getBean()方法---',
+    '5.将实例化后的bean放入List<BeanFactoryPostProcessor> nonOrderedPostProcessors',
+    '6.批量执行nonOrderedPostProcessors中的BeanFactoryPostProcessor',
+    '',
+    '',
+    '',
+    '',
 ],
-'JDK动态代理实现机制':[
-    'Proxy类的静态方法:',
-    'Object newProxyInstance(ClassLoader loader,Class<?>[] interfaces,InvocationHandler h)',
-    {'参数':[
-        '目标类的类加载器',
-        '目标类实现的接口集合',
-        'InvocationHandler实例'
+'getBean()->doGetBean()->':[
+    '将BeanFactoryPostProcessor作为bean注册到容器',
+    '1.去singleton缓存中去找实例',
+    '2.获取该beanFactory父factory，希望从这些factory中获取，如果该beanfactory有父类，则希望用父类去实例化该bean',
+    '3.标记目前的bean的正在创建',
+    '4.根据beanName去beanDefinitionMap获得BeanDefinition，接着bean依赖的bean，如依赖的bean还没创建，先创建依赖的bean，递归调用',
+    '5.如果是单例，调用createBean()'
+],
+'createBean()':[
+    '1.确保该bean的class是真实存在的，也就是该bean是可以classload可以找到加载的',
+    '2.准备方法的重写',
+    '3.给beanPostProcessor一个机会去返回一个代理',
+    'beanPostProcessor可临时修改bean，它的优先级高于正常实例化bean，如果beanPostProcessor能返回，则直接返回了',
+    '4.doCreateBean(beanName, mbd, args)'
+],
+'doCreateBean(beanName, mbd, args)':[
+    {'createBeanInstance()':[
+        '1.对bean做安全检查并确定该bean有默认的构造函数',
+        '2.instantiateBean(beanName, mbd):通过反射实例化Bean'
     ]},
-    {'返回值':[
-        '一个Object类型的代理类'
+    {'populateBean()':[
+        '',
+        '',
+        '',
+        ''
     ]},
-    {'具体':[
-        '1.Class<?>[] intfs = interfaces.clone():',
-        '复制代理类实现的所有接口',
-        '2.Class<?> cl = getProxyClass0(loader, intfs):',
-        '先从缓存获取代理类, 如果没有再去生成一个代理类',
-        '3.Constructor<?> cons = cl.getConstructor(constructorParams):',
-        '获取参数类型是InvocationHandler.class的代理类构造器',
-        '4.cons.newInstance(new Object[]{h})：',
-        '传入InvocationHandler实例去构造一个代理类的实例',
-        '代理类都继承自Proxy, 这里会调用Proxy的构造器将InvocationHandler引用传入',
-    ]},
-    {'getProxyClass0':[
-        '通过类加载器和接口集合去缓存里获取，如能找到代理类就直接返回',
-        '否则调用ProxyClassFactory这个工厂去生成一个代理类'
+    {'initializeBean()':[
+        {'invokeAwareMethods()':[
+            '1.如bean实现了BeanNameAware，执行setBeanName()方法',
+            '2.如bean实现了BeanClassLoaderAware，执行setBeanClassLoader()方法',
+            '3.如bean实现了BeanFactoryAware，执行setBeanFactory()方法'
+        ]},
+        {'applyBeanPostProcessorsBeforeInitialization()':[
+            '4.执行BeanPostProcessor的postProcessBeforeInitialization()方法'
+        ]},
+        {'invokeInitMethods()':[
+            '5.如果bean实现了InitializingBean，如果实现了先执行afterPropertiesSet这个方法',
+            '6.bean又执行了init-method'
+        ]},
+        {'applyBeanPostProcessorsAfterInitialization()':[
+            '7.执行BeanPostProcessor的postProcessAfterInitialization()方法'
+        ]}
     ]}
 ],
-'ProxyClassFactory工厂类':[
-    '1.确定代理类名称前缀：$Proxy',
-    '2.用原子类来生成代理类的序号',
-    {'3.遍历interfaces数组进行验证':[
-        'intf是否可以由指定的类加载进行加载',
-        'intf是否是一个接口',
-        'intf在数组中是否有重复'
-    ]},
-    '4.得出代理类的全限定名, 包名+前缀+序号, 如：com.sun.proxy.$Proxy0',
-    '5.用ProxyGenerator来生成字节码:'
-    'ProxyGenerator.generateProxyClass(proxyName,interfaces, accessFlags)',
-    '6.根据二进制文件生成相应的Class实例:',
-    'defineClass0(loader, proxyName, proxyClassFile, 0, proxyClassFile.length)',
-],
-'ProxyGenerator来生成字节码':[
-    '1.收集要生成的代理方法，将其包装成ProxyMethod对象并注册到Map集合中',
-    '2.收集要为Class文件生成的字段信息和方法信息',
-    {'详细':[
-        '1.为代理类生成一个带参构造器，传入InvocationHandler实例的引用并调用父类的带参构造器',
-        'protected Proxy0(InvocationHandler h) {',
-        '   super(h);',
-        '}',
-        '2.遍历代理方法Map集合，为每个代理方法生成对应的Method类型静态域，并将其添加到fields集合中',
-        '3.遍历代理方法Map集合，为每个代理方法生成对应的MethodInfo对象，并将其添加到methods集合中',
-        'public boolean equals(Object obj) {',
-        '  try {',
-        '      Object[] args = new Object[] {obj};',
-        '      return (boolean) h.invoke(this, m2, args);',
-        '   } catch (Throwable e) {',
-        '      throw new UndeclaredThrowableException(e);',
-        '   }',
-        ' }',
-        '4.为代理类生成静态初始化方法，该静态初始化方法主要是将每个代理方法的引用赋值给对应的静态字段'
-    ]},
-    '3.完成了上面的工作后，开始组装Class文件',
+'registerBeanPostProcessors(beanFactory)':[
+    '注册 BeanPostProcessor 的实现类,仅注册，之后会看到回调这两方法的时机',
+    '',
+    '',
+    ''
 ]
 }
 

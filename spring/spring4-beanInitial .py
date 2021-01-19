@@ -7,9 +7,9 @@ from xmind.core.markerref import MarkerId
 xmind_name="spring"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("Bean源码")
+s2.setTitle("Bean源码1")
 r2=s2.getRootTopic()
-r2.setTitle("Bean源码")
+r2.setTitle("Bean源码1")
 
 
 content={
@@ -54,7 +54,7 @@ content={
     '3.obtainFreshBeanFactory():获得BeanFactory，BeanFactory在AbstractApplicationContext类初始化的时候已经初始化为DefaultListableBeanFactory',
     '4.prepareBeanFactory(beanFactory):设置 BeanFactory 的类加载器，添加几个 BeanPostProcessor，手动注册几个特殊的 bean',
     '5.postProcessBeanFactory(beanFactory):提供给子类的扩展点,具体的子类可以在这步的时候添加一些特殊的 BeanFactoryPostProcessor 的实现类或做点什么事',
-    '6.invokeBeanFactoryPostProcessors(beanFactory):调用 BeanFactoryPostProcessor 各个实现类的 postProcessBeanFactory(factory) 回调方法',
+    '6.invokeBeanFactoryPostProcessors(beanFactory):处理实现BeanFactoryPostProcessor.java的bean,说明BeanFactoryPostProcessor的实例化的优先级最高',
     '7.registerBeanPostProcessors(beanFactory):注册 BeanPostProcessor 的实现类,仅注册，之后会看到回调这两方法的时机',
     '8.initMessageSource()：初始化当前 ApplicationContext 的 MessageSource，国际化',
     '9.initApplicationEventMulticaster：初始化当前 ApplicationContext 的事件广播器',  

@@ -7,9 +7,9 @@ from xmind.core.markerref import MarkerId
 xmind_name="spring"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("spring")
+s2.setTitle("bean")
 r2=s2.getRootTopic()
-r2.setTitle("spring")
+r2.setTitle("bean")
 
 
 content={
@@ -70,6 +70,7 @@ content={
     ]},
     {'BeanFactoryPostProcessor':[
         '方法：postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory)',
+        '因为要修改BeanDefinnition，它存在map中，map存在BeanFactory中,所以传参BeanFactory'
         '修改的是BeanFactory的BeanDefinition，从根本上改',
         ''
     ]},
@@ -82,7 +83,7 @@ content={
         ]}
     ]},
     {'BeanFactoryAware':[
-        '方法：setBeanFactory(BeanFactory beanFactory),
+        '方法：setBeanFactory(BeanFactory beanFactory)',
         '实现这个接口的bean其实是希望知道自己属于哪一个beanfactory'
     ]},
     {'BeanNameAware':[

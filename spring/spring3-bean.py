@@ -4,7 +4,7 @@ sys.path.insert(0,parentdir)
 
 import xmind
 from xmind.core.markerref import MarkerId
-xmind_name="spring""
+xmind_name="spring"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
 s2.setTitle("spring")
@@ -61,7 +61,36 @@ content={
     'session:spring web应用，HTTP会话',
     'application:spring web应用，web工程生命周期',
     'globalSession:spring web应用，不常用'
+],
+'其它':[
+    {'BeanPostProcessor':[
+        '方法：postProcessBeforeInitialization(Object bean, String beanName)',
+        'postProcessAfterInitialization(Object bean, String beanName)',
+        '初始化Bean时,"临时"修改Bean的属性，注意临时修改'
+    ]},
+    {'BeanFactoryPostProcessor':[
+        '方法：postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory)',
+        '修改的是BeanFactory的BeanDefinition，从根本上改',
+        ''
+    ]},
+    {'FactoryBean':[
+        '一个接口，一个Bean实现这个接口，变成一个Factory，通过getObject()将一个Object暴露出去',
+        'factorybean中getObject中返回的对象==beanfactory.getbean返回的bean',
+        {'通过beanfactory获取':[
+            'beanfactory.getbean("beanFactoryName"),获得factorybean中getObject中返回的对象',
+            'beanfactory.getbean("&beanFactoryName"),获得factorybean本身'
+        ]}
+    ]},
+    {'BeanFactoryAware':[
+        '方法：setBeanFactory(BeanFactory beanFactory),
+        '实现这个接口的bean其实是希望知道自己属于哪一个beanfactory'
+    ]},
+    {'BeanNameAware':[
+        '方法：setBeanName(String name)',
+        '让实现这个接口的bean知道自己在spring容器里的名字'
+    ]}
 ]
+
 }
 
 #构建xmind

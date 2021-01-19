@@ -21,6 +21,7 @@ content={
     '初始化参数：ClassPathBeanDefinitionScanner scanner'
 ],
 '2.register(componentClasses):Bean注册':[
+    '实现类，AnnotatedBeanDefinitionReader，持有BeanDefinitionRegistry',
     {'简化':[
         '1.将类转化为AnnotatedGenericBeanDefinition，里面只有beanClass',
         '2.填充作用域',
@@ -47,6 +48,7 @@ content={
     '11.registry.registerAlias(beanName, alias):给bean注册别名',
 ],
 '3.refresh():Bean的预加载':[
+    '实现类，AbstractApplicationContext',
     '1.synchronized (this.startupShutdownMonitor):startupShutdownMonitor,refresh方法和destory方法公用的一个监视器，避免两方法同时执行',
     '2.prepareRefresh():设置容器启动时间和启动标志字段',
     '3.obtainFreshBeanFactory():获得BeanFactory，BeanFactory在AbstractApplicationContext类初始化的时候已经初始化为DefaultListableBeanFactory',

@@ -59,13 +59,21 @@ content={
        '6.EventListenerMethodProcessor:r提供@ EventListener  的支持'
     ]},
     {'DefaultListableBeanFactory':[
+        {'BeanDefinitionRegistry':[
+            '定义对BeanDefinition的各种增删改操作:',
+            '注册（registerBeanDefinition）',
+            '消除注册（removeBeanDefinition）',
+            '获取注册（getBeanDefinition）',
+            '查看是否有此注册（containsBeanDefinition）',
+            '获取所有的名称（getBeanDefinitionNames）',
+            '获取名片的个数（getBeanDefinitionCount）'
+        ]},
         'AliasRegistry：定义对alias的简单增删改等操作',
         'SimpleAliasRegistry：主要使用map作为alias的缓存，并对接口AliasRegistry进行实现',
         'SingletonBeanRegistry：定义对单例的注册及获取。',
         'BeanFactory：定义获取bean及bean的各种属性',
         'DefaultSingletonBeanRegistry：对接口SingletonBeanRegistry各函数的实现',
         'HierarchicalBeanFactory：继承BeanFactory，也就是在BeanFactory定义的功能的基础上增加了对parentFactory的支持',
-        'BeanDefinitionRegistry：定义对BeanDefinition的各种增删改操作',
         'FactoryBeanRegistrySupport：在DefaultSingletonBeanRegistry基础上增加了对FactoryBean的特殊处理功能',
         'ConfigurableBeanFactory：提供配置Factory的各种方法',
         'ListableBeanFactory：根据各种条件获取bean的配置清单',

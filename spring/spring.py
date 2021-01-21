@@ -32,6 +32,21 @@ content={
     '',
     '',
     ''
+],
+'AOP':[
+    {'相关类':[
+        'Proxy--ProxyClassFactory--ProxyGenerator',
+        'InvocationHandler',
+    ]},
+    {'基础类':[
+        'AdvisedSupport--ProxyCreatorSupport--ProxyFactoryBean',
+        'AopProxy--JdkDynamicAopProxy--ObjenesisCglibAopProxy',
+        'DefaultAopProxyFactory',
+    ]},
+    {'入囗类':[
+        'DefaultAdvisorAutoProxyCreator--BeanPostProcessor',
+        'AnnotationAwareAspectJAutoProxyCreator'
+    ]}
 ]
 }
 

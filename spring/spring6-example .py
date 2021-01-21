@@ -7,9 +7,9 @@ from xmind.core.markerref import MarkerId
 xmind_name="spring"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("Bean源码2")
+s2.setTitle("BeanFactoryPostProcessor")
 r2=s2.getRootTopic()
-r2.setTitle("Bean源码2")
+r2.setTitle("BeanFactoryPostProcessor初始化")
 
 
 content={
@@ -21,10 +21,6 @@ content={
     '4.实例化实现BeanFactoryPostProcessor的bean:getBean()方法---',
     '5.将实例化后的bean放入List<BeanFactoryPostProcessor> nonOrderedPostProcessors',
     '6.批量执行nonOrderedPostProcessors中的BeanFactoryPostProcessor',
-    '',
-    '',
-    '',
-    '',
 ],
 'getBean()->doGetBean()->':[
     '将BeanFactoryPostProcessor作为bean注册到容器',
@@ -69,12 +65,6 @@ content={
             '7.执行BeanPostProcessor的postProcessAfterInitialization()方法'
         ]}
     ]}
-],
-'registerBeanPostProcessors(beanFactory)':[
-    '注册 BeanPostProcessor 的实现类,仅注册，之后会看到回调这两方法的时机',
-    '',
-    '',
-    ''
 ]
 }
 

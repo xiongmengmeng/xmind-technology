@@ -9,31 +9,38 @@ w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmin
 s2=w.createSheet()
 s2.setTitle("spring")
 r2=s2.getRootTopic()
-r2.setTitle("spring")
+r2.setTitle("spring总述")
 
 
 content={
-'':[
-   'Spring的核心是提供了一个容器（container），通常称为Spring应用上下文（Spring applicationcontext）',
-   '它们会创建和管理应用组件。这些组件也可以称为bean，会在Spring应用上下文中装配在一起，从而形成一个完整的应用程序',
-   '依赖注入（dependency injection，DI）的模式:将bean装配在一起',
+'IOC':[
+   'Spring的核心是提供了一个容器(Spring应用上下文)',
+   {'容器作用':[
+       '1.创建和管理应用组件(称为bean)',
+       '2.将应用组件装配在一起(依赖注入（dependency injection，DI）)'
+   ]},
+   {'DI的本质':[
        '组件不去创建它所依赖的组件并管理它们的生命周期',
-    '使用依赖注入的应用依赖于单独的实体（容器）来创建和维护所有的组件，并将其注入到需要它们的bean中',
-    '通常，这是通过构造器参数和属性访问方法来实现的。',
-    '自动配置起源于自动装配（autowiring）和组件扫描（componentscanning）',
-    '借助组件扫描技术，Spring能够自动发现应用类路径下的组件，并将它们创建成Spring应用上下文中的bean',
-    '借助自动装配技术，Spring能够自动为组件注入它们所依赖的其他bean。',
-    'Spring Boot能够基于类路径中的条目、环境变量和其他因素合理猜测需要配置的组件并将它们装配在一起',
+       'bean都通过容器创建与管理，组件的依赖组件，通过容器注入',
+       '通常通过构造器参数和属性访问方法来实现'
+   ]},
+    {'自动配置':[
+        '自动装配（autowiring）:自动为组件注入它们所依赖的其他bean',
+        '组件扫描（componentscanning）:自动发现应用类路径下的组件，并将它们创建成容器中的bean'
+    ]},
+    {'Spring Boot':[
+        '基于类路径中的条目、环境变量和其他因素',
+        '合理猜测需要配置的组件并将它们装配在一起'
+    ]}
 ],
 '':[
     {'main()':[
-        '会调用SpringApplication中静态的run()方法，后者会真正执行应用的引导过程，也就是创建Spring的应用上下文',
-        '在传递给run()的两个参数中，一个是配置类，另一个是命令行参数',
+        '会调用SpringApplication中静态的run()方法，后者会创建Spring的应用上下文',
+        'run()的两个参数中，一个是配置类，另一个是命令行参数',
         '尽管传递给run()的配置类不一定要和引导类相同，但这是最便利和最典型的做法',
-        ''
     ]},
     {'Test类':[
-        '@RunWith(SpringRunner.class)注解:SpringRunner，这是一个Spring提供的测试运行器，它会创建测试运行所需的Spring应用上下文',
+        '@RunWith(SpringRunner.class)注解:SpringRunner,一个Spring提供的测试运行器，会创建测试运行所需的Spring应用上下文',
         '@SpringBootTest会告诉JUnit在启动测试的时候要添加上Spring Boot的功能',
         '->测试类视同为在main()方法中调用SpringApplication.run()'
     ]}
@@ -44,7 +51,7 @@ content={
     '@SpringBootApplication,一个组合注解，它组合了3个其他的注解:',
     '@SpringBootConfiguration：将该类声明为配置类',
     '@EnableAutoConfiguration：启用Spring Boot的自动配置',
-    '@ComponentScan：启用组件扫'
+    '@ComponentScan：启用组件扫描'
 ],
 '其它':[
     {'使用属性文件':[

@@ -4,23 +4,17 @@ sys.path.insert(0,parentdir)
 
 import xmind
 from xmind.core.markerref import MarkerId
-xmind_name="spring""
+xmind_name="spring"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("spring")
+s2.setTitle("@EnableTransactionManagement")
 r2=s2.getRootTopic()
-r2.setTitle("spring")
+r2.setTitle("@EnableTransactionManagement")
 
 
 content={
 '':[
     {'':[
-        '',
-        '',
-        '',
-        '',
-        '',
-        '',
         '',
         '',
         '',
@@ -34,15 +28,36 @@ content={
         '',
         '',
         '',
-        '',
-        '',
+        ''
+    ]},
+],
+'':[
+    {'':[
         '',
         '',
         '',
         '',
         ''
     ]},
-]
+],
+'':[
+    {'':[
+        '',
+        '',
+        '',
+        '',
+        ''
+    ]},
+],
+'':[
+    {'':[
+        '',
+        '',
+        '',
+        '',
+        ''
+    ]},
+],
 }
 
 #构建xmind

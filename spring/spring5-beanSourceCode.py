@@ -15,20 +15,21 @@ r2.setTitle("Bean源码")
 content={
 '入囗：AnnotationConfigApplicationContext':[],
 '1.this():AnnotationConfigApplicationContext初始化':[
-    '在执行子类的无参构造函数时，会优先执行父类GenericApplicationContext的无参构造函数：创建一个DefaultListableBeanFactory'
-    '初始化参数：AnnotatedBeanDefinitionReader reader,会初始化类加载器AppClassLoader，然后加载DefaultListableBeanFactory',
-    '初始化参数：ClassPathBeanDefinitionScanner scanner'
+    '先执行父类GenericApplicationContext的无参构造函数：创建一个DefaultListableBeanFactory',
+    {'再执行子类的无参构造函数':[
+        '初始化参数：AnnotatedBeanDefinitionReader reader,会初始化类加载器AppClassLoader',
+        '初始化参数：ClassPathBeanDefinitionScanner scanner'
+    ]}
 ],
 '2.register(componentClasses):Bean注册':[
     '实现类，AnnotatedBeanDefinitionReader，持有BeanDefinitionRegistry',
     {'简化':[
-        '1.将类转化为AnnotatedGenericBeanDefinition，里面只有beanClass',
-        '2.填充作用域',
-        '3.封装成BeanDefinitionHolder，有参数BeanDefinition，beanClass，aliases',
-        '4.注册:先验证，然后把BeanDefinition放到beanDefinitionMap，beanDefinitionNames中'
+        '1.将类转化为AnnotatedGenericBeanDefinition，里面只有beanClass,填充作用域',
+        '2.封装成BeanDefinitionHolder，有参数BeanDefinition，beanClass，aliases',
+        '3.注册:先验证，然后把BeanDefinition放到beanDefinitionMap，beanDefinitionNames中',
     ]},
     '1.new AnnotatedGenericBeanDefinition(beanClass):将类转化为AnnotatedGenericBeanDefinition',
-    '2.conditionEvaluator.shouldSkip():判断@Conditional是否被启用,如类没有被@Conditional注解修饰，不会skip',
+    '2.conditionEvaluator.shouldSkip():判断@Conditional是否被启用,如类没有被@Conditional注解修饰',
     '3.this.scopeMetadataResolver.resolveScopeMetadata(abd):查作用域',
     '4.this.beanNameGenerator.generateBeanName(abd, this.registry))：获得beanName',
     '5.AnnotationConfigUtils.processCommonDefinitionAnnotations(abd):处理Bean定义类中通用注解:@lazy注解->@primary-> @DependsOn->@Role-> @Description',
@@ -36,9 +37,7 @@ content={
     '7.customizer.customize(abd):允许使用lambda 表达式来自定义注册一个bean',
     '8.new BeanDefinitionHolder(abd, beanName):把BeanDefination简单的封装为BeanDefinitionHolder',
     '9.AnnotationConfigUtils.applyScopedProxyMode():通过判断proxyMode的值为注册的Bean创建相应模式的代理对象',
-    '10.BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, this.registry):',
-    {'注册BeanDefinition':[
-        '方法：registerBeanDefinition(String beanName, BeanDefinition beanDefinition)',
+    {'10.BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, this.registry):注册BeanDefinition':[
         '1.对BeanDefiniton的校验:对AbstractBeanDefinition属性中的methodOverrides效验',
         '2.对容器中已经存在了一个同名bean的处理方法,报错或覆盖',
         '3.将beanName和beanDefinition放到beanDefinitionMap'
@@ -58,8 +57,7 @@ content={
     '9.initApplicationEventMulticaster：初始化当前 ApplicationContext 的事件广播器',  
     '10.onRefresh():钩子方法,具体的子类可以在这里初始化一些特殊Bean（在初始化singleton beans之前）',
     '11.registerListeners: 注册事件监听器，监听器需要实现ApplicationListener接口',
-    '12.finishBeanFactoryInitialization(beanFactory):初始化所有singleton beans（lazy-init的除外）',
-    {'doCreateBean()':[
+    {'12.finishBeanFactoryInitialization(beanFactory):初始化所有singleton beans（lazy-init的除外）,核心doCreateBean()':[
         '实例化Bean对象：createBeanInstance()',
         '依赖注入：populateBean()',
         '回调方法：initializeBean()'

@@ -31,10 +31,18 @@ content={
         '获取名片的个数（getBeanDefinitionCount）'
     ]},
 ],
+'Bean作用域':[
+    'Singleton:所有spring应用，默认值，Ioc容器只存在单例',
+    'Prototype:所有spring应用，每当从Ioc容器中取出一个Bean，则创建一个新的Bean',
+    'request:spring web应用，web工程单次这一次(request)',
+    'session:spring web应用，HTTP会话',
+    'application:spring web应用，web工程生命周期',
+    'globalSession:spring web应用，不常用'
+],
 'Bean初始化流程':[
-    '1.资源定位:通过@ComponentScan的扫描路径找到带有@Component的类',
-    '2.Bean定义:找到资源，开始解析，将信息保存到BeanDefinition实例中(此时没有初始化Bean，也没有Bean的实例)',
-    '3.发布Bean定义：IoC容器加载Bean定义，此时，IoC容器只有Bean的定义，还没有Bean实例生成',
+    '1.资源定位:通过@ComponentScan扫描路径找到带有@Component的类',
+    '2.Bean定义:找到资源，开始解析，将信息保存到BeanDefinition实例中(此时没有初始化Bean，没有Bean实例)',
+    '3.发布Bean定义：IoC容器加载Bean定义，此时，IoC容器只有Bean定义，Bean实例还未生成',
     '4.实例化:创建Bean的实例对象',
     '5.依赖注入：如@Autowired注入的各种资源',
     '注：ComponentScan中有配置项lazyInit，默认值false(不延迟实例化和依赖注入)'

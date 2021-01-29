@@ -13,25 +13,41 @@ r2.setTitle("spring")
 
 
 content={
-'Core Container':[
-   'Core:包含Spring框架基本的核心工具类',
-   'Beans:所有应用都要用到的，它包含访问配置文件、创建和管理bean以及进行Inversion of Control / Dependency Injection（IoC/DI）操作相关的所有类',
-   'Context:提供了一种类似于JNDI注册器的框架式的对象访问方法。Context模块继承了Beans的特性，为Spring核心提供了大量扩展,ApplicationContext接口是Context模块的关键。',
-   'Expression Language:提供了一个强大的表达式语言用于在运行时查询和操纵对象'
+'IOC':[
+    'BeanFactory--DefaultListableBeanFactory',
+    'ApplicationContext--AnnotationConfigApplicationContext',
+    {'注解':[
+        '@SpringBootApplication',
+        '@Configuration',
+        '@Component和@ComponentScan',
+        '@Import'
+    ]},
+    {'扩展类':[
+        'BeanPostProcessor',
+        'BeanFactoryPostProcessor--BeanDefinitionRegistryPostProcessor',
+        'FactoryBean',
+        'ImportBeanDefinitionRegistrar',
+        'BeanFactoryAware',
+        'BeanNameAware'
+    ]},
+    {'AnnotationConfigApplicationContext启动':[
+        'this()',
+        'register(componentClasses):Bean注册------实现类AnnotatedBeanDefinitionReader',
+        'refresh():Bean的预加载------实现类AbstractApplicationContext'
+    ]}
 ],
-'Data Access/Integration':[
-    'JDBC:提供了一个JDBC抽象层,块包含了Spring对JDBC数据访问进行封装的所有类',
-    'ORM模块为流行的对象-关系映射API',
-    'OXM模块提供了一个对Object/XML映射实现的抽象层',
-    ' JMS（Java Messaging Service）模块主要包含了一些制造和消费消息的特性',
-    'Transaction模块支持编程和声明性的事物管理，这些事物类必须实现特定的接口，并且对所有的POJO都适用'
-],
-'Web':[
-    '',
-    '',
-    '',
-    '',
-    ''
+'Bean':[
+    'Bean定义:->',
+    {'Bean初始化--核心doCreateBean()':[
+        '实例化Bean对象：createBeanInstance()--通过反射',
+        '依赖注入：populateBean()--思考循环依赖问题',
+        '回调方法：initializeBean()--重点'
+    ]},
+    {'循环依赖解决--缓存':[
+        '一级缓存:singletonObjects',
+        '二级缓存:earlySingletonObjects',
+        '三级缓存:singletonFactories'
+    ]}
 ],
 'AOP':[
     {'相关类':[
@@ -47,7 +63,28 @@ content={
         'DefaultAdvisorAutoProxyCreator--BeanPostProcessor',
         'AnnotationAwareAspectJAutoProxyCreator'
     ]}
-]
+],
+'Mybatis':[
+    'SqlSessionFactoryBean--sqlSessionFactory',
+    'MapperFactoryBean',
+    'MapperScannerConfigurer',
+    '@MapperScan->@Import(MapperScannerRegistrar.class):作用同上',
+    'MybatisAutoConfiguration：与springboot结合，入囗'
+],
+'Transaction':[
+    '',
+    '',
+    '',
+    '',
+    ''
+],
+'Web':[
+    '',
+    '',
+    '',
+    '',
+    ''
+],
 }
 
 #构建xmind

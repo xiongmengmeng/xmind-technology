@@ -7,9 +7,9 @@ from xmind.core.markerref import MarkerId
 xmind_name="spring"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("circulDependence")
+s2.setTitle("circulDependence(上)")
 r2=s2.getRootTopic()
-r2.setTitle("circulDependence")
+r2.setTitle("circulDependence(上)")
 
 
 content={
@@ -19,12 +19,12 @@ content={
 '三级缓存':[
     {'一级缓存':[
         'singletonObjects',
-        '缓存：初始化后的bean对象'
+        '缓存：初始化后的bean对象',
+        '原始对象还未进行属性注入和后续BeanPostProcessor等过程'
     ]},
     {'二级缓存':[
         'earlySingletonObjects',
-        '缓存：提前拿原始对象进行AOP后得到的代理对象',
-        '原始对象还未进行属性注入和后续BeanPostProcessor等过程'
+        '缓存：提前拿原始对象进行AOP后得到的代理对象'
     ]},
     {'三级缓存':[
         'singletonFactories',
@@ -41,48 +41,8 @@ content={
         '缓存：某个原始对象是否进行过AOP'
     ]},
 ],
-'解决思路分析':[
-    {'思路':[
-        'A的Bean在创建过程中',
-        '1.进行依赖注入前，把A的原始Bean放入缓存（提早暴露）',
-        '2.进行依赖注入，此时A的Bean依赖了B的Bean',
-        '3.如B的Bean不存在，创建B的Bean:先创建一个B的原始对象，然后把B的原始对象放入缓存',
-        '4.如B的原始对象依赖注入A，从缓存中拿到A的原始对象（只是A的原始对象，不是最终Bean）',
-        '5.B的原始对象依赖注入完，B的生命周期结束，A的生命周期也结束',
-    ]},
-    '除了简单Bean，还要考虑进行AOP，最终生成代理的Bean',
-    {'AOP':[
-        '实现类AnnotationAwareAspectJAutoProxyCreator，父类是AbstractAutoProxyCreator，实现BeanPostProcessor接囗',
-        '本质：利用JDK动态代理或CGLib的动态代理',
-        '如给一个类中的某个方法设置了切面，这个类最终会生成一个代理对象',
-        '过程：A类--->生成一个普通对象-->属性注入-->基于切面生成一个代理对象-->把代理对象放入singletonObjects单例池'
-    ]},
-    {'实际':[
-        {'1.A初始化':[
-            '使用反射生成原始Bean',
-            '将A的原始Bean放入singletonFactories中(一个map)，key为beanName,value类型为AbstractAutowireCapableBeanFactory',
-            '开始依赖注入：populateBean()方法,内部调用getBean()获取B'
-        ]},
-        '2.B开始初始化,使用反射生成原始Bean',
-        {'3.B依赖注入':[
-            '1.发现B依赖A，getBean()获取A',
-            '2.去singleton缓存中找实例,发现A的bean存在于singletonFactories中,根据beanName得到一个ObjectFactory',
-            '3.把bean存放到earlyProxyReferences中(一个map),key为beanName，value为bean',
-            '4.执行ObjectFactory.getEarlyBeanReference方法，得到一个A原始对象经过AOP之后的代理对象',
-            '5.将bean生成的代理放入earlySingletonObjects中(一个map),key为beanName，value为bean'
-        ]},
-        '4.B初始化完成',
-        {'5.A继续初始化：initializeBean()':[
-            '执行AbstractAutoProxyCreator的postProcessAfterInitialization方法',
-            '判断当前beanName是否在earlyProxyReferences',
-            '如在:已经提前进行过AOP，无需再次进行AOP,从earlySingletonObjects中得到代理对象，然后入singletonObjects中',
-            '如不在:进行BeanPostProcessor的执行之后，把A的代理对象放入singletonObjects中',
-        ]},
-        '6.A初始化完成'
-    ]}
-],
 'AbstractAutowireCapableBeanFactory':[
-    {'方法getEarlyBeanReference(String beanName, RootBeanDefinition mbd, Object bean)':[
+    {'getEarlyBeanReference()方法':[
         '获得bean的beanPostProcessors',
         '如果它是SmartInstantiationAwareBeanPostProcessor类型',
         '依次执行getEarlyBeanReference(Object bean, String beanName)方法',
@@ -90,12 +50,11 @@ content={
     ]}
 ],
 'AbstractAutoProxyCreator':[
-    {'getEarlyBeanReference(Object bean, String beanName)':[
+    {'getEarlyBeanReference()方法':[
         '把bean存放到earlyProxyReferences中(一个map),key为beanName，value为bean',
         '如果有通知则创建代理'
     ]}
-],
-'https://www.cnblogs.com/lanqingzhou/p/13592190.html':[]
+]
 
 }
 

@@ -18,15 +18,15 @@ content={
     'ApplicationContext--AnnotationConfigApplicationContext',
     {'注解':[
         '@SpringBootApplication',
+        '@EnableAutoConfiguration',
         '@Configuration',
         '@Component和@ComponentScan',
-        '@Import'
+        '@Import，ImportBeanDefinitionRegistrar和ImportSelector'
     ]},
     {'扩展类':[
         'BeanPostProcessor',
         'BeanFactoryPostProcessor--BeanDefinitionRegistryPostProcessor',
         'FactoryBean',
-        'ImportBeanDefinitionRegistrar',
         'BeanFactoryAware',
         'BeanNameAware'
     ]},
@@ -34,6 +34,9 @@ content={
         'this()',
         'register(componentClasses):Bean注册------实现类AnnotatedBeanDefinitionReader',
         'refresh():Bean的预加载------实现类AbstractApplicationContext'
+    ]},
+    {'其它':[
+        'SpringFactoriesLoader'
     ]}
 ],
 'Bean':[
@@ -67,23 +70,47 @@ content={
 'Mybatis':[
     'SqlSessionFactoryBean--sqlSessionFactory',
     'MapperFactoryBean',
-    'MapperScannerConfigurer',
+    'MapperScannerConfigurer--BeanDefinitionRegistryPostProcessorr',
     '@MapperScan->@Import(MapperScannerRegistrar.class):作用同上',
     'MybatisAutoConfiguration：与springboot结合，入囗'
 ],
 'Transaction':[
-    '',
-    '',
-    '',
-    '',
-    ''
+    {'分类':[
+        '编程式：TransactionTemplate',
+        '申明式：@Transactional'
+    ]},
+    {'PlatformTransactionManager--AbstractPlatformTransactionManager':[
+        'getTransaction(),返回',
+        'commit(TransactionStatus status)',
+        'rollback(TransactionStatus status)'
+    ]},
+    'TransactionAutoConfiguration,：与springboot结合，入囗',
+    '@EnableTransactionManagement->@Import(TransactionManagementConfigurationSelector.class)',
+    'AutoProxyRegistrar',
+    {'ProxyTransactionManagementConfiguration':[
+        'TransactionInterceptor：invoke()',
+        'TransactionAttributeSource',
+        'BeanFactoryTransactionAttributeSourceAdvisor'
+    ]},
+
 ],
+'Redis':[
+    'CacheAutoConfiguration->@Import(CacheConfigurationImportSelector.class)',
+    'RedisCacheConfiguration->RedisAutoConfiguration',
+    {'RedisAutoConfiguration':[
+        '@Import({JedisConnectionConfiguration.class }):JedisConnectionConfiguration创建RedisConnectionFactory',
+        '创建redisTemplate'
+    ]}
+]
 'Web':[
-    '',
-    '',
-    '',
-    '',
-    ''
+    'DispatcherServlet',
+    'HanlerMapping',
+    'HandlerAdapter',
+    {'与springboot结合':[
+        'TomcatServletWebServerFactor',
+        'DispatcherServletRegistrationBean',
+        'RegistrationBean'
+    ]}
 ],
 }
 

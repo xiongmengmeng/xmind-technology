@@ -53,6 +53,7 @@ content={
     '使用SpringFactoriesLoader寻找jar包配置META-INF下的spring.fatories配置文件相应key的value类',
     '然后通过spring的@Configuration对相应的bean进行有选择（@ConditionalOnClass）的实例化'
 ]
+
 }
 
 #构建xmind

@@ -98,11 +98,10 @@ content={
     'CacheAutoConfiguration->@Import(CacheConfigurationImportSelector.class)',
     'RedisCacheConfiguration->RedisAutoConfiguration',
     {'RedisAutoConfiguration':[
-        '@Import({JedisConnectionConfiguration.class }):',
-        'JedisConnectionConfiguration创建RedisConnectionFactory',
+        '@Import({JedisConnectionConfiguration.class }):JedisConnectionConfiguration创建RedisConnectionFactory',
         '创建redisTemplate'
     ]}
-],
+]
 'Web':[
     'DispatcherServlet',
     'HanlerMapping',

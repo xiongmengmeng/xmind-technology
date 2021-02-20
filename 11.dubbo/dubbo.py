@@ -1,6 +1,10 @@
+import os,sys 
+parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
+sys.path.insert(0,parentdir) 
+
 import xmind
-from xmind.core.markerref import MarkerId
-w = xmind.load("c:\\Users\\btr\\Desktop\\dubbo.xmind") 
+xmind_name="dubbo"
+w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
 s2.setTitle("dubbo")
 r2=s2.getRootTopic()

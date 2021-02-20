@@ -68,20 +68,24 @@ content={
         '->doDispatch(HttpServletRequest request, HttpServletResponse response)',
     ]},
     {'doDispatch(request, response)':[
-        '',
-        'checkMultipart(request)',
-        '',
-        'mappedHandler = getHandler(processedRequest);',
-        '',
-        'HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());',
-        '',
-        'mappedHandler.applyPreHandle(processedRequest, response)',
-        ''
-        'mv = ha.handle(processedRequest, response, mappedHandler.getHandler())',
-        '',
-        'mappedHandler.applyPostHandle(processedRequest, response, mv);',
-        '',
-        'processDispatchResult(processedRequest, response, mappedHandler, mv, dispatchException)'
+        {'1.返回的HandlerExecutionChain请求处理器链对象,该对象封装了handler和interceptors':[
+            'mappedHandler = getHandler(processedRequest)'
+        ]},
+        {'2.获取处理request的处理器适配器handler adapter':[
+            'HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler())'
+        ]},
+        {'3.拦截器的预处理方法':[
+            'mappedHandler.applyPreHandle(processedRequest, response)'
+        ]},
+        {'4.实际的处理器处理请求,返回结果视图对象':[
+            'mv = ha.handle(processedRequest, response, mappedHandler.getHandler())'
+        ]},
+        {'5.拦截器的后处理方法':[
+            'mappedHandler.applyPostHandle(processedRequest, response, mv)'
+        ]},
+        {'6.请求成功响应之后的方法':[
+            'processDispatchResult(processedRequest, response, mappedHandler, mv, dispatchException)'
+        ]}
     ]}
 ]
 }

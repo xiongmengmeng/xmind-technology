@@ -41,6 +41,7 @@ content={
         {'3.封装结果视图':[
             'getModelAndView(mavContainer, modelFactory, webRequest)'
         ]}
+    ]}
 ],
 'invokeAndHandle()':[
     {'invokeForRequest()':[
@@ -58,7 +59,7 @@ content={
         {'2.调用方法,反射':[
             'doInvoke(args)'
         ]}
-    ]}
+    ]},
     {'3.处理返回值':[
         'this.returnValueHandlers.handleReturnValue(returnValue, getReturnValueType(returnValue), mavContainer, webRequest)'
     ]}

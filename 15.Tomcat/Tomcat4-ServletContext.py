@@ -15,6 +15,7 @@ r2.setTitle("ServletContext")
 content={
 'ServletContext':[
     'Servlet上下文,代表当前应用，本质是个容器,一个map',
+    'servlet 3.0后：支持无web.xml配置（新的注解支持），可以通过ServletContext向servlet容器添加Filter、Listener和Servlet',
     {'创建与销毁时机':[
         '服务器启动与关闭'
     ]},

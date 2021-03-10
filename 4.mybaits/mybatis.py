@@ -14,15 +14,14 @@ r2.setTitle("mybatis")
 
 content={
 '1.JDBC':[
-    'JDBC:java语言中提供的访问关系型数据库的接囗',
-    'mybatis框架是对JDBC API的轻量级封装',
+    'java语言中提供的访问关系型数据库的接囗',
+    'mybatis框架:对JDBC API的轻量级封装',
     {'JDBC操作数据源步骤':[
         '1.与数据源建立连接--Connection',
         '2.执行sql语句--Statement',
         '3.检索sql执行结果--ResultSet',
         '4.关闭连接'
     ]},
-    'DatabaseMetaData:提供底层数据源信息'
 ],
 '2.Mybatis常用工具类':[
     'SQL：继承至AbstractSQL，重写了该类的getSelf()方法',
@@ -37,39 +36,18 @@ content={
     '1.获取mybatis配置文件输入流Reader',
     '2.创建SqlSessionFactoryBuilder对象',
     '3.SqlSessionFactoryBuilder.build(Reader reader)->DefaultSqlSessionFactory实例',
-    {'细节':[
-        '3.1.创建XMLConfigBuilder对象',
-        '3.2.用XMLConfigBuilder.parse(Reader reader)->Configuration对象',
-        '3.3.XMLConfigBuilder.build(Configuration config)->SqlSessionFactoryBuilder对象'
-    ]},
     '4.SqlSessionFactory.openSession()->SqlSession对象',
-    {'细节':[
-        '4.1.获取mybatis主配置文件配置的环境信息',
-        '4.2.创建事务管理器工厂',
-        '4.3.创建事务管理器',
-        '4.4.创建Executor对象',
-        '4.5.创建DefaultSqlSession对象'
-    ]}
 ],
 '4.SqlSession执行Mapper过程':[
     {'1.Mapper接口的注册':[
         'Configuration类中，MapperRegistry mapperRegistry：注册Mapper接口信息',
         'MapperRegistry类中，Map<Class<?>, MapperProxyFactory<?>> knownMappers：Class对象--MapperProxyFactory对象',
         'MapperRegistry类addMapper()方法：向knownMappers注册Mapper接口信息(应用启动时调用)',
-        {'MapperRegistry类getMapper()方法':[
-            '根据Mapper接口的Class对象获取对应MapperProxyFactory',
-            'MapperProxyFactory调用方法newInstance(SqlSession sqlSession)创建Mapper动态代理对象'
-        ]},
-        'MapperProxy:使用JDK内置的动态代理，实现了InvocationHandler接口，invoke()方法中为通用的拦截逻辑',
-        '调用java.lang.reflect.Proxy类的newProxyInstance()方法创建代理对象'
     ]},
     {'2.MappedStatement对象的注册':[
         'Configuration类中,LanguageDriverRegistry languageRegistry：将配置信息转换为SqlSource对象',
         'Configuration类中,Map<String, MappedStatement> mappedStatements：描述SQL信息，Key为Mapper的Id，Value为MappedStatement对象',
         'Configuration类addMappedStatement()方法：将MappedStatement对象添加到mappedStatements属性中',
-        '1.通过XMLConfigBuilder对象解析MyBatis主配置文件',
-        '2.使用MapperBuilderAssistant对象的addMappedStatement()方法创建MappedStatement对象',
-        '3.调用Configuration对象的addMappedStatement()方法将MappedStatement对象注册到Configuration对象中'
     ]},
     {'3.Mapper方法的调用过程':[
         'SqlSession对象的getMapper()方法->',
@@ -77,10 +55,6 @@ content={
         'mapperRegistry.getMapper()->',
         'MapperProxyFactory,->MapperProxy,获取一个动态代理对象',
         '执行MapperProxy类的invoke()方法',
-        {'MapperProxy类的invoke()方法':[
-            '从缓存中取，取不到创建一个MapperMethod对象（根据mappedStatements内容）',
-            '然后调用execute()方法，本质是根据sql类型，调用SqlSession相映方法'
-        ]}
     ]},
     {'总结：':[
         '1.SqlSessionFactory调用openSession(),拿到SqlSession实例 ',

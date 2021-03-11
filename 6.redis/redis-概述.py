@@ -7,12 +7,18 @@ from xmind.core.markerref import MarkerId
 xmind_name="redis"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("redis概述")
+s2.setTitle("redis")
 r2=s2.getRootTopic()
-r2.setTitle("redis概述")
+r2.setTitle("redis")
 
 
 content={
+'Reactor模式':[
+    '多个套接字',
+    'IO多路复用程序',
+    '文件事件分派器',
+    '事件处理器'
+],
 '五种基础类型':[
     '字符串类型',
     '散列类型',
@@ -35,14 +41,17 @@ content={
     'RDB',
     'AOF'
 ],
-'主从复制：多副本':[
-    '避免单点故障,读写分离，提高服务器负载'
+'主从复制':[
+    '多副本',
+    '避免单点故障',
+    '读写分离，提高服务器负载'
 ],
-'哨兵：故障自动切换':[
-    '自动化的故障恢复'
+'哨兵':[
+    '故障自动切换'
 ],
-'分片集群：横向扩展':[
-    '横向扩展,提升系统性能，支撑更大的写流量'
+'分片集群':[
+    '横向扩展',
+    '支撑更大的写流量'
 ],
 '与spring结合':[
     'RedisTemplate'

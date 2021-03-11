@@ -13,8 +13,9 @@ r2.setTitle("动态代理")
 
 
 content={
+
 '动态代理':[
-    '不写代理类，通过反射调用代理类的方法',
+    '代理类实例在程序运行时，由JVM根据反射机制动态的生成',
     {'过程如下':[
         '代理Class对象',
         '->反射创建代理对象',
@@ -24,21 +25,22 @@ content={
     {'代理类和目标类实现同一组接口':[
         '尽可能保证代理对象的内部结构和目标对象一致',
         '这样对代理对象的操作最终都可以转移到目标对象身上，代理对象只需专注于增强代码的编写'
+    ]},
+    '优点：代理类可作用于多个目标对象，代理对象和目标对象松耦合',
+    {'缺点':[
+        '实现比静态代理(代理对象直接持有目标对象的引用)更加复杂',
+        '存在一定限制，如要求需代理的对象必须实现某个接口',
+        '不够灵活，会为接口中声明的所有方法添加上相同的代理逻辑'
     ]}
 ],
-'Proxy':[
-    {'getProxyClass(ClassLoader, interfaces)':[
-        '返回代理Class对象',
-        '本质：以Class造Class',
-        '1.从传入的接口Class中，“拷贝”类结构信息到一个新的Class对象中',
-        '2.但新的Class对象带有构造器，可以创建对象'
-    ]},
-    {'newProxyInstance()':[
-        '直接返回代理实例'
-    ]}
+'java两种代理方式':[
+    'JDK动态代理：借助Proxy,InvocationHandler',
+    'CGLIB动态代理：借助Enhancer,MethodInterceptor'
 ],
 '学习':[
-    'https://www.zhihu.com/question/20794107/answer/658139129'
+    'https://www.zhihu.com/question/20794107/answer/658139129',
+    'https://baijiahao.baidu.com/s?id=1693196110185594031',
+    'https://www.cnblogs.com/liuyun1995/p/8144628.html'
 ]
 }
 

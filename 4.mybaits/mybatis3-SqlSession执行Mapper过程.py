@@ -16,13 +16,15 @@ content={
 '1.Mapper接口的注册':[
     'Configuration类中，MapperRegistry mapperRegistry：注册Mapper接口信息',
     'MapperRegistry类中，Map<Class<?>, MapperProxyFactory<?>> knownMappers：Class对象--MapperProxyFactory对象',
-    'MapperRegistry类addMapper()方法：向knownMappers注册Mapper接口信息(应用启动时调用)',
+    {'MapperRegistry类addMapper()方法':[
+        '向knownMappers注册Mapper接口信息(应用启动时调用)'
+    ]},
     {'MapperRegistry类getMapper()方法':[
         '根据Mapper接口的Class对象获取对应MapperProxyFactory',
-        'MapperProxyFactory调用方法newInstance(SqlSession sqlSession)创建Mapper动态代理对象'
+        'MapperProxyFactory调用方法newInstance(SqlSession sqlSession)创建Mapper动态代理对象:',
+        '调用java.lang.reflect.Proxy类的newProxyInstance()方法创建代理对象'
     ]},
-    'MapperProxy:使用JDK内置的动态代理，实现了InvocationHandler接口，invoke()方法中为通用的拦截逻辑',
-    '调用java.lang.reflect.Proxy类的newProxyInstance()方法创建代理对象'
+    'MapperProxy:实现了InvocationHandler接口，invoke()方法中为通用的拦截逻辑'
 ],
 '2.MappedStatement对象的注册':[
     'Configuration类中,LanguageDriverRegistry languageRegistry：将配置信息转换为SqlSource对象',
@@ -33,11 +35,12 @@ content={
     '3.调用Configuration对象的addMappedStatement()方法将MappedStatement对象注册到Configuration对象中'
 ],
 '3.Mapper方法的调用过程':[
-    'SqlSession对象的getMapper()方法->',
-    'configuration.<T>getMapper(),->',
-    'mapperRegistry.getMapper()->',
-    'MapperProxyFactory,->MapperProxy,获取一个动态代理对象',
-    '执行MapperProxy类的invoke()方法',
+    {'SqlSession对象的getMapper()方法':[
+        'SqlSession对象的getMapper()方法->',
+        'configuration.<T>getMapper(),->',
+        'mapperRegistry.getMapper()->',
+        'MapperProxyFactory->MapperProxy,获取一个动态代理对象',
+    ]},
     {'MapperProxy类的invoke()方法':[
         '从缓存中取，取不到创建一个MapperMethod对象（根据mappedStatements内容）',
         '然后调用execute()方法，本质是根据sql类型，调用SqlSession相映方法'

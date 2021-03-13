@@ -7,9 +7,9 @@ from xmind.core.markerref import MarkerId
 xmind_name="mybatis"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("SqlSession执行Mapper过程")
+s2.setTitle("Mapper方法调用过程")
 r2=s2.getRootTopic()
-r2.setTitle("SqlSession执行Mapper过程")
+r2.setTitle("Mapper方法调用过程")
 
 
 content={
@@ -34,22 +34,27 @@ content={
     '2.使用MapperBuilderAssistant对象的addMappedStatement()方法创建MappedStatement对象',
     '3.调用Configuration对象的addMappedStatement()方法将MappedStatement对象注册到Configuration对象中'
 ],
-'3.Mapper方法的调用过程':[
+'3.Mapper方法调用过程':[
     {'SqlSession对象的getMapper()方法':[
-        'SqlSession对象的getMapper()方法->',
-        'configuration.<T>getMapper(),->',
+        'configuration.getMapper(),->',
         'mapperRegistry.getMapper()->',
-        'MapperProxyFactory->MapperProxy,获取一个动态代理对象',
+        'MapperProxyFactory.newInstance()->',
+        'MapperProxy的实例（一个动态代理对象）',
     ]},
     {'MapperProxy类的invoke()方法':[
-        '从缓存中取，取不到创建一个MapperMethod对象（根据mappedStatements内容）',
-        '然后调用execute()方法，本质是根据sql类型，调用SqlSession相映方法'
+        'MapperProxy类实现了InvocationHandler接口，重写invoke()方法：',
+        '1.从缓存中取，取不到创建一个MapperMethod对象（根据mappedStatements内容）',
+        '2.MapperMethod对象调用execute()方法，本质：根据sql类型，调用SqlSession相映方法',
+        {'SqlSession执行Mapper过程':[
+            '2.1据Mapper的Id从Configuration对象中获取对应MappedStatement对象',
+            '2.2以MappedStatement对象为参数，调用Executor实例的query()方法',
+            {'BaseExecutor类的query()方法':[
+                '从MappedStatement对象中获取BoundSql对象',
+                '调用Configuration对象的newStatementHandler()创建StatementHandler对象',
+                '据Mapper的statementType属性创建对应StatementHandler实例进行处理'
+            ]}
+        ]}
     ]}
-],
-'总结：':[
-    '1.SqlSessionFactory调用openSession(),拿到SqlSession实例 ',
-    '2.根据Mapper的Id从Configuration对象中获取对应的MappedStatement对象',
-    '3.以MappedStatement对象作为参数，调用Executor实例的query()方法完成查询操作'
 ]
 
 

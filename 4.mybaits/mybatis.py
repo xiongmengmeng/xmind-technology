@@ -24,7 +24,17 @@ content={
 'mybatis':[
     '对JDBC的轻量级封装',
     {'组件':[
-        'Configuration',
+        {'Configuration':[
+            '控制MyBatis运行时的行为',
+            '容器:Mapper,SQL,TypeHandler',
+            {'组件的工厂类':[
+                'Executor',
+                'StatementHandler',
+                'ResultSetHandler',
+                'ParameterHandler',
+                '方便实现插件拦截'
+            ]}
+        ]},
         'MappedStatement',
         'SqlSession',
         'Executor',
@@ -40,11 +50,16 @@ content={
     '创建DefaultSqlSession对象'
 ],
 'SqlSession执行Mapper':[
-    'Mapper接囗注册--MapperRegistry--Map<Class<?>, MapperProxyFactory<?>> knownMappers',
-    'MappedStatement对象注册--Map<String, MappedStatement> mappedStatements',
+    'Mapper接囗注册：MapperRegistry--Map<Class<?>, MapperProxyFactory<?>> knownMappers',
+    'MappedStatement对象注册：Map<String, MappedStatement> mappedStatements',
     {'Mapper方法调用':[
-        'getMapper()->MapperProxy',
-        'invoke()->拿到MappedStatement->创建Statement'
+        '1.getMapper()->MapperProxy.invoke()',
+        {'2.SqlSession.selectList()':[
+            '2.1拿到MappedStatement',
+            '2.2通过Exector得到BoundSql,创建StatementHandler',
+            '2.3通过Statement执行sql',
+            '2.4ResultSetHandler处理结果集'
+        ]}
     ]},
     {'动态SQL':[
         'MappedStatement',
@@ -56,7 +71,6 @@ content={
     'Interceptor接口',
     'InterceptorChain拦截器链',
     'Plugin工具类'
-
 ]
 
     

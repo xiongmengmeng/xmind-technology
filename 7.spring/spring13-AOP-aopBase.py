@@ -7,7 +7,7 @@ from xmind.core.markerref import MarkerId
 xmind_name="spring"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("aopBaseClass")
+s2.setTitle("aopBase")
 r2=s2.getRootTopic()
 r2.setTitle("aop基础")
 
@@ -43,38 +43,6 @@ content={
     {'Spring AOP实现':[
         '生成一个代理类，替换掉真实实现类来对外提供服务',
         '在Spring IOC容器中，getBean(…) 时返回代理类的实例->FactoryBean.getObject()'
-    ]}
-],
-'基础架构':[
-    {'AdvisedSupport':[
-        'List<Class<?>> interfaces = new ArrayList<Class<?>>()',
-        'List<Advisor> advisors = new LinkedList<Advisor>()'
-    ]},
-    {'ProxyCreatorSupport':[
-        '方法：createAopProxy()'
-    ]},
-    {'ProxyFactoryBean':[
-        '实现BeanClassLoaderAware接口:创建proxy第一个参数是classLoader',
-        '实现BeanFactoryAware接口:把被代理的对象实例化好',
-        '实现FactoryBean<Object>接囗：初始化和返回的代理对象',
-        {'getObject()':[
-            {'initializeAdvisorChain()':[
-                '初始化advisor',
-                '1.advice = this.beanFactory.getBean(name),用beanFactory实例化并获得advice类型的bean',
-                '2.addAdvisorOnChainCreation(advice, name)：将advice封装成advisor，放入advisor链List<Advisor> advisors',
-            ]},
-            {'getSingletonInstance()':[
-                '返回单例代理对象',
-                '1.createAopProxy():根据代理的目标对象是否实现接口，来返回JdkDynamicAopProxy的动态代理或者cglib的代理',
-                '2.getProxy(AopProxy aopProxy)->Proxy.newProxyInstance(classLoader, proxiedInterfaces, this)',
-            ]}
-        ]}
-    ]},
-    {'ProxyFactory':[
-        '添加advice:addAdvice(interceptor)',
-        '设置目标对象：setTargetSource(targetSource)',
-        '设置目标对象实现的接囗：setInterfaces(ClassUtils.getAllInterfaces(target))',
-        '直接编程，很清晰，在IoC部分去实例化的目标对象且返回代理对象时使用'
     ]}
 ]
 }

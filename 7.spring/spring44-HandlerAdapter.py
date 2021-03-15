@@ -7,9 +7,9 @@ from xmind.core.markerref import MarkerId
 xmind_name="spring"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("ha.handle()")
+s2.setTitle("HandlerAdapter")
 r2=s2.getRootTopic()
-r2.setTitle("ha.handle()")
+r2.setTitle("HandlerAdapter")
 
 
 content={

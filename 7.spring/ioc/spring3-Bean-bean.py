@@ -4,7 +4,7 @@ sys.path.insert(0,parentdir)
 
 import xmind
 from xmind.core.markerref import MarkerId
-xmind_name="spring"
+xmind_name="spring-Bean"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
 s2.setTitle("bean")
@@ -37,6 +37,7 @@ content={
     ]},
     {'BeanDefinitionRegistryPostProcessor':[
         '一个接口，继承了BeanFactoryPostProcessor',
+        '方法：postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry)',
         '可向BeanFactory中添加BeanDefinition',
     ]},
     {'FactoryBean':[

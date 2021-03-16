@@ -36,19 +36,10 @@ content={
     '代表当前应用',
     '根据web.xml创建',
     {'核心内容':[
+        'Listener',
         'Filter',
-        'Listener'
         'Servlet映射器',
     ]}
-
-
-],
-'Filter':[
-    {'核心方法：doFilter':[
-        '拦截逻辑',
-        'chain.doFilter(request, response)',
-    ]},
-    '责任链模式'
 ],
 'Listener':[
     '监听器6+2',
@@ -62,6 +53,13 @@ content={
         '实现ServletContextListener接囗',
         'contextInitialized()->初始化Spring的IOC容器'
     ]}
+],
+'Filter':[
+    {'核心方法：doFilter':[
+        '拦截逻辑',
+        'chain.doFilter(request, response)',
+    ]},
+    '责任链模式'
 ],
 'servlet':[
     {'5个方法':[

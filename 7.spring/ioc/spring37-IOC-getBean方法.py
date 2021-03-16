@@ -4,17 +4,17 @@ sys.path.insert(0,parentdir)
 
 import xmind
 from xmind.core.markerref import MarkerId
-xmind_name="spring"
+xmind_name="spring-IOC"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("BeanFactoryPostProcessor")
+s2.setTitle("getBean()")
 r2=s2.getRootTopic()
-r2.setTitle("BeanFactoryPostProcessor--getBean()")
+r2.setTitle("getBean()")
 
 
 content={
+'注册bean到容器':[],
 'getBean()->doGetBean()->':[
-    '将BeanFactoryPostProcessor作为bean注册到容器',
     '1.去singleton缓存中去找实例,如果bean存在于singletonFactories中，为bean生成代理，返回，循环依赖时使用',
     '2.获取该beanFactory父factory，如该beanfactory有父类，用父类去实例化该bean',
     '3.标记目前的bean的正在创建',

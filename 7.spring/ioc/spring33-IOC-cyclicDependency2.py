@@ -4,7 +4,7 @@ sys.path.insert(0,parentdir)
 
 import xmind
 from xmind.core.markerref import MarkerId
-xmind_name="spring"
+xmind_name="spring-IOC"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
 s2.setTitle("circulDependence(下)")
@@ -39,18 +39,19 @@ content={
         {'3.B依赖注入':[
             '1.发现B依赖A，getBean()获取A',
             '2.去singleton缓存中找实例,发现A的bean存在于singletonFactories中,根据beanName得到一个ObjectFactory',
-            '3.把bean存放到earlyProxyReferences中(一个map),key为beanName，value为bean',
             '4.执行ObjectFactory.getEarlyBeanReference方法，得到一个A原始对象经过AOP之后的代理对象',
-            '5.将bean生成的代理放入earlySingletonObjects中(一个map),key为beanName，value为bean'
+            '把bean存放到earlyProxyReferences中(一个map),key为beanName，value为bean',
+            '5.将bean生成的代理放入二级缓存earlySingletonObjects中(一个map),key为beanName，value为bean'
         ]},
         '4.B初始化完成',
         {'5.A继续初始化：initializeBean()':[
             '执行AbstractAutoProxyCreator的postProcessAfterInitialization方法',
             '判断当前beanName是否在earlyProxyReferences',
-            '如在:已经提前进行过AOP，无需再次进行AOP,从earlySingletonObjects中得到代理对象，然后入singletonObjects中',
-            '如不在:进行BeanPostProcessor的执行之后，把A的代理对象放入singletonObjects中',
+            '如在:已经提前进行过AOP，无需再次进行AOP',
+            '如不在:进行BeanPostProcessor的相关操作',
         ]},
-        '6.A初始化完成'
+        '6.将A实例放入一级缓存singletonObjects中，清空二级缓存与三级缓存'
+        '7.A初始化完成'
     ]}
 ],
 'https://www.cnblogs.com/lanqingzhou/p/13592190.html':[]

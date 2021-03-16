@@ -49,7 +49,8 @@ content={
             ]}
         ]}
     ]},
-    {'2.@EnableAspectJAutoProxy':[
+    {'2.@EnableAutoConfiguration->AopAutoConfiguration':[
+        '@EnableAspectJAutoProxy:',
         '@Import(AspectJAutoProxyRegistrar.class)',
         {'AspectJAutoProxyRegistrar':[
             '实现ImportBeanDefinitionRegistrar接囗，重写registerBeanDefinitions方法：',

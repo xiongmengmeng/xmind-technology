@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>com.baturu.utils</groupId>
+  <artifactId>baturu-cat-log4j2-combination</artifactId>
+  <version>1.0.0_cat_log4j2_init-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20180222.063922</timestamp>
+      <buildNumber>5</buildNumber>
+    </snapshot>
+    <lastUpdated>20180222063922</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <classifier>sources</classifier>
+        <extension>jar</extension>
+        <value>1.0.0_cat_log4j2_init-20180222.063922-5</value>
+        <updated>20180222063922</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>1.0.0_cat_log4j2_init-20180222.063922-5</value>
+        <updated>20180222063922</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>1.0.0_cat_log4j2_init-20180222.063922-5</value>
+        <updated>20180222063922</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

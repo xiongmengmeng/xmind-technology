@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>com.baturu.utils</groupId>
+  <artifactId>baturu-cat-dubbo-combination</artifactId>
+  <version>1.0.4_update_version-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20180418.060749</timestamp>
+      <buildNumber>2</buildNumber>
+    </snapshot>
+    <lastUpdated>20180418060749</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>1.0.4_update_version-20180418.060749-2</value>
+        <updated>20180418060749</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>1.0.4_update_version-20180418.060749-2</value>
+        <updated>20180418060749</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <classifier>sources</classifier>
+        <extension>jar</extension>
+        <value>1.0.4_update_version-20180418.060749-2</value>
+        <updated>20180418060749</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

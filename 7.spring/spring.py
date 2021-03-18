@@ -15,7 +15,7 @@ r2.setTitle("spring")
 content={
 'IOC':[
     'BeanFactory--DefaultListableBeanFactory',
-    'ApplicationContext--AnnotationConfigApplicationContext',
+    'ApplicationContext--AbstractApplicationContext',
     {'注解':[
         '@SpringBootApplication',
         '@EnableAutoConfiguration',
@@ -25,10 +25,10 @@ content={
     ]},
     {'扩展类':[
         'BeanPostProcessor',
-        'BeanFactoryPostProcessor--BeanDefinitionRegistryPostProcessor',
+        'BeanFactoryPostProcessor',
+        'BeanDefinitionRegistryPostProcessor--ConfigurationClassPostProcessor',
+        'InitializingBean',
         'FactoryBean',
-        'BeanFactoryAware',
-        'BeanNameAware'
     ]},
     {'AnnotationConfigApplicationContext启动':[
         'this()',
@@ -40,7 +40,7 @@ content={
     ]}
 ],
 'Bean':[
-    'Bean定义:->',
+    'Bean定义:BeanDefinition',
     {'Bean初始化--核心doCreateBean()':[
         '实例化Bean对象：createBeanInstance()--通过反射',
         '依赖注入：populateBean()--思考循环依赖问题',
@@ -58,23 +58,27 @@ content={
         'InvocationHandler',
     ]},
     {'基础类':[
-        'AdvisedSupport--ProxyCreatorSupport--ProxyFactoryBean',
+        'AdvisedSupport--ProxyCreatorSupport--ProxyFactory',
         'AopProxy--JdkDynamicAopProxy--ObjenesisCglibAopProxy',
         'DefaultAopProxyFactory',
     ]},
     {'入囗类':[
-        'DefaultAdvisorAutoProxyCreator--BeanPostProcessor',
+        'AbstractAutoProxyCreator--BeanPostProcessor',
+        'DefaultAdvisorAutoProxyCreator',
         'AnnotationAwareAspectJAutoProxyCreator'
+    ]},
+    {'postProcessAfterInitialization()':[
+        '得到匹配的advisor：getAdvicesAndAdvisorsForBean()',
+        '创建代理：createProxy()'
     ]}
 ],
 'Mybatis':[
     'SqlSessionFactoryBean--sqlSessionFactory',
-    'MapperFactoryBean',
-    'MapperScannerConfigurer--BeanDefinitionRegistryPostProcessorr',
-    '@MapperScan->@Import(MapperScannerRegistrar.class):作用同上',
+    'MapperFactoryBean:@MapperScan->@Import(MapperScannerRegistrar.class)',
     'MybatisAutoConfiguration：与springboot结合，入囗'
 ],
 'Transaction':[
+    'TransactionAutoConfiguration,：与springboot结合，入囗',
     {'分类':[
         '编程式：TransactionTemplate',
         '申明式：@Transactional'
@@ -84,9 +88,7 @@ content={
         'commit(TransactionStatus status)',
         'rollback(TransactionStatus status)'
     ]},
-    'TransactionAutoConfiguration,：与springboot结合，入囗',
-    '@EnableTransactionManagement->@Import(TransactionManagementConfigurationSelector.class)',
-    'AutoProxyRegistrar',
+    'InfrastructureAdvisorAutoProxyCreator',
     {'ProxyTransactionManagementConfiguration':[
         'TransactionInterceptor：invoke()',
         'TransactionAttributeSource',
@@ -98,10 +100,10 @@ content={
     'CacheAutoConfiguration->@Import(CacheConfigurationImportSelector.class)',
     'RedisCacheConfiguration->RedisAutoConfiguration',
     {'RedisAutoConfiguration':[
-        '@Import({JedisConnectionConfiguration.class }):JedisConnectionConfiguration创建RedisConnectionFactory',
+        '@Import({JedisConnectionConfiguration.class }):创建RedisConnectionFactory',
         '创建redisTemplate'
     ]}
-]
+],
 'Web':[
     'DispatcherServlet',
     'HanlerMapping',

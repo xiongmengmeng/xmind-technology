@@ -1,10 +1,10 @@
 import os,sys 
-parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
+parentdir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0,parentdir) 
 
 import xmind
 from xmind.core.markerref import MarkerId
-xmind_name="spring"
+xmind_name="redis"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
 s2.setTitle("spring-redis(下)")
@@ -13,8 +13,6 @@ r2.setTitle("spring-redis(下)")
 
 
 content={
-
-
 '几个关键注解':[
     {'@Cacheable':[
         '标注在方法上，将方法返回的结果存入缓存中',

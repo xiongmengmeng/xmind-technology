@@ -27,15 +27,26 @@ content={
         ]}
     ]},
     {'ISR机制':[
+        'In-Sync Replicas:保持同步的副本',
         '每个Partition维护一个ISR列表，列表里有Leader，还有跟Leader保持同步的Follower',
-        '如Follower因自身发生一些问题，不能及时从Leader同步数据，Follower被认为“out-of-sync”，会从ISR列表里踢出'
+        '如Follower因自身发生一些问题，不能及时从Leader同步数据，Follower被认为“out-of-sync”，会从ISR列表里踢出',
+        {'多副本间数据如何同步':[
+            'Leader副本接收到数据后',
+            'Follower副本会不停的给他发送请求尝试去拉取最新的数据，拉取到自己本地后，写入磁盘',
+        ]}
+    ]},
+    {'ack参数':[
+        '在KafkaProducer，即生产者客户端里设置',
+        '0:KafkaProducer在客户端，只要把消息发送出去，不管数据是否落盘，直接认为消息发送成功',
+        '1:(默认)Partition Leader收到消息且写入磁盘，不管其他Follower有无同步消息，认为消息发送成功',
+        'all:Partition Leader收到消息后，还要求ISR列表里跟Leader保持同步的Follower要把消息同步过去，才认为消息发送成功'
     ]}
 ],
 'Kafka写入数据如何保证不丢失':[
     '1.每个Partition至少得有1个Follower在ISR列表里，保证跟上了Leader的数据同步',
-    '2.写入数据时，要求写入Partition Leader成功+至少一个ISR里的Follower写入成功，才算写入成功',
+    '2.写入数据时，要求写入Partition Leader成功+ISR里的Follower写入成功，才算写入成功',
     '3.如不满足上述两条件，认为写入失败，让生产系统不停的尝试重试，直到满足上述两条件，才能认为写入成功',
-    '4.按上述思路配置相应参数，才能保证写入Kafka的数据不会丢失'
+    '4.按上述思路配置ack参数，才能保证写入Kafka的数据不会丢失'
 ],
 'kafka数据丢失问题':[
     '生产端的缓存问题',

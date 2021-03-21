@@ -7,13 +7,18 @@ from xmind.core.markerref import MarkerId
 xmind_name="internet"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("networkEquipment")
+s2.setTitle("物理介质")
 r2=s2.getRootTopic()
-r2.setTitle("网线，网络设备")
+r2.setTitle("物理介质")
 
 
 content={
-'双绞线能抑制噪声':[
+'物理介质':[
+    '把电脑连接起来的物理手段，常见有双绞线，光纤以及无线电波',
+    '决定了电信号(0和1)的传输方式',
+    '决定了电信号的传输带宽、速率、传输距离以及抗干扰性等等'
+],
+'双绞线':[
     '两根信号线的缠绕抵消外源性噪声',
     '节距控制抑制内源性噪声'
 ],
@@ -47,7 +52,6 @@ content={
     '各个端口都具有MAC和IP地址,只接收与自身地址匹配的包，不匹配直接丢弃',
     {'路由表':[
         '忽略主机号，只匹配网络号',
-        '子网掩码:在匹配网络包目标地址时需要对比的比特数',
         {'维护':[
             '手动维护',
             '路由器间的信息交换自行维护'
@@ -84,6 +88,7 @@ content={
         '包过滤'
     ]}
 ]
+
 }
 
 

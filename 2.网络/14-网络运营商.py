@@ -7,13 +7,12 @@ from xmind.core.markerref import MarkerId
 xmind_name="internet"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("networkOperator")
+s2.setTitle("网络运营商")
 r2=s2.getRootTopic()
 r2.setTitle("网络运营商")
 
 
 content={
-
 'PPP和隧道':[
     {'在以太网上传输PPP消息':[
         'PPP消息无法转换成信号:其协议中没有定义以太网中的报头，FCS，信号的格式',

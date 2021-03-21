@@ -42,7 +42,8 @@ content={
     ]},
     {'3.轮询感兴趣的IO就绪事件（选择键集合）':[
         '1.通过Selector选择器的select()方法，选出已经注册的、已经就绪的IO事件，保存到SelectionKey选择键集合中',
-        '2.SelectionKey集合保存在选择器实例内部，是一个元素为SelectionKey类型的集合（Set）,调用选择器的selectedKeys()方法，可以取得选择键集合',
+        '2.SelectionKey集合保存在选择器实例内部，是一个元素为SelectionKey类型的集合（Set）',
+        '调用选择器的selectedKeys()方法，可以取得选择键集合',
         '3.处理完成后，需要将选择键从这个SelectionKey集合中移除，防止下一次循环的时候，被重复的处理'
     ]}
 ]

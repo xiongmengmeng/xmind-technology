@@ -28,7 +28,7 @@ content={
         'save 900 1 (900秒内至少有一个键被更改)'
     ]},
     {'快照过程':[
-        'bgsave：fork函数（创建子进程）+cow函数（使用写时复制copy-on-write策略）:',
+        'save/bgsave：fork函数（创建子进程）+cow函数（使用写时复制copy-on-write策略）:',
         '父子进程共享数据段，父进程继续提供读写服务，写脏的页面数据会逐渐和子进程分离开来',
         'rdbSave(生成RDB文件)',
         'rdbLoad（从文件加载内存）'

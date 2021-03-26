@@ -51,20 +51,7 @@ content={
     'id自增',
     '缓存：四级地址',
     '分布式锁'
-]
-'主键失效和淘汰策略':[
-    '适用场景:去重、赞、踩、共同好友',
-    '内部使用值为空的散列表实现',
-    '增加/删除元素:sadd key member1 member2',
-    'srem key member1 member2',
-    '获得集合中的所有元素:smembers key'
-],
-'Redis分布式锁':[
-
-]
-
-
-    
+]  
 }
 
 #构建xmind

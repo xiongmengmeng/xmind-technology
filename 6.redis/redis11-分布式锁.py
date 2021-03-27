@@ -30,9 +30,34 @@ content={
     '判断是否获取锁:判断有序节点中序号最小的一个',
     '释放锁：将瞬时节点删除'
 ],
-'redis锁':[
+'redis实现一个分布式锁(不可重入)':[
+    {'加锁':[
+        '给Key键设置一个值，为避免死锁，并给定一个过期时间',
+        '命令执行成功，则证明客户端获取到了锁',
+        {'SET lock_key random_value NX PX 5000':[
+            'random_value:客户端生成的唯一的字符串',
+            'NX:只在键不存在时，才对键进行设置操作',
+            'PX 5000:设置键的过期时间为5000毫秒'
+        ]}
+    ]},
+    {'解锁':[
+        '当客户端id为random_value，删除key',
+        {'1.lua脚本':[
+            'if redis.call("get",KEYS[1]) == ARGV[1] then ',
+            '   return redis.call("del",KEYS[1]) ',
+            'else',
+            '   return 0 ',
+            'end',
+        ]},
+        '2.jedis.eval来执行上段LUA'
+    ]}
+],
+'redisson实现分布式锁':[
     '引入redisson',
-    '获取锁实例，回的是一个RedissonLock对象：RLock lock = client.getLock("lock1");',
+    {'获取锁实例':[
+        'RLock lock = client.getLock("lock1")',
+        '返回一个RedissonLock对象'
+    ]},
     {'加锁':[
         'boolean lockStatus = lock.tryLock();',
         {'redis内部加锁逻辑':[

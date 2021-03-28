@@ -27,7 +27,7 @@ content={
     '当节点被一个Sentinel节点记为主观下线时，节点未必一定故障（可能有网络问题）',
     '还需要Sentinel集群的其他Sentinel节点共同判断为主观下线才行',
     '该Sentinel节点会询问其他Sentinel节点，如过半数节点认为该redis节点主观下线，则该redis客观下线',
-    '始故障转移，从从节点中选举一个节点升级为主节点'
+    '开始故障转移，从从节点中选举一个节点升级为主节点'
 ],
 'Sentinel集群选举Leader':[
     '当一个Sentinel节点确认redis集群的主节点主观下线后，会请求其他Sentinel节点要求将自己选举为Leader',

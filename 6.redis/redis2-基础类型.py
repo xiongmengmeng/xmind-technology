@@ -29,7 +29,8 @@ content={
         '分布式锁'
     ]},
     '赋值：set key value',
-    '取值：get key'
+    '取值：get key',
+    '一个字符串类型键允许存储数据的最大容量是512 MB'
 ],
 '散列类型hash':[
     {'数据结构':[
@@ -87,22 +88,9 @@ content={
 '特殊类型':[
     'bitmaps，GEO，hyperLogLog'
 ],
-'数据结构':[
-    'Redis的键值都使用redisObject结构体保存',
-    {'redisObject':[
-        'refcount：键值被引用数量',
-        'type字：键值的数据类型',
-        'encoding：键值的内部编码方式',
-        'lru: lru time',
-        'ptr:指向sdshdr类型的变量的地址'
-    ]},
-    {'sdshdr类型的变量':[
-        '来存储字符串',
-        'len：字符串的长度',
-        'free：buf中的剩余空间',
-        'buf：字符串的内容'
-    ]}
-],
+'bitmap 位图':[
+    ''
+]
 'LUA脚本':[
     '减少网络开销（一个脚本只发送一个请求）',
     '原子操作',

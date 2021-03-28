@@ -37,6 +37,19 @@ content={
         '4.比较S’是否等于T’，等于则表明证书可信'
     ]}
 ],
+'GET和POST请求':[
+    {'区别':[
+        {'post发送的数据更大':[
+            'GET参数通过URL传递，POST放在Request body中',
+            '浏览器和web服务器限制了URL的长度 ',
+        ]},
+        {'post比get慢 ':[
+            'GET产生一个TCP数据包；POST产生两个TCP数据包',
+            'GET:浏览器会把http header和data一并发送出去，服务器响应200（返回数据）',
+            'POST:浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）'
+        ]}
+    ]}
+],
 '学习':[
     'https://zhuanlan.zhihu.com/p/43789231'
 ]

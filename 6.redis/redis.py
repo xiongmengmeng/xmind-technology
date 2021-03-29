@@ -23,8 +23,12 @@ content={
     '有序集合类型'
 ],
 '其它数据类型':[
-    '',
-    ''
+    'bitmap',
+    'Geospatial',
+    'Hyperloglog'
+],
+'数据结构':[
+    'redisObject'
 ],
 'LUA脚本':[],
 '过期删除策略':[

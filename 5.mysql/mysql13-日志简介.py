@@ -35,7 +35,12 @@ content={
 'binlog':[
     'Server 层的日志',
     '逻辑日志：记录语句的原始逻辑',
-    'sync_binlog=1,每次事务的 binlog 都持久化到磁盘,保证异常重启之后 binlog 不丢失'
+    'sync_binlog=1,每次事务的 binlog 都持久化到磁盘,保证异常重启之后 binlog 不丢失',
+    {'binlog的几种录入格式':[
+        'statement:记录单元为语句',
+        'row:记录单元为每一行的改动',
+        'mix:普通操作使用statement记录,当无法使用statement的时候使用row'
+    ]}
 ],
 '两阶段提交':[
     'redo log 的写入：prepare 和 commit',

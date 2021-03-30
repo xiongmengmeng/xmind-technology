@@ -7,13 +7,18 @@ from xmind.core.markerref import MarkerId
 xmind_name="mysql"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("表空间回收")
+s2.setTitle("表")
 r2=s2.getRootTopic()
-r2.setTitle("表空间回收")
+r2.setTitle("表")
 
 
 content={
-'数据库表的空间回收':[
+'表复制':[
+    'mysqldump 命令将数据导出成一组 INSERT 语句',
+    '导出 CSV 文件+load data 命令将数据导入到目标表',
+    '物理拷贝方法'
+],
+'表空间回收':[
     '现象：表数据删掉一半，表文件大小不变',
     '一个InnoDB表包含两部分:表结构定义+数据',
     {'innodb_file_per_table':[
@@ -34,7 +39,7 @@ content={
         ]},
         {'退化成读锁原因':[
             '实现Online DDL',
-            '不直接解锁,禁止其他线程对这个表同时做 DDL'
+            '不直接解锁,禁止其他线程对这个表同时做DDL'
         ]},
         {'Online DDL':[
             '最耗时是拷贝数据到临时表',
@@ -44,12 +49,24 @@ content={
 
     ]}
 ],
-'误删数据后恢复':[
-    '1.误删行：Flashback 工具，修改binlog（格式为row）内容，拿回原库执行',
-    'delete 全表很慢，会生成回滚日志、写 redo、写 binlog。从性能考虑，优先使用truncate table或drop table',
-    '2.误删库/表:全量备份+增量日志',
-    '加速的方法：在用备份恢复出临时实例之后，将临时实例设置成线上备库的从库',
-    '3.rm 删除数据：备份跨机房，或者最好是跨城市保存',
+'数据误删后恢复':[
+    {'1.误删行':[
+        'Flashback 工具，修改binlog（格式为row）内容，拿回原库执行',
+        'delete 全表很慢，会生成回滚日志、写 redo、写 binlog',
+        '从性能考虑，优先使用truncate table或drop table',
+        {'drop、delete、truncate的区别':[
+            'drop:删表',
+            'delete:只删数据，删除操作作为事务记录在日志中，可进行回滚',
+            'truncate:一次性删除表中所有的数据,无操作记录日志，不能恢复'
+        ]},
+    ]},
+    {'2.误删库/表':[
+        '全量备份+增量日志',
+        '加速方法：在用备份恢复出临时实例之后，将临时实例设置成线上备库的从库'
+    ]},
+    {'3.rm 删除数据':[
+        '备份跨机房，或者最好是跨城市保存'
+    ]},
     {'预防误删库/表':[
         '1.账号分离:开发DML权限，运维平时只读，必要时才更新',
         '2.制定操作规范：删表先改名，再在平台操作'

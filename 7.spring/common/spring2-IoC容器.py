@@ -39,7 +39,8 @@ content={
     ]},
     {'DisposableBean':[
         'destroy 方法，在 bean 的销毁阶段被触发，该方法的作用基本等同于destroy-method，主用用于执行销毁相关操作'
-    ]}
+    ]},
+    '学习：https://blog.csdn.net/lzb348110175/article/details/106071906'
 ],
 'Spring中如何让两个bean按顺序加载':[
     '1.使用 @DependsOn、depends-on',

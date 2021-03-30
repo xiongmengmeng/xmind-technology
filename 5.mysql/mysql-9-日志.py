@@ -13,27 +13,42 @@ r2.setTitle("mysql-log2")
 
 
 content={
-'1.数据恢复':[
-    '两阶段提交简图：写redo log(prepare)--A--->bingo--B--->redo log(commit)',
-    'A状态：发生crash，此时 binlog 还没写，redo log 也没提交，崩溃恢复时，事务会回滚',
-    {'B状态':[
-        '如redo log里事务是完整的(有commit标识）,直接提交',
-        {'如redo log里事务有完整prepare，判断事务binlog是否完整':[
-            '是，提交事务（保证主备一致）',
-            '否则，回滚事务'
+'刷脏页':[
+    {'脏页':[
+        '内存跟磁盘数据页内容不一致的时候，内存页为脏页'
+    ]},
+    {'干净页':[
+        '内存数据写入到磁盘，内存和磁盘数据页内容一致'
+    ]},
+    '更新操作:平时执行很快，主要是写内存和日志',
+    'MySQL偶尔抖动瞬间->可能在刷脏页（flush）',
+    {'flush触发条件':[
+        '1.redo log写满了,停止所有更新操作，将checkpoint往前推进',
+        '2.系统内存不足：需新的内存页，要淘汰些数据页，如淘汰的是脏页，要先将脏页写到磁盘',
+        '3.MySQL 认为系统“空闲”的时候',
+        '4.MySQL 正常关闭时'
+    ]},
+    {'内存页三种状态':[
+        'InnoDB 用缓冲池（buffer pool）管理内存',
+        '1.还没有使用的',
+        '2.使用了并且是干净页',
+        '3.使用了并且是脏页'
+    ]},
+    {'刷脏页的控制策略':[
+        {'刷盘速度':[
+            'innodb_io_capacity:告诉InnoDB主机的IO能力',
+            '建议设置成磁盘的IOPS'
+        ]},
+        {'刷盘条件':[
+            '脏页比例(不要让它经常接近 75%)',
+            'redo log 写盘速度'
+        ]},
+        {'刷盘方式':[
+            'innodb_flush_neighbors=0：只刷自己，不带邻居'
         ]}
-    ]},
-    'redo log 和 binlog通过XID关联',
-    {'一个事务的binlog格式':[
-        'statement格式 : 最后有COMMIT',
-        'row格式 : 最后有一个XID event'
-    ]},
-    'binlog:不能支持崩溃恢复(没有能力恢复“数据页”)',
-    'redo log:系统是 crash-safe,但无法归档（mysql高可用依赖binlogo）',
-    '数据落盘与redo log无关：它没有记录数据页的完整数据，没有能力更新磁盘数据页',
-    'redo log buffe：一块内存，用来存redo logo日志的,执行commit 语句，把它写入redo log文件'
-],
-'2.binlog写盘':[
+    ]}
+],   
+'binlog写盘':[
     'binlog cache:系统分配内存，每个线程一个（binlog_cache_size控制单线程内binlog cache大小），如超过，存到磁盘',
     {'binlog 的写入机制':[
         '事务执行过程，先把日志写到 binlog cache',
@@ -50,7 +65,7 @@ content={
         'sync_binlog=N的风险：如果主机发生异常重启，会丢失最近 N 个事务的 binlog 日志'
     ]}
 ],
-'3.redo log写盘':[
+'redo log写盘':[
     {'存储状态':[
         '1.存在 redo log buffer 中，物理上是在 MySQL 进程内存中',
         '2.写到磁盘 (write)，但是没有持久化（fsync)，物理上是在文件系统的page cache里',
@@ -72,7 +87,7 @@ content={
         '一个事务完整提交前，需要等待两次刷盘，一次是 redo log（prepare 阶段），一次是 binlog'
     ]}
 ],
-'4.细节':[
+'细节':[
     '日志逻辑序列号LSN:单调递增，用来对应redo log的一个个写入点',
     '每次写入长度为length的redo log，LSN值就会加上 length',
     {'两阶段提交细化':[

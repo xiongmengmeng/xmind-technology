@@ -15,8 +15,12 @@ r2.setTitle("mysql-事务")
 content={
 '概述':[
     '事务支持：引擎层实现',
-    'ACID（Atomicity、Consistency、Isolation、Durability)',
-    '原子性、一致性、隔离性、持久性',
+    {'ACID':[
+        'Atomicity:原子性，指操作是不可分割的',
+        'Consistency:一致性，指一起成功，一起失败',
+        'Isolation:隔离性，指不会被其他影响',
+        'Durability:持久性，指每次操作都是已经执行了，已经持久化到磁盘的',
+    ]}
 ],
 '隔离性':[
     {'读未提交':[

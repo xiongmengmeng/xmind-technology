@@ -25,11 +25,21 @@ content={
     ]},
     {'extra':[
         'Using index:使用了覆盖索引,不用回表',
-        'Using Where:使用where过滤条件',
+        'Using Where:全表扫描，或者使用了索引但要回表',
         'Using filesort:需要排序，但无法利用索引完成排序，给线程分配一块内存(sort_buffer)用于排序',
         'Using temporary:使用临时表来保存中间结果，常见于排序OrderBy 和分组查询GroupBy',
         'Using Join Buffer:使用了连接缓存（join太多表，配置文件里面的JoinBuffer值可调大一点',
         'Using MRR:用上了 MRR 优化'
+    ]},
+    {'分析':[
+        '看是否使用索引：是否使用了想要的索引(查询条件尽量在索引上)',
+        '索引长度：确定使用了索引中的几个字段',
+        '看rows扫描行数是否太多',
+        {'看是否使用了临时表，join_buffer，sort_buffer等额外空间':[
+            '排序条件尽量在索引上:参与排序的列越少越好，多了要使用fileSort',
+            '避免回表，避免多次回表',
+        ]},
+        '一张表的索引不能太多:影响新增与更新的性能',
     ]}
     ],
 'count(*)':[

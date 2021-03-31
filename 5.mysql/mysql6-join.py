@@ -14,6 +14,7 @@ r2.setTitle("join")
 
 content={
 'join基础':[
+    'inner交集，left左边表的全集，right右边表的全集，outer并集',
     {'驱动表':[
         '主动发起查询的表',
     ]},

@@ -7,47 +7,12 @@ from xmind.core.markerref import MarkerId
 xmind_name="mysql"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("mysql-log2")
+s2.setTitle("日志写盘")
 r2=s2.getRootTopic()
-r2.setTitle("mysql-log2")
+r2.setTitle("日志写盘")
 
 
 content={
-'刷脏页':[
-    {'脏页':[
-        '内存跟磁盘数据页内容不一致的时候，内存页为脏页'
-    ]},
-    {'干净页':[
-        '内存数据写入到磁盘，内存和磁盘数据页内容一致'
-    ]},
-    '更新操作:平时执行很快，主要是写内存和日志',
-    'MySQL偶尔抖动瞬间->可能在刷脏页（flush）',
-    {'flush触发条件':[
-        '1.redo log写满了,停止所有更新操作，将checkpoint往前推进',
-        '2.系统内存不足：需新的内存页，要淘汰些数据页，如淘汰的是脏页，要先将脏页写到磁盘',
-        '3.MySQL 认为系统“空闲”的时候',
-        '4.MySQL 正常关闭时'
-    ]},
-    {'内存页三种状态':[
-        'InnoDB 用缓冲池（buffer pool）管理内存',
-        '1.还没有使用的',
-        '2.使用了并且是干净页',
-        '3.使用了并且是脏页'
-    ]},
-    {'刷脏页的控制策略':[
-        {'刷盘速度':[
-            'innodb_io_capacity:告诉InnoDB主机的IO能力',
-            '建议设置成磁盘的IOPS'
-        ]},
-        {'刷盘条件':[
-            '脏页比例(不要让它经常接近 75%)',
-            'redo log 写盘速度'
-        ]},
-        {'刷盘方式':[
-            'innodb_flush_neighbors=0：只刷自己，不带邻居'
-        ]}
-    ]}
-],   
 'binlog写盘':[
     'binlog cache:系统分配内存，每个线程一个（binlog_cache_size控制单线程内binlog cache大小），如超过，存到磁盘',
     {'binlog 的写入机制':[

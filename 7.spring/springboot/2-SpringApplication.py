@@ -5,7 +5,7 @@ sys.path.insert(0,parentdir)
 
 import xmind
 from xmind.core.markerref import MarkerId
-xmind_name="springMVC"
+xmind_name="springboot"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
 s2.setTitle("SpringApplication")
@@ -29,7 +29,8 @@ content={
 ],
 'ServletWebServerApplicationContext的onRefresh()':[
     {'createWebServer()':[
-        {'ServletWebServerFactory factory = getWebServerFactory()':[
+        '1.ServletWebServerFactory factory = getWebServerFactory():',
+        {'详细':[
             '实际返回TomcatServletWebServerFactory',
             {'加载TomcatServletWebServerFactory':[
                 'org.springframework.boot.autoconfigure.EnableAutoConfiguration=',
@@ -40,7 +41,8 @@ content={
                 ]}
             ]}
         ]},
-        {'this.webServer = factory.getWebServer(getSelfInitializer())':[
+        '2.this.webServer = factory.getWebServer(getSelfInitializer())',
+        {'详细':[
             {'factory.getWebServer(...)':[
                 '实现类：org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory',
                 {'1.创建了Tomcat实例作为webServer的内部实现':[

@@ -5,7 +5,7 @@ sys.path.insert(0,parentdir)
 
 import xmind
 from xmind.core.markerref import MarkerId
-xmind_name="springMVC"
+xmind_name="springboot"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
 s2.setTitle("DispatcherServletRegistrationBean")
@@ -46,8 +46,8 @@ content={
 ],
 '加载DispatcherServletRegistrationBean':[
     'spring-boot-autoconfigure/META-INF/spring.factories:',
-    'org.springframework.boot.autoconfigure.EnableAutoConfiguration=\',
-    'org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration,\',
+    'org.springframework.boot.autoconfigure.EnableAutoConfiguration=',
+    'org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration,',
     {'DispatcherServletAutoConfiguration ':[
         '将DispatcherServletRegistrationBean 当作一个Bean注册到容器',
     ]}
@@ -66,7 +66,7 @@ content={
     '成员变量：ServletContextInitializer[] initializers'
     '实现ServletContainerInitializer接囗，重写onStartup()方法：',
     '调用所有注入的initializers的onStartup方法',
-],
+]
 
 }
 

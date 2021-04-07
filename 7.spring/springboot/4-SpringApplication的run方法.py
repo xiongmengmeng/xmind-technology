@@ -59,8 +59,12 @@ content={
         '其中一个重要的监听器 ConfigFileApplicationListener 就是加载项目配置文件的监听器',
         'listeners.environmentPrepared(environment);'
     ]}
-
 ],
+'初始化应用上下文---createApplicationContext()':[
+    {'如果是web项目，初始化容器AnnotationConfigServletWebServerApplicationContext':[
+        '属性beanFactory就是IoC容器（DefaultListableBeanFactory）'
+    ]}
+]
 
 }
 

@@ -29,22 +29,24 @@ content={
 'ConfigurableListableBeanFactory接口':[
     '增加指定忽略类型和接口'
 ],
-'AutowireCapableBeanFactory接口':[
-    'autowireBean():自动注入bean',
-    'createBean():创建bean()',
-    'initializeBean():初始化bean'
-],
 'AbstractBeanFactory抽象类':[
     '常用注解@Autowired @Resource(name = "xxx")一个是按类查找，一个是按名获取,通过以下方法实现',
     'getBean(String name):实现了BeanFactory中定义的方法',
     'getBean(String name, Class<T> requiredType):实现了BeanFactory中定义的方法'
 ],
-'AbstractAutowireCapableBeanFactory抽象类':[
-    '实现了AutowireCapableBeanFactory接口定义的方法',
-    '在此基础上通过继承AbstractBeanFactory具备了操作Bean的能力'
+'AutowireCapableBeanFactory接口':[
+    'autowireBean():自动注入bean',
+    'createBean():创建bean()',
+    'initializeBean():初始化bean'
 ],
-'AbstractAutowireCapableBeanFactory 抽象类':[
-    '实现了Bean的创建方法',
+'AbstractAutowireCapableBeanFactory抽象类':[
+    '继承AbstractBeanFactory具备了操作Bean的能力(getBean())'
+    {'实现AutowireCapableBeanFactory接口':[
+        '重写autowireBean():自动注入bean',
+        '重写createBean():创建bean()',
+        '重写initializeBean():初始化bean'
+    ]},
+    '即实现了Bean的创建方法',
     '完成了一个Bean从createBean()==>createInstance()==>init(invokeInitMethods())的所有工作'
 ],
 'DefaultListableBeanFactory ':[

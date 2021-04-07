@@ -71,30 +71,6 @@ content={
         'poolNumber：静态的原子变量，统计线程工厂的个数',
         'threadNumber：记录每个线程工厂创建了多少线程'
     ]}
-],
-'四种线程池':[
-    {'FixedThreadExecutor':[
-        '固定数量线程池,比较常用',
-        '核心线程和最大线程个数都为nThreads',
-        '阻塞队列LinkedBlockingQueue长度为Integer.MAX_VALUE',
-        'keeyAliveTime=0：线程个数比核心线程个数多并且当前空闲则回收'
-    ]},
-    {'CachedThreadExecutor':[
-        '缓存线程池,比较常用',
-        '按需创建线程的线程池，初始线程个数为0，最多线程个数为Integer.MAX_VALUE',
-        '阻塞队列为同步队列,最多只有一个任务,加入同步队列的任务会被马上执行',
-        'keeyAliveTime=60=:当前线程在60s内空闲则回收'
-    ]},
-    {'SingleThreadExecutor':[
-        '固定数量线程池,比较常用',
-        '核心线程和最大线程个数都为1',
-        '阻塞队列长度为Integer.MAX_VALUE',
-        'keeyAliveTime=0：线程个数比核心线程个数多并且当前空闲则回'
-    ]}, 
-    {'ScheduledThreadExecutor':[
-        '定时调度线程池,一般很少使用'
-    ]},
-    'ThreadPoolExecutor:自定义线程池'
 ]
 }
 

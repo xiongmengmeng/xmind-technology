@@ -87,41 +87,6 @@ content={
         '尝试设置线程池状态为TERMINATED',
         '判断当前线程池里面线程个数<核心线程个数，如果是则新增一个线程',
     ]}
-],
-'ScheduledThreadPoolExecutor':[
-    '可指定一定延迟时间后或定时进行任务调度执行的线程池',
-    {'类图':[
-        'DelayedWorkQueue:一个延迟的线程池队列，其和DelayedQueue类似',
-        'period:任务的类型，0：一次性，负数：fixed-delay任务，正数：fixed-rate任务',
-        'ScheduledFutureTask:继承自FutureTask,具有返回值的任务',
-        {'ScheduledFutureTask':[
-            'state:用来表示任务的状态，一开始状态为NEW',
-            'callable'
-        ]}
-    ]},
-    {'period=0':[
-        'schedule(Runnable command,long delay,TimeUnit unit)',
-        '提交一个延迟执行的任务',
-        '任务从提交时间算起延迟单位为unit的delay时间后开始执行',
-        '任务只会执行一次',
-    ]},
-    {'period 负数':[
-        'scheduleWithFixedDelay(Runnable command,long initialDelay,long delay,TimeUnitunit)',
-        '当任务执行完毕后，让其延迟固定时间后再次运行（fixed-delay任务）',
-        'initialDelay:提交任务后延迟多少时间开始执行任务command',
-        'delay:当任务执行完毕后延长多少时间后再次运行command任务',
-        'unit:initialDelay和delay的时间单位',
-        {'过程':[
-            '当添加一个任务到延迟队列后，等待initialDelay时间，任务过期从队列移除，并执行',
-            '执行完毕，重新设置任务的延迟时间，再把任务放入延迟队列，循环往复'
-        ]}
-    ]},
-    {'period 正数':[
-        'scheduleAtFixedRate(Runnable command,long initialDelay,long period,TimeUnitunit)',
-        '同上',
-        '时间为initdelday+n*period时启动任务',
-        '如当前任务没执行完，下一次任务时间到了，不会并发执行，而要等到当前任务执行完毕后再执行'
-    ]}
 ]
 
 }

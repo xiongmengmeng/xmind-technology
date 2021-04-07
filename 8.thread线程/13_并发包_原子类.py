@@ -16,12 +16,14 @@ content={
 'LongAdder':[
     {'类结构':[
         '继承自Striped64类(内部维护着三个变量)',
-        'LongAdder的真实值：base的值+Cell数组里面所有Cell元素中的value值的累加',
         {'Striped64类':[
             '1.base:基础值，默认0',
             '2.cellsBusy:实现自旋锁，值有0和1，创建Cell元素，扩容或初始化Cell数组时',
             '使用CAS操作该变量保证同时只有一个线程可以进行其中之一的操作',
             '3.Cell数组:Cell里面有一个初始值为0的long型变量'
+        ]},
+        {'LongAdder的真实值':[
+            'base的值+Cell数组里面所有Cell元素中的value值的累加'
         ]},
         '线程争夺一个Cell原子变量失败,在其他Cell变量进行CAS尝试,增加了重试成功的可能',
     ]},
@@ -58,7 +60,7 @@ content={
     'LongAdder类是LongAccumulator的一个特例'
 ],
 'CopyOnWriteArrayList':[
-    '有一个array数组对象用来存放具体元素',
+    '一个array数组:存放具体元素',
     '写时复制的策略来保证list的一致性',
     '增删改的过程使用独占锁',
     '获取，遍历有弱一致性问题，看到的数据是快照',

@@ -7,9 +7,9 @@ from xmind.core.markerref import MarkerId
 xmind_name="thread"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("线程同步")
+s2.setTitle("CountDownLatch和CyclicBarrier")
 r2=s2.getRootTopic()
-r2.setTitle("线程同步")
+r2.setTitle("CountDownLatch和CyclicBarrier")
 
 
 content={
@@ -38,7 +38,10 @@ content={
         '委托sync调用了AQS的releaseShared方法',
         '1.调用sync实现的AQS的tryReleaseShared方法:使用CAS将计数器值减1,返回state是否为0',
         '2.如state==0,调用AQS的doReleaseShared方法来激活阻塞线程'
-    ]} 
+    ]},
+    {'应用':[
+        '多线程任务完成后，进行汇总合并'
+    ]}
 ],
 'CyclicBarrier':[
     '通过独占锁ReentrantLock(本质还是AQS)实现计数器原子性更新，并使用条件变量队列来实现线程同步',
@@ -54,37 +57,15 @@ content={
     {'await() ':[
         '1.获取独占锁lock，如parties=10，后面9个调用线程会调用await()方法阻塞',
         '2.第10个线程调用时，执行CyclicBarrier的任务，唤醒其他9个线程，重置CyclicBarrier'
-    ]}
-],
-'Semaphore':[
-    '初始化时可指定计数器一个初始值',
-    '不需知道需要同步的线程个数',
-    '只需同步的地方调用acquire方法时指定需要同步的线程个数',
-    {'acquire(int permits)':[
-        '调用了Sync的acquireSharedInterruptibly方法:',
-        '1.对中断进行响应(如当前线程被中断，抛出中断异常)',
-        '2.尝试获取信号量资源,调用tryAcquireShared方法,根据公平策略有两个版本',
-        {'详细':[
-            '获取当前信号量值（available）',
-            '减去需要获取的值（acquires）',
-            '得到剩余的信号量个数（remaining）',
-            '如剩余值<0:当前信号量个数满足不了需求，返回负数',
-            '如剩余值>0:使用CAS操作设置当前信号量值为剩余值，然后返回'
+    ]},
+    {'与CountDownLatch对比':[
+        {'CountDownLatch':[
+            '只有一次，阻塞主线程'
         ]},
-        '3.返回负数，当前线程会放入AQS的阻塞队列而被挂起'
-    ]},
-    {'release()':[
-        '把当前Semaphore对象的信号量值增加1',
-        '根据公平策略选择一个信号量个数能被满足的线程(AQS的阻塞队列中)进行激活'
-    ]},
-    '计数器不可自动重置，通过改变aquire方法参数可实现CycleBarrier的功能'
-],
-'线程同步':[
-    '1.wait、notify',
-    '2.join',
-    '3.CountDownLatch',
-    '4.CycleBarrier',
-    '5.Semaphore'
+        {'CyclicBarrier':[
+            '多次，阻塞子线程'
+        ]}
+    ]}
 ]
 
 

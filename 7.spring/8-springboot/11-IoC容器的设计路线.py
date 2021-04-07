@@ -40,7 +40,7 @@ content={
     'initializeBean():初始化bean'
 ],
 'AbstractAutowireCapableBeanFactory抽象类':[
-    '继承AbstractBeanFactory具备了操作Bean的能力(getBean())'
+    '继承AbstractBeanFactory具备了操作Bean的能力(getBean())',
     {'实现AutowireCapableBeanFactory接口':[
         '重写autowireBean():自动注入bean',
         '重写createBean():创建bean()',

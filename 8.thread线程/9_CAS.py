@@ -58,6 +58,14 @@ content={
 'Unsafe类':[
     '提供硬件级别的原子性操作',
     '类中的方法都是native方法，使用JNI方式访问本地C++实现库',
+    {'native方法':[
+        '本地方法',
+        '保存在动态链接库中，即.dll(windows系统)文件中，格式是各个平台专有的'
+    ]},
+    {'JNI':[
+        'Java Native Interface',
+        '提供了若干的API,实现Java与其它语言的通信'
+    ]},
     {'重要方法':[
         'long objectFieldOffset（Field field）：',
         '变量在所属类中的内存偏移地址',

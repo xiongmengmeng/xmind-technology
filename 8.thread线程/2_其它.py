@@ -7,7 +7,7 @@ from xmind.core.markerref import MarkerId
 xmind_name="thread"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("thread")
+s2.setTitle("线程基本概念")
 r2=s2.getRootTopic()
 r2.setTitle("线程基本概念")
 
@@ -25,8 +25,10 @@ content={
 ],
 '并行与并发':[
     '单核CPU下，线程串行执行',
-    '操作系统有一个组件叫做任务调度器，将cpu的时间片(15毫秒)分给不同的程序使用',
-    '由于cpu在线程间(时间片)的切换很快，感觉是同时运行的',
+    {'任务调度器':[
+        '将cpu的时间片(15毫秒)分给不同的程序使用',
+        '由于cpu在线程间(时间片)的切换很快，感觉是同时运行的'
+    ]},
     {'并发':[
         '线程轮流使用cpu,实际是串行的'
     ]},
@@ -51,9 +53,7 @@ content={
     ]}
 ],
 '非线程安全':[
-    '多个线程对同一个对象中的同一个实例变量进行操作->',
-    '出现值被更改、不同步的情况->',
-    '影响程序的执行流程',
+    '多个线程对同一个对象中的同一个实例变量进行操作->出现值被更改、不同步的情况->影响程序的执行流程',
     {'分类':[
         '成员变量：共享的,有读写操作的',
         '局部变量：引用对象逃离方法作用范围'
@@ -61,26 +61,36 @@ content={
     '线程安全包含原子性和可见性'
 ],
 'Timer定时器类':[
-    '1.Timer类：设置计划任务，TimeTask类：封闭计划任务',
-    '2.Schedule(TimeTask timeTask,Date time)在指定时间执行一次某任务',
-    '一个timer可运行多个TimeTask',
-    'TimeTask以队列方式一个一个被顺序执行',
-    '执行的时间可能跟预计不一致（单线程执行）',
-    '3.Schedule(TimeTask timeTask,Date firstTime,long period)',
-    '指定日期后，按指定间隔周期性无限循环地执行某一任务'
+    {'1.Timer类':[
+        '设置计划任务，TimeTask类：封闭计划任务'
+    ]},
+    {'2.Schedule(TimeTask timeTask,Date time)在指定时间执行一次某任务':[
+        '一个timer可运行多个TimeTask',
+        'TimeTask以队列方式一个一个被顺序执行',
+        '执行的时间可能跟预计不一致（单线程执行）'
+    ]},
+    {'3.Schedule(TimeTask timeTask,Date firstTime,long period)':[
+        '指定日期后，按指定间隔周期性无限循环地执行某一任务'
+    ]}
 ],
 '多线程下的单例':[
-    '立即加载：使用类时已将对象创建完毕，不存在线程安全问题',
-    '类加载的准备阶段为类变量分配空间，设初始值，初始化阶段为类变量赋值',
-    '延迟加载：兼顾效率与线程安全性，使用DCL双检查锁机制：volatile+synchronized',
-    'private volatile static MyObject myObject;'
-    '....'
-    'synchronized (MyObject.class) {',
-    '   if (object == null) {',
-    '       object = new MyObject();',
-    '   }',
-    '}',
-    '静态内置类实现:类加载的初始化阶段会执行类的静态语句块',
+    {'立即加载':[
+        '使用类时已将对象创建完毕，不存在线程安全问题',
+        '类加载的准备阶段为类变量分配空间，设初始值，初始化阶段为类变量赋值'
+    ]},
+    {'延迟加载':[
+        '兼顾效率与线程安全性，使用DCL双检查锁机制：volatile+synchronized',
+        'private volatile static MyObject myObject;'
+        '....',
+        'synchronized (MyObject.class) {',
+        '   if (object == null) {',
+        '       object = new MyObject();',
+        '   }',
+        '}',
+        {'静态内置类实现':[
+            '类加载的初始化阶段会执行类的静态语句块'
+        ]}
+    ]}
 ]
 }
 

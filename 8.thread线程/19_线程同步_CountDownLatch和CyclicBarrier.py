@@ -28,33 +28,54 @@ content={
         '5.当计数器值为0，当前线程调用AQS的doReleaseShared方法激活被阻塞线程'
     ]},
     {'await()':[
-        '委托sync调用AQS的acquireSharedInterruptibly方法',
+        {'内容':[
+            'sync.acquireSharedInterruptibly(1)',
+            '委托sync调用AQS的acquireSharedInterruptibly方法'
+        ]},
         '1.判断当前线程是否已被中断，若是抛异常',
-        '2.调用sync实现的tryAcquireShared查看计数器值是否为0',
-        '是,直接返回',
-        '否,调用AQS的doAcquireSharedInterruptibly方法让当前线程阻塞'
+        {'2.调用sync实现的tryAcquireShared查看计数器值是否为0':[
+            '是:直接返回',
+            '否:调用AQS的doAcquireSharedInterruptibly方法让当前线程阻塞'
+        ]}
     ]},
-    {'countDown() ':[
-        '委托sync调用了AQS的releaseShared方法',
-        '1.调用sync实现的AQS的tryReleaseShared方法:使用CAS将计数器值减1,返回state是否为0',
-        '2.如state==0,调用AQS的doReleaseShared方法来激活阻塞线程'
+    {'countDown()':[
+        {'内容':[
+            'sync.releaseShared(1)',
+            '委托sync调用了AQS的releaseShared方法'
+        ]},
+        '1.调用sync实现的AQS的tryReleaseShared方法:使用CAS将计数器值减1',
+        '2.判断state是否为0，如state==0,调用AQS的doReleaseShared方法来激活阻塞线程'
     ]},
     {'应用':[
         '多线程任务完成后，进行汇总合并'
     ]}
 ],
 'CyclicBarrier':[
-    '通过独占锁ReentrantLock(本质还是AQS)实现计数器原子性更新，并使用条件变量队列来实现线程同步',
-    '适合分段任务有序执行的场景,可让一组线程全部达到一个状态后再全部同时执行',
-    '回环:当所有等待线程执行完毕，并重置CyclicBarrier的状态后它可以被重用',
-    '屏障:线程调用await方法后被阻塞，所有线程都调用await方法后，线程们会冲破屏障，继续向下运行',
-    {'类图':[
-        'parties:记录线程个数，表示多少线程调用await后，所有线程才会冲破屏障',
-        'count:开始等于parties，当有线程调用await方法就递减1，count为0,所有线程都到了屏障点',
-        '使用两个变量：parties记录总的线程个数,count计数器值变为0后，将parties赋给count，进行复用',
-        'barrierCommand:任务'
+    '使用独占锁ReentrantLock(本质还是AQS)实现计数器原子性更新，并使用条件变量队列来实现线程同步',
+    {'适用场景':[
+        '适合分段任务有序执行的场景,可让一组线程全部达到一个状态后再全部同时执行'
     ]},
-    {'await() ':[
+    {'回环':[
+        '当所有等待线程执行完毕，并重置CyclicBarrier的状态后它可以被重用'
+    ]},
+    {'屏障':[
+        '线程调用await方法后被阻塞，所有线程都调用await方法后，线程们会冲破屏障，继续向下运行'
+    ]},
+    {'类图':[
+        {'使用两个变量':[
+            'parties记录总的线程个数,count计数器值变为0后，将parties赋给count，进行复用',
+            {'parties':[
+                '记录线程个数，表示多少线程调用await后，所有线程才会冲破屏障'
+            ]},
+            {'count':[
+                '开始等于parties，当有线程调用await方法就递减1，count为0,所有线程都到了屏障点'
+            ]}
+        ]},
+        {'barrierCommand':[
+            '任务'
+        ]}
+    ]},
+    {'await()':[
         '1.获取独占锁lock，如parties=10，后面9个调用线程会调用await()方法阻塞',
         '2.第10个线程调用时，执行CyclicBarrier的任务，唤醒其他9个线程，重置CyclicBarrier'
     ]},

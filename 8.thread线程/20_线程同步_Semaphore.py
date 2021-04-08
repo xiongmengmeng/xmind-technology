@@ -17,11 +17,13 @@ content={
     '初始化时可指定计数器一个初始值',
     '不需知道需要同步的线程个数',
     '只需同步的地方调用acquire方法时指定需要同步的线程个数',
-    {'acquire(int permits)---获得一个许可':[
-        '调用了Sync的acquireSharedInterruptibly方法:',
+    {'acquire(int permits)':[
+        '获得一个许可',
+        {'内容':[
+            '调用了Sync的acquireSharedInterruptibly方法'
+        ]},
         '1.对中断进行响应(如当前线程被中断，抛出中断异常)',
-        '2.尝试获取信号量资源,调用tryAcquireShared方法,根据公平策略有两个版本',
-        {'详细':[
+        {'2.尝试获取信号量资源,调用tryAcquireShared方法,根据公平策略有两个版本':[
             '获取当前信号量值（available）',
             '减去需要获取的值（acquires）',
             '得到剩余的信号量个数（remaining）',
@@ -30,7 +32,8 @@ content={
         ]},
         '3.返回负数，当前线程会放入AQS的阻塞队列而被挂起'
     ]},
-    {'release()---释放一个许可':[
+    {'release()':[
+        '释放一个许可',
         '把当前Semaphore对象的信号量值增加1',
         '根据公平策略选择一个信号量个数能被满足的线程(AQS的阻塞队列中)进行激活'
     ]},

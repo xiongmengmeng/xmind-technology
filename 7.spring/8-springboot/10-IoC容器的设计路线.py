@@ -39,6 +39,9 @@ content={
         '缓存提前暴露的对象',
         'bean name --> bean instance'
     ]}
+],
+'学习':[
+    'https://www.cnblogs.com/hello-shf/p/11057861.html'
 ]
 
 }

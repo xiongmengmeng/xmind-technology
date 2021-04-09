@@ -8,14 +8,13 @@ from xmind.core.markerref import MarkerId
 xmind_name="springboot"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("SpringApplication类的run方法")
+s2.setTitle("刷新应用上下文前的准备阶段")
 r2=s2.getRootTopic()
-r2.setTitle("SpringApplication类的run方法")
+r2.setTitle("刷新应用上下文前的准备阶段")
 
 
 content={
-'刷新应用上下文前的准备阶段':[
-    '实现方法：prepareContext()',
+'prepareContext()':[
     {'1.拿到启动类':[
         'Set<Object> sources = getAllSources()'
     ]},
@@ -40,6 +39,7 @@ content={
                         {'类路径扫描器':[
                             'this.scanner =new ClassPathBeanDefinitionScanner(registry)'
                         ]}
+                    ]}
                 ]},
             ]},
             {'2.将启动类加载到beanDefinitionMap':[
@@ -69,9 +69,8 @@ content={
         ]}
     ]}
 ]
-
-
 }
+
 
 #构建xmind
 xmind.build(content,r2)

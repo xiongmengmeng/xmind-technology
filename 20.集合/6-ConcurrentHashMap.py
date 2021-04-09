@@ -65,7 +65,7 @@ content={
 'table 扩容':[
     {'treeifyBin()':[
         {'tab的长度<MIN_TREEIFY_CAPACITY(默64)':[
-            '是：将数组长度扩大到原来的两倍,触发transfer，调整节点位置'，
+            '是：将数组长度扩大到原来的两倍,触发transfer，调整节点位置',
             '否：将链表转为红黑树'
         ]}
     ]},

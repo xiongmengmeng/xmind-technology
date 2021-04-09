@@ -60,19 +60,19 @@ content={
     ]},
     '线程安全包含原子性和可见性'
 ],
-'Timer定时器类':[
-    {'1.Timer类':[
-        '设置计划任务，TimeTask类：封闭计划任务'
-    ]},
-    {'2.Schedule(TimeTask timeTask,Date time)在指定时间执行一次某任务':[
-        '一个timer可运行多个TimeTask',
-        'TimeTask以队列方式一个一个被顺序执行',
-        '执行的时间可能跟预计不一致（单线程执行）'
-    ]},
-    {'3.Schedule(TimeTask timeTask,Date firstTime,long period)':[
-        '指定日期后，按指定间隔周期性无限循环地执行某一任务'
-    ]}
-],
+# 'Timer定时器类':[
+#     {'1.Timer类':[
+#         '设置计划任务，TimeTask类：封闭计划任务'
+#     ]},
+#     {'2.Schedule(TimeTask timeTask,Date time)在指定时间执行一次某任务':[
+#         '一个timer可运行多个TimeTask',
+#         'TimeTask以队列方式一个一个被顺序执行',
+#         '执行的时间可能跟预计不一致（单线程执行）'
+#     ]},
+#     {'3.Schedule(TimeTask timeTask,Date firstTime,long period)':[
+#         '指定日期后，按指定间隔周期性无限循环地执行某一任务'
+#     ]}
+# ],
 '多线程下的单例':[
     {'立即加载':[
         '使用类时已将对象创建完毕，不存在线程安全问题',

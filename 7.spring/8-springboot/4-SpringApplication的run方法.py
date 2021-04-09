@@ -61,9 +61,8 @@ content={
     ]}
 ],
 '初始化应用上下文---createApplicationContext()':[
-    {'如果是web项目，初始化容器AnnotationConfigServletWebServerApplicationContext':[
-        '属性beanFactory就是IoC容器（DefaultListableBeanFactory）'
-    ]}
+    '如果是web项目，初始化容器AnnotationConfigServletWebServerApplicationContext',
+    '属性beanFactory就是IoC容器（DefaultListableBeanFactory）'
 ]
 
 }

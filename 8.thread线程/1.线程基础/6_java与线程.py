@@ -3,12 +3,12 @@ parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0,parentdir) 
 
 import xmind
-xmind_name="jvm"
+xmind_name="thread"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("jvm_thread")
+s2.setTitle("Java与线程")
 r2=s2.getRootTopic()
-r2.setTitle("线程")
+r2.setTitle("Java与线程")
 
 
 content={

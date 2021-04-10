@@ -38,9 +38,18 @@ content={
 ],
 '原理':[
     {'synchronized（this）':[
-        '通过javap生成的字节码中包含monitorenter和monitorexit两个指令',
-        '进入锁时执行monitorenter指令：将lock对象markword置为monitor指针',
-        '退出锁时执行monitorexit指令：将lock对象markword重置，唤醒entrylist'
+        {'Javac编译后指令':[
+            'monitorenter和monitorexit',
+            '出现在同步块前后',
+            '指令有一个reference类型的参数指明锁定和解锁对象'
+        ]},
+        {'进入锁时执行monitorenter指令':[
+            '将lock对象markword置为monitor指针,锁的计数器值+1'
+        ]},
+        {'退出锁时执行monitorexit指令':[
+            '将lock对象markword重置，锁计数器值-1',
+            '计数器的值为0，锁被释放,唤醒entrylist'
+        ]}
     ]},
     {'synchronized 方法':[
         '相对普通方法，常量池中多了ACC_SYNCHRONIZED标示符,JVM根据标示符来实现方法同步',

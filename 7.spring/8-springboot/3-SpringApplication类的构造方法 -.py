@@ -66,7 +66,7 @@ content={
 ],
 'setListeners(...)':[
     '加载过程同上',
-    {'ApplicationListener ':[
+    {'ApplicationListener':[
         'spring的事件监听器，典型的观察者模式',
         '通过ApplicationEvent类和ApplicationListener接口，实现对spring容器全生命周期的监听，当然也可以自定义监听事件'
     ]}

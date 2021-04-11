@@ -71,17 +71,6 @@ content={
     {'没有继承AppClassLoader原因':[
         'AppClassLoader和ExtClassLoader都是Launcher的内部类，都是包访问路径权限'
     ]}
-],
-'ServiceLoader.load原理':[
-    '1.String fullName=PREFIX+service.getName():前缀+要查找的类的全限定名 ',
-    '2.configs=loader.getResources(fullName):使用ClassLoader的getResource方法查询资源',
-    '备：PREFIX = "META-INF/services/"'
-],
-'SPI机制':[
-    'Service Provider Interface:服务提供接口,jdk内置的一种服务发现机制',
-    '核心就是ClassLoader的getResource系列方法',
-    'jdk提供了一个工具类:ServiceLoader',
-    'Spring实现了自己的SPI机制:SpringFactoriesLoader'
 ]
 }
 

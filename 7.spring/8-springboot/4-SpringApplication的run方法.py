@@ -35,14 +35,14 @@ content={
         'afterRefresh(context, applicationArguments);'
     ]},
 ],
-'获取并启动监听器---getRunListeners(args)':[
+'1.获取并启动监听器---getRunListeners(args)':[
     'getSpringFactoriesInstances():',
     '获取META-INF/spring.factories中的指定key的value，然后实例化',
     'org.springframework.boot.SpringApplicationRunListener=',
     'org.springframework.boot.context.event.EventPublishingRunListener(Spring容器的启动监听器)',
     'listeners.starting():开启监听事件'
 ],
-'构造应用上下文环境---prepareEnvironment()':[
+'2.构造应用上下文环境---prepareEnvironment()':[
     {'上下文环境':[
         '计算机的环境',
         'Java环境',
@@ -60,7 +60,7 @@ content={
         'listeners.environmentPrepared(environment);'
     ]}
 ],
-'初始化应用上下文---createApplicationContext()':[
+'3.初始化应用上下文---createApplicationContext()':[
     '如果是web项目，初始化容器AnnotationConfigServletWebServerApplicationContext',
     '属性beanFactory就是IoC容器（DefaultListableBeanFactory）'
 ]

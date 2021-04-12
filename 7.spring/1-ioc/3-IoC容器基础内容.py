@@ -7,9 +7,9 @@ from xmind.core.markerref import MarkerId
 xmind_name="spring"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("IoC容器")
+s2.setTitle("IoC容器基础内容")
 r2=s2.getRootTopic()
-r2.setTitle("IoC容器")
+r2.setTitle("IoC容器基础内容")
 
 
 content={

@@ -25,15 +25,6 @@ content={
         'key不能重复，value可重复',
         '允许一条记录的key为Null,允许多条记录的value为Null',
     ]},
-    {'数据结构':[
-        '一个数组，然后数组中每个元素是一个单向链表',
-        {'Node的四个属性':[
-            'key',
-            'value',
-            'hash 值',
-            'Node<K,V> next:用于单向链表的next'
-        ]}
-    ]},
     {'参数':[
         {'capacity':[
             '当前数组容量，始终保持2^n',
@@ -48,9 +39,25 @@ content={
             '扩容的阈值，等于capacity*loadFactor'
         ]}
     ]},
-    {'覆写equals()和hashCode()注意':[
-        '相等的散列码未必是相等的对象',
-        '但相等的对象必须有相等的散列码',
+    {'哈希碰撞':[
+        '不同key经过hash函数计算出了相关的hash值',
+        '对map来说，不同key经过hash函数->模上数组的长度,计算出相同index',
+        {'两种解决方式)':[
+            {'Separate chaining':[
+                '在发生碰撞的那个桶后面再加一条“链”来存储',
+                '链表，红黑树（超过8）'
+            ]},
+            {'Open addressing':[
+                '顺序查找，如桶已经被占，按照“某种方式”继续找下一个没有被占的桶',
+            ]}
+        ]}
+    ]},
+    {'HashMap 中是如何保证元素的唯一性':[
+        'hashCode()+equals()',
+        {'覆写equals()和hashCode()注意':[
+            '相等的散列码未必是相等的对象',
+            '但相等的对象必须有相等的散列码',
+        ]},
     ]},
 ],
 'LinkedHashMap':[
@@ -68,7 +75,7 @@ content={
     ]}
 ],
 'Hashtable':[
-    '继承自Dictionary类',
+    # '继承自Dictionary类',
     '不允许null的键或值',
     'synchronized关键字，对方法加锁，即对对象加锁',
     '线程安全,并发度不如ConcurrentHashMap',

@@ -1,6 +1,7 @@
 import os,sys 
-parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
+parentdir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 sys.path.insert(0,parentdir) 
+
 
 import xmind
 from xmind.core.markerref import MarkerId
@@ -23,8 +24,8 @@ content={
     '使用类InheritableThreadLocal可在子线路中取得父线程继承下来的值'
 ],
 '应用场景':[
-    '2.SimpleDateFormat()的使用，它是线程不安全的，需要做数据隔离',
-    '2.shiro中的subject中，存储在Threadlocal，方便随时获取'
+    '1.SimpleDateFormat()的使用，它是线程不安全的，需要做数据隔离',
+    '2.shiro中的subject中，存储在Threadlocal，方便随时获取',
     '3.切换数据源',
     '4.全链路追踪中的traceId',
     '5.Spring采用Threadlocal的方式，保证单个线程中的数据库操作使用的是同一个数据库连接',

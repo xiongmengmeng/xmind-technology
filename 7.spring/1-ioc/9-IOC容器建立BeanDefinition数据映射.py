@@ -23,9 +23,18 @@ content={
         '这样就完成了定位的过程'
     ]},
     {'SpringBoot三种常规定位方式':[
-        '1.主类所在包',
+        {'1.主类所在包':[
+            {'@Component和@ComponentScan':[
+                '@Component标明哪个类被扫描进入Spring IoC容器',
+                '@ComponentScan标明采用何种策略去扫描装配Bean',
+                '配置项basePackages定义扫描的包名，没有定义的情况下，它只扫描当前包和其子包下的路径'
+            ]},
+        ]},
         '2.SPI扩展机制实现的自动装配（比如各种starter）',
-        '3.@Import注解指定的类'
+        '3.@Import注解指定的类',
+        {'备ssm的定位方式':[
+            '引入XML配置Bean:xml文件+@ImportResource，通过它可以引入对应的XML文件'
+        ]}
     ]}
 ],
 '2.BeanDefinition的载入':[

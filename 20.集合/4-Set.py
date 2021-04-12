@@ -20,7 +20,7 @@ content={
 ],
 'HashSet':[
     {'底层':[
-        '一个HashMap',
+        '采用 Hashmap 的 key 来储存元素',
         '哈希表'
     ]},
     {'特点':[
@@ -45,6 +45,7 @@ content={
 ],
 'LinkedHashSet':[
     {'底层':[
+        'HashSet + LinkedList 的结构',
         '一个链表:维护元素的插入顺序'
     ]},
     {'特点':[

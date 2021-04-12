@@ -17,8 +17,15 @@ content={
     '区别：是否处理差异化数据'
 ],
 '类加载器ClassLoader':[
-    'Class对象',
-    {'组成':[
+    {'三种':[
+        'BootstrapClassLoader',
+        'ExtClassLoader',
+        'AppClassLoader'
+    ]},
+    {'SPI':[
+        'ServiceLoader'
+    ]},
+    {'Class对象':[
         'Field',
         'Constructor',
         'Method'
@@ -51,9 +58,7 @@ content={
         'Driver',
         'DriverManager'
     ]},
-    'DataSource',
-
-    
+    'DataSource'
 ]
 }
 

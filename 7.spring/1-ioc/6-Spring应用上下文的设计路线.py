@@ -15,7 +15,7 @@ r2.setTitle("Spring应用上下文的设计路线")
 
 content={
 '上下文对容器不仅是扩展关系，更重要是持有关系，上下文是以属性形式持有了容器':[],
-'ApplicationContext ':[
+'ApplicationContext':[
     'MessageSource，支持不同的信息源。具备支持国际化的实现，为开发多语言版本的应用提供服务',
     'ResourcePatternResolver，访问数据源。具备了从不同地方得到Bean定义资源的能力，比如：xml，java config，注解等等',
     'ApplicationEventPublisher，发布事件。使应用上下文具备了事件机制。事件机制为Bean声明周期的管理提供了便利'

@@ -13,6 +13,7 @@ r2=s2.getRootTopic()
 r2.setTitle("SpringApplication类的构造方法")
 
 
+
 content={
 '构造方法':[
     {'推断应用类型':[
@@ -67,8 +68,13 @@ content={
 'setListeners(...)':[
     '加载过程同上',
     {'ApplicationListener':[
-        'spring的事件监听器，典型的观察者模式',
-        '通过ApplicationEvent类和ApplicationListener接口，实现对spring容器全生命周期的监听，当然也可以自定义监听事件'
+        'spring的事件监听器，典型的观察者模式,有10个',
+        'org.springframework.boot.context.FileEncodingApplicationListener',
+        'org.springframework.boot.context.config.ConfigFileApplicationListener',
+        'org.springframework.boot.context.config.DelegatingApplicationListener,',
+        'org.springframework.boot.context.logging.LoggingApplicationListener',
+        '通过ApplicationEvent类和ApplicationListener接口，实现对spring容器全生命周期的监听，当然也可以自定义监听事件',
+        
     ]}
 ]
 }

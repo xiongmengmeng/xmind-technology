@@ -1,6 +1,7 @@
 import os,sys 
-parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
+parentdir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 sys.path.insert(0,parentdir) 
+
 
 import xmind
 from xmind.core.markerref import MarkerId
@@ -65,7 +66,7 @@ content={
     {'内存屏障':[
         {'lock addl$0x0，(%esp)':[
             '相当于一个内存屏障（重排序时不能把后面的指令重排到内存屏障前)',
-        ]}
+        ]},
         {'写屏障':[
             '确保指令重排序时，不会将写屏障之前的代码排在写屏障之后'
         ]},

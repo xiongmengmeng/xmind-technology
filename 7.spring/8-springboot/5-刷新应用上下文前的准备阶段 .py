@@ -24,18 +24,20 @@ content={
             {'1.创建BeanDefinitionLoader':[
                 'createBeanDefinitionLoader(getBeanDefinitionRegistry(context), sources)',
                 {'getBeanDefinitionRegistry()':[
-                    '将前页创建的上下文强转为BeanDefinitionRegistry',
-                    'BeanDefinitionRegistry方法registerBeanDefinition()：',
-                    '将BeanDefinition注册进DefaultListableBeanFactory容器的beanDefinitionMap中'
+                    '将上下文context强转为BeanDefinitionRegistry',
                 ]},
             ]},
             {'2.将启动类加载到beanDefinitionMap':[
                 'loader.load()',
-                '主类按Class加载',
-                '主类封装成AnnotatedGenericBeanDefinition,注册进beanDefinitionMap'
+                '主类按Class加载,封装成AnnotatedGenericBeanDefinition',
+                '注册进beanDefinitionMap'
             ]}
         ]}
     ]}
+],
+'BeanDefinitionRegistry':[
+    '方法registerBeanDefinition()：',
+    '将BeanDefinition注册进DefaultListableBeanFactory容器的beanDefinitionMap中'
 ],
 'BeanDefinitionLoader':[
     '属性AnnotatedBeanDefinitionReader annotatedReader',

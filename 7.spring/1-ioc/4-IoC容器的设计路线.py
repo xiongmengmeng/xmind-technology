@@ -38,6 +38,12 @@ content={
     {'Map<String, Object> earlySingletonObjects':[
         '缓存提前暴露的对象',
         'bean name --> bean instance'
+    ]},
+    '实现SingletonBeanRegistry,重写getSingleton(String beanName)方法',
+    {'getSingleton(String beanName)':[
+        '从一级缓存中取，取不到',
+        '从二级缓存中取，还取不到',
+        '从三级缓存中取bean实例'
     ]}
 ],
 '学习':[

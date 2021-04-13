@@ -6,9 +6,9 @@ import xmind
 xmind_name="操作系统"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("")
+s2.setTitle("计算机组成")
 r2=s2.getRootTopic()
-r2.setTitle("")
+r2.setTitle("计算机组成")
 
 
 content={

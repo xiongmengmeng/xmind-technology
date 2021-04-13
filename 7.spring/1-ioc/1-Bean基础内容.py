@@ -30,6 +30,10 @@ content={
         '获取所有的名称（getBeanDefinitionNames）',
         '获取名片的个数（getBeanDefinitionCount）'
     ]},
+    {'实现类SimpleBeanDefinitionRegistry':[
+        '属性：Map<String, BeanDefinition> beanDefinitionMap',
+        '方法registerBeanDefinition：将BeanDefinition>加到beanDefinitionMap中'
+    ]}
 ],
 'Bean作用域':[
     'Singleton:所有spring应用，默认值，Ioc容器只存在单例',

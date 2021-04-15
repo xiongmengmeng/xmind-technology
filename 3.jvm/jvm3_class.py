@@ -6,18 +6,18 @@ import xmind
 xmind_name="jvm"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("jvm3_class")
+s2.setTitle("类加载")
 r2=s2.getRootTopic()
-r2.setTitle("jvm3_类加载")
+r2.setTitle("类加载")
 
 
 content={
 
-# '类的生命周期':[
-#     '加载（Loading）',
-#     '连接:验证（Verification）--准备（Preparation）--解析（Resolution）',
-#     '初始化（Initialization）->使用（Using）->卸载（Unloading）' 
-# ],
+'类的生命周期':[
+    '加载（Loading）',
+    '连接:验证（Verification）--准备（Preparation）--解析（Resolution）',
+    '初始化（Initialization）->使用（Using）->卸载（Unloading）' 
+],
 '加载':[
     {'三阶段':[
         '1.通过类的全限定名来获取定义此类的二进制字节流',

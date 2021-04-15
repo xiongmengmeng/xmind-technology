@@ -15,29 +15,54 @@ r2.setTitle("IoC容器的设计路线")
 
 content={
 'BeanDefinitionRegistry接口':[
-    'BeanDefinition的注册中心,使DefaultListableBeanFactory具备操作BeanDefinition的能力',
-    'registerBeanDefinition(String beanName, BeanDefinition beanDefinition):注册BeanDefinition的方法',
-    'removeBeanDefinition(String beanName):删除BeanDefinition的方法',
-    'BeanDefinition getBeanDefinition(String beanName):获取BeanDefinition的方法'
+    {'作用':[
+        'BeanDefinition的注册中心',
+        '使DefaultListableBeanFactory具备操作BeanDefinition的能力'
+    ]},
+    {'方法':[
+        {'registerBeanDefinition(String beanName, BeanDefinition beanDefinition)':[
+            '注册BeanDefinition的方法'
+        ]},
+        {'removeBeanDefinition(String beanName)':[
+            '删除BeanDefinition的方法'
+        ]},
+        {'BeanDefinition getBeanDefinition(String beanName)':[
+            '获取BeanDefinition的方法'
+        ]}
+    },
     '具体实现在DefaultListableBeanFactory中'
 ],
 'SingletonBeanRegistry接口':[
-    'registerSingleton(String beanName, Object singletonObject):单例Bean的注册接口',
-    'Object getSingleton(String beanName):定义获取单例的方法'
+    {'作用':[
+        '单例Bean的注册接口'
+    ]},
+    {'方法':[
+        {'registerSingleton(String beanName, Object singletonObject)':[
+            '单例Bean的注册接口'
+        ]},
+        {'Object getSingleton(String beanName)':[
+            '定义获取单例的方法'
+        ]}
+    ]}
 ],
 'DefaultSingletonBeanRegistry':[
-    '让IoC容器拥有作为“容器”的能力，最终存储单例（singleton）Bean的地方',
-    {'Map<String, Object> singletonObjects':[
-        '缓存单例对象',
-        'bean name --> bean instance'
+    {'作用':[
+        '存放三级缓存,解决循环依赖',
+        '让IoC容器拥有作为“容器”的能力，最终存储单例（singleton）Bean的地方',
     ]},
-    {'Map<String, ObjectFactory<?>> singletonFactories':[
-        '缓存单例工厂',
-        'bean name --> ObjectFactory'
-    ]},
-    {'Map<String, Object> earlySingletonObjects':[
-        '缓存提前暴露的对象',
-        'bean name --> bean instance'
+    {'参数':[
+        {'Map<String, Object> singletonObjects':[
+            '缓存单例对象',
+            'bean name --> bean instance'
+        ]},
+        {'Map<String, ObjectFactory<?>> singletonFactories':[
+            '缓存单例工厂',
+            'bean name --> ObjectFactory'
+        ]},
+        {'Map<String, Object> earlySingletonObjects':[
+            '缓存提前暴露的对象',
+            'bean name --> bean instance'
+        ]}
     ]},
     '实现SingletonBeanRegistry,重写getSingleton(String beanName)方法',
     {'getSingleton(String beanName)':[

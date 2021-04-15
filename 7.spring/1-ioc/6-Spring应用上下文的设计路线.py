@@ -28,12 +28,12 @@ content={
         {'invokeBeanFactoryPostProcessors(beanFactory)':[
             '在IoC容器中建立BeanDefinition数据映射'
         ]},
-        {'':[
-            ''
+        {'finishBeanFactoryInitialization(beanFactory)':[
+            '初始化bean'
         ]}
     }
 ],
-'GenericApplicationContext ':[
+'GenericApplicationContext':[
     '属性DefaultListableBeanFactory beanFactory'
 ],
 'AnnotationConfigServletWebServerApplicationContext':[

@@ -15,46 +15,95 @@ r2.setTitle("IoC容器的设计路线")
 
 content={
 'BeanFactory接口':[
-    '定义IoC容器的基本规范',
-    'getBean(String name):按名称的获取Bean'
+    {'作用':[
+        '定义IoC容器的基本规范',
+        '使DefaultListableBeanFactory具备操作BeanDefinition的能力'
+    ]},
+    {'方法':[
+        {'getBean(String name)':[
+            '按名称的获取Bean'
+        ]}
+    ]}
 ],
 'HierarchicalBeanFactory接口':[
-    'getParentBeanFactory():使BeanFactory具备了双亲IoC容器管理的功能'
+    {'方法':[
+        {'getParentBeanFactory()':[
+            '使BeanFactory具备了双亲IoC容器管理的功能'
+        ]}
+    ]}
 ],
 'ConfigurableBeanFactory接口':[
-    '提供了配置BeanFactory的各种方法',
-    'setParentBeanFactory():配置上面提到的双亲IoC容器',
-    'addBeanPostProcessor():配置Bean后置处理器'
+    {'作用':[
+        '提供了配置BeanFactory的各种方法',
+    ]},
+    {'方法':[
+        {'setParentBeanFactory()':[
+            '配置上面提到的双亲IoC容器'
+        ]},
+        {'addBeanPostProcessor()':[
+            '配置Bean后置处理器'
+        ]}
+    ]}
 ],
 'ConfigurableListableBeanFactory接口':[
-    '增加指定忽略类型和接口'
+    {'作用':[
+        '增加指定忽略类型和接口',
+    ]},
 ],
 'AbstractBeanFactory抽象类':[
-    '常用注解@Autowired @Resource(name = "xxx")一个是按类查找，一个是按名获取,通过以下方法实现',
-    'getBean(String name):实现了BeanFactory中定义的方法',
-    'getBean(String name, Class<T> requiredType):实现了BeanFactory中定义的方法'
+    {'作用':[
+        '常用注解@Autowired @Resource(name = "xxx")一个是按类查找，一个是按名获取,通过以下方法实现',
+    ]},
+    {'方法':[
+        {'getBean(String name)':[
+            '实现了BeanFactory中定义的方法'
+        ]},
+        {'getBean(String name, Class<T> requiredType)':[
+            '实现了BeanFactory中定义的方法'
+        ]}
+    ]}
 ],
 'AutowireCapableBeanFactory接口':[
-    'autowireBean():自动注入bean',
-    'createBean():创建bean()',
-    'initializeBean():初始化bean'
+    {'方法':[
+        {'autowireBean()':[
+            '自动注入bean'
+        ]},
+        {'createBean()':[
+            '创建bean()'
+        ]},
+        {'initializeBean()':[
+            '初始化bean'
+        ]}
+    ]}
 ],
 'AbstractAutowireCapableBeanFactory抽象类':[
-    '继承AbstractBeanFactory具备了操作Bean的能力(getBean())',
-    {'实现AutowireCapableBeanFactory接口':[
-        '重写autowireBean():自动注入bean',
-        '重写createBean():创建bean()',
-        '重写initializeBean():初始化bean'
+    {'作用':[
+        '实现了Bean的创建方法，完成了一个Bean从createBeanInstance()==>populateBean()==>initializeBean()的所有工作'
     ]},
-    '即实现了Bean的创建方法',
-    '完成了一个Bean从createBean()==>createInstance()==>init(invokeInitMethods())的所有工作'
+    '继承AbstractBeanFactory具备了操作Bean的能力(getBean())',
+    {'实现AutowireCapableBeanFactory接口,重写方法':[
+        {'autowireBean()':[
+            '自动注入bean'
+        ]},
+        {'createBean()':[
+            '创建bean()'
+        ]},
+        {'initializeBean()':[
+            '初始化bean'
+        ]}
+    ]},
 ],
 'DefaultListableBeanFactory ':[
-    '除以上父类所具有功能外,加入了对BeanDefinition的管理和维护',
-    {'Map<String, BeanDefinition> beanDefinitionMap':[
-        '缓存 beanName到BeanDefinition的映射关系',
-        'ean name --> BeanDefinition'
+    {'作用':[
+        '除以上父类所具有功能外,加入了对BeanDefinition的管理和维护'
     ]},
+    {'参数':[
+        {'Map<String, BeanDefinition> beanDefinitionMap':[
+            '缓存 beanName到BeanDefinition的映射关系',
+            'bean name --> BeanDefinition'
+        ]},
+    ]}
+
 ]
 
 

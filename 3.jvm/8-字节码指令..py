@@ -32,7 +32,7 @@ content={
     ]},
     {'baload、caload、saload、iaload、laload、faload、daload、aaload':[
         '把数组元素加载到操作数栈的指令'
-    ]}
+    ]},
     {'bastore、castore、sastore、iastore、fastore、dastore、aastore':[
         '将操作数栈的值储存到数组元素中的指令'
     ]},

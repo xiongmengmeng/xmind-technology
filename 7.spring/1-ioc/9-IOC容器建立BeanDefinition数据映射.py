@@ -48,7 +48,6 @@ content={
 ],
 '3.注册BeanDefinition':[
     '通过BeanDefinitionRegister接口的实现来完成',
-    '在IoC容器中将BeanDefinition注入到一个ConcurrentHashMap中，IoC容器就是通过这个HashMap来持有这些BeanDefinition数据的',
     '比如DefaultListableBeanFactory 中的beanDefinitionMap属性',
     
 ]

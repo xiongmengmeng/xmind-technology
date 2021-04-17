@@ -17,7 +17,12 @@ content={
 ],
 'JDK':[
     'Java Development Kit:Java开发工具包',
-    '提供给Java开发人员使用的，包含java开发工具和JRE',
+    {'三部分':[
+        'Java程序设计语言',
+        'Java虚拟机',
+        'Java类库'   
+    ]},
+    '支持Java程序开发的最小环境，包含java开发工具和JRE',
     {'目录结构和作用':[
         {'bin':[
             '一堆EXE可执行文件',
@@ -40,12 +45,26 @@ content={
         {'lib':[
             'Java 类库，如dt.jar、tools.jar',
         ]}
+    ]},
+    {'新版JDK特性':[
+        {'JDK 9':[
+            '开放Java语言级别的编译器接口（JVMCI）',
+            '使得在Java虚拟机外部增加、替换即时编译器成为可能'
+        ]},
+        {'JDK 10':[
+            '重构了Java虚拟机的垃圾收集器接口',
+            '统一了其内部各款垃圾收集器的公共行为'
+        ]}
     ]}
 ],
 'JRE':[
     'Java Runtime Environment:Java运行环境',
-    'JDK 的子集',
-    '提供了库、Java 虚拟机（JVM）和其他组件，用于运行Java编程语言、小程序、应用程序',
+    {'两部分':[
+        'Java类库API中的Java SE API子集',
+        'Java虚拟机'
+    ]},
+    '支持Java程序运行的标准环境',
+    'JDK 的子集:提供了库、Java 虚拟机（JVM）和其他组件，用于运行Java编程语言、小程序、应用程序',
     {'作用':[
         '一个运行在 CPU 上的程序，用于解释执行 Java 代码'
     ]},
@@ -63,7 +82,12 @@ content={
         'Client模式：加载速度较快,可用于运行GUI交互程序',
         'Server模式：加载速度较慢但运行起来较快,可用于运行服务器后台程序'
     ]},
-    'jvm.dll:在jre\bin\server目录下，解释class文件时需要调用jre\lib下类库'
+    'jvm.dll:在jre\bin\server目录下，解释class文件时需要调用jre\lib下类库',
+    {'高性能Java虚拟机':[
+        'HotSpot',
+        'JRockit',
+        'J9'
+    ]}
 ]
 }
 

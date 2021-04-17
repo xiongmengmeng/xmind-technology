@@ -63,7 +63,7 @@ content={
     '4.person添加到执行main()方法的主线程java调用栈中，指向堆中的内存对象',
     '5.执行person.sayHello()，JVM根据person定位到堆空间的Person实例',
     '6.根据Person实例定位到方法区Person类型信息，获得sayHello()字节码，执行'
-]},
+],
 '对象访问定位':[
     '通过栈上的reference数据来操作堆上的具体对象',
     {'两种方式':[

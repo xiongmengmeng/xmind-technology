@@ -6,23 +6,27 @@ import xmind
 xmind_name="jvm"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("Javac编译器")
+s2.setTitle("前端编译")
 r2=s2.getRootTopic()
-r2.setTitle("Javac编译器")
+r2.setTitle("前端编译")
 
 
 content={
-'分类':[
+'编译器分类':[
     {'前端编译器':[
-        '编译期的优化过程',
-        '很多Java语法新特性，是靠编译器的“语法糖”来实现',
-        '不依赖字节码或者Java虚拟机的底层改进'
+        '将源代码编译成字节码',
+        {'编译期的优化过程':[
+            '很多Java语法新特性，是靠编译器的“语法糖”来实现',
+            '不依赖字节码或者Java虚拟机的底层改进'
+        ]},
     ]},
-    {'后端编译器':[
+    {'后端编译器---及时编译器':[
+        '执行引擎的编译',
         '即时编译器在运行期的优化过程'
     ]}
 ],
 '编译入口(由Java语言编写的程序)':[
+    'Java源码编译器',
     'com.sun.tools.javac.main.JavaCompiler类的compile()方法'
 ],
 '编译过程':[

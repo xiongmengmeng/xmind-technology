@@ -42,20 +42,24 @@ content={
             '方法内部声明的局部变量'
         ]}
     ]},
+    '字段数量(field_count)',
     {'字段修饰符(access_flags)':[
         '一个u2的数据类型'
     ]},
-    '字段(name_index)索引',
-    {'字段(name_index)描述符':[
+    {'字段索引(name_index)':[
+        '对常量池的引用'
+    ]},
+    {'描述符索引(descriptorindex)':[
         '一项索引值,是对常量池项的引用',
         {'描述字段':[
-            '数据类型、方法参数列表（包括数量、类型以及顺序）和返回值'
+            '字段的数据类型、方法参数列表（包括数量、类型以及顺序）和返回值',
         ]},
-        '基本数据类型（byte,char,double,float,int,long,short,boolean）及void类型用一个大写字符表示',
-        '对象类型用字符L加对象的全限定名来表示'
-    ]}
+        '基本数据类型（8种）及void类型用一个大写字符表示，对象类型用字符L加对象的全限定名来表示'
+    ]},
+    '属性表集合（attributes）'
 ],
 '方法表集合':[
+    '方法表(method_info)'
     '标志（access_flags）',
     '名称索引（name_index）',
     {'描述符索引（descriptor_index）':[
@@ -69,7 +73,7 @@ content={
     ]},
     {'Code属性':[
         {'attribute_name_index':[
-            '一项指向CONSTANT_Utf8_info型常量的索引',
+            '指向CONSTANT_Utf8_info型常量(常量池里的)',
             '此常量值固定为“Code”，代表该属性的属性名称'
         ]},
         {'attribute_length':[

@@ -4,7 +4,7 @@ sys.path.insert(0,parentdir)
 
 import xmind
 from xmind.core.markerref import MarkerId
-xmind_name="java"
+xmind_name="jvm"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
 s2.setTitle("双亲委派模型")
@@ -28,6 +28,7 @@ content={
     'Java中的类随着它的类加载器一起具备了一种带有优先级的层次关系'
 ],
 '破坏模型':[
+    '1.SPI方式加载类/接囗的实现，如JNDI,JDBC',
     {'JDBC4.0后,用spi方式注册Driver':[
         'Connection connection = DriverManager.getConnection("jdbc://localhost:3306")',
         {'加载DriverManager类时，会执行静态块':[
@@ -49,7 +50,8 @@ content={
                 '启动类加载器加载'
             ]},
             {'Driver':[
-                '应用类加载器加载'
+                '应用类加载器加载',
+                'mysql-connector-java.jar下，使用spi的方式加载'
             ]},
             {'解决':[
                 '使用Thread.currentThread().getContextClassLoader()，获得上下文类加载器',
@@ -57,12 +59,12 @@ content={
             ]}
         ]}
     ]},
-    {'热部署':[
+    {'2.热部署':[
         '销毁自定义classloader(被该加载器加载的class也会自动卸载)',
         '更新class',
         '使用新的ClassLoader去加载class'
     ]},
-    {'自定义类加载器':[
+    {'3.自定义类加载器':[
         '符合双亲委派规范，重写findClass方法（用户自定义类加载逻辑）',
         '破坏:重写loadClass方法(双亲委派的具体逻辑实现)'
     ]},

@@ -16,7 +16,11 @@ content={
     '执行类构造器<clinit>()方法的过程(编译生成class文件时产生，类的初始化方法)',
     {'<clinit>()内容':[
         '所有类变量的赋值动作',
-        '静态语句块（static{}块）'
+        '静态语句块（static{}块）',
+        {'与构造器不同':[
+            '不需要显示地调用父类构造器',
+            '但jvm会保证子类调用方法<clinit>()前，调用父类的<clinit>()',
+        ]}
     ]},
     {'条件':[
         '1.遇到new、getstatic、putstatic或invokestatic这四条字节码指令时',
@@ -39,7 +43,18 @@ content={
     '类所有实例已被回收，即java堆中不存在该类的任何实例',
     '加载该类的ClassLoader已被回收',
     '类对应的java.lang.Class对象没有任何地方引用，无法通过反射访问该类方法'
-]
+],
+'类的生命周期':[
+    '加载（Loading）',
+    {'连接':[
+        '验证（Verification）',
+        '准备（Preparation）',
+        '解析（Resolution）'
+    ]},
+    '初始化（Initialization）',
+    '使用（Using）',
+    '卸载（Unloading）' 
+],
 }
 
 #构建xmind

@@ -76,7 +76,7 @@ content={
         '调用需要特殊处理的实例方法，包括实例初始化方法、私有方法和父类方法'
     ]},
     {'invokestatic':[
-        '调用类静态方法（static方法）'
+        '调用类静态方法（static方法,即类方法）'
     ]},
     {'invokedynamic指令':[
         '在运行时动态解析出调用点限定符所引用的方法'
@@ -86,7 +86,7 @@ content={
     'athrow'
 ],
 '同步指令':[
-    'monitorenter+monitorexit'
+    'monitorenter+monitorexit，支持synchronized'
 ]
 }
 

@@ -52,7 +52,7 @@ content={
     ]},
     '第5，6字节是次版本号（MinorVersion），第7，8字节是主版本号（Major Version）'
 ],
-'常量池':[
+'常量池cp_info':[
     'Class文件里的资源库，是Class文件结构中与其他项目关联最多的数据',
     {'分类':[
         {'字面量':[
@@ -61,12 +61,15 @@ content={
         ]},
         {'符号引用(包含三类常量)':[
             {'类和接口的全限定名':[
+                'CONSTANT_Class_info',
                 'org.springframework.....Bean'
             ]},
             {'字段的名称和描述符':[
+                'CONSTANT_Fieldref_info',
                 'private/public/protected'
             ]},
             {'方法的名称和描述符':[
+                'CONSTANT_Methodref_info',
                 'private/public/protected'
             ]},
         ]}

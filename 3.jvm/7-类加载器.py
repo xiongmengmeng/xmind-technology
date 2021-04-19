@@ -4,7 +4,7 @@ sys.path.insert(0,parentdir)
 
 import xmind
 from xmind.core.markerref import MarkerId
-xmind_name="java"
+xmind_name="jvm"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
 s2.setTitle("类加载器")

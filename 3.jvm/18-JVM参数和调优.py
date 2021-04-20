@@ -42,7 +42,7 @@ content={
             'Eden区满，Survivor满不会引发GC'
         ]}
     ]},
-    {'MajorGC':[
+    {'Major GC':[
         '老年代的GC',
         {'触发条件':[
             '老年代空间不足'

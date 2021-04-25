@@ -25,6 +25,7 @@ content={
     ]},
     {'put':[
         '1.执行hash(Object key)得到一个int类型的hash值,根据hash值找到Node节点的位置',
+        '(n - 1) & hash 即通过key的hash值来取对应的数组下标,并非是对table的size进行取余操作',
         {'table是否为空':[
             {'2.是':[
                 '表明这是第一个元素插入，使用resize()进行扩容，初始大小默认16',
@@ -62,6 +63,10 @@ content={
             'hash 值',
             'Node<K,V> next:用于单向链表的next'
         ]}
+    ]},
+    {'hash(Object key)':[
+        '(h = key.hashCode()) ^ (h >>> 16)',
+        'key的hashCode，将它的高16位与低16位做了一个异或操作'
     ]},
     {'put':[
         '1.执行hash(Object key)得到一个int类型的hash值,根据hash值找到Node节点的位置',

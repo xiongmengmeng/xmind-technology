@@ -27,7 +27,7 @@ content={
     ]},
     {'Channel、Handler、ChannelHandlerContext三者的关系':[
         'Channel通道拥有一条ChannelPipeline通道流水线'
-        '每一个流水线节点为一个ChannelHandlerContext通道处理器上下文对象'
+        '每一个流水线节点为一个ChannelHandlerContext通道处理器上下文对象',
         '每一个上下文中包裹了一个ChannelHandler通道处理器',
         '在ChannelHandler通道处理器的入站/出站处理方法中，Netty都会传递一个Context上下文实例作为实际参数',
         '通过Context实例的实参，在业务处理中，可以获取ChannelPipeline通道流水线的实例或者Channel通道的实例'

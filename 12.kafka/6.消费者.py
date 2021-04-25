@@ -84,6 +84,9 @@ content={
     {'fetch.max.wait.ms':[
         'Kafka的等待时间，默认值为500（ms）。如果Kafka中没有足够多的消息而满足不了fetch.min.bytes参数的要求，那么最终会等待500ms'
     ]} 
+],
+'实现代码':[
+    'https://www.cnblogs.com/liuming1992/p/6432626.html'
 ]
 }
 

@@ -70,9 +70,16 @@ content={
     'ProtobufVarint32FrameDecoder解码器',
     'ProtobufVarint32LengthFieldPrepender编码器'
 ],
-'解析复杂的Head-Content协议就需要自定义Protobuf编/解码器，需要开发者自己去解决半包问题':[
-    '继承netty提供的MessageToByteEncoder编码器，完成Head-Content协议的复杂数据包的编码，将Protobuf POJO编码成Head-Content协议的二进制ByteBuf数据包',
-    '继承netty提供的ByteToMessageDecoder解码器，完成Head-Content协议的复杂数据包的解码，将二进制ByteBuf数据包最终解码出Protobuf POJO实例'
+'自定义Protobuf编/解码器':[
+    '解析复杂的Head-Content协议,需要开发者自己去解决半包问题',
+    {'继承netty提供的MessageToByteEncoder编码器':[
+        '完成Head-Content协议的复杂数据包的编码',
+        '将Protobuf POJO编码成Head-Content协议的二进制ByteBuf数据包'
+    ]},
+    {'继承netty提供的ByteToMessageDecoder解码器':[
+        '完成Head-Content协议的复杂数据包的解码',
+        '将二进制ByteBuf数据包最终解码出Protobuf POJO实例'
+    ]}
 ]
 }
 

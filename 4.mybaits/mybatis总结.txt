@@ -1,0 +1,45 @@
+mybatis总结：
+
+
+关注下Configuration对象中的下列属性：
+
+public class Configuration {
+  ...
+  protected final MapperRegistry mapperRegistry = new MapperRegistry(this);#所有Mapper接囗及其代理类信息
+  protected final InterceptorChain interceptorChain = new InterceptorChain();#所有拦截器信息
+  protected final Map<String, MappedStatement> mappedStatements = new StrictMap<MappedStatement>("Mapped Statements collection");#所有的sql信息
+  protected final Map<String, ResultMap> resultMaps = new StrictMap<ResultMap>("Result Maps collection");#所有sql的参数对象信息
+  protected final Map<String, ParameterMap> parameterMaps = new StrictMap<ParameterMap>("Parameter Maps collection");#所有sql的返回对象信息
+  ....
+}
+
+mybatis最核心流程：
+
+1.Mapper接口的注册过程，
+2.MappedStatement对象的注册过程，
+3.Mapper方法的调用过程，
+4.SqlSession执行Mapper的过程。
+
+
+详细的版本：
+
+
+项目加载时：
+
+1.Mapper接口的注册：
+解析所有的Mapper接口，调用MapperRegistry类提供了addMapper()方法，每个Mapper接口为对应的Class对象创建一个MapperProxyFactory对象，然后添加到Configuration对象的mapperRegistry对象的knownMappers属性中。
+
+2.MappedStatement对象的注册：
+使用LanguageDriver解析sql语句，将动态SQL配置转换为SqlNode对象，放入SqlSource对象中，并将SqlSource对象放入MappedStatement对象的属性保存，最后存入Configuration对象的mappedStatements中
+
+
+执行Mapper时：
+
+1.Mapper方法的调用过程：
+用SqlSession对象的getMapper()方法获取一个动态代理对象，然后通过代理对象调用方法，即执行MapperProxy类的invoke()方法：
+对Mapper中方法进行封装，生成MapperMethod对象，MapperMethod调用了execute()方法，根据SQL语句的类型调用SqlSession对象对应的方法。
+
+
+2.SqlSession执行Mapper：
+SqlSession对象对应的方法中，首先根据Mapper的Id从Configuration对象中获取对应的MappedStatement对象，根据传入的参数信息会调用MappedStatement对象的getBoundSql()方法，
+方法里会调用SqlSource对象的getBoundSql()方法获取BoundSql对象，整个过程主要是将SqlNode对象转换为SQL语句，最后以MappedStatement对象作为参数，调用Executor实例的query()方法完成查询操作。

@@ -49,6 +49,7 @@ content={
 ],
 '总结':[
     'TransactionTemplate还是通过TransactionManager事务管理器来操作事务的',
+    '@Transactional是否生效, 取决于是否加载于接口方法, 并且是否通过接口方法调用(而不是本类调用)'
 ]
 }
 

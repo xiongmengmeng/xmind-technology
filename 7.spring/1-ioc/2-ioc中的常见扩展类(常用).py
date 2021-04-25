@@ -74,6 +74,15 @@ content={
         'beanfactory.getbean("beanFactoryName"),获得factorybean中getObject中返回的对象',
         'beanfactory.getbean("&beanFactoryName"),获得factorybean本身'
     ]}
+],
+'ApplicationContextAware':[
+    {'方法':[
+         'void setApplicationContext(ApplicationContext applicationContext)'
+    ]},
+    {'作用':[
+        '不交给容器进行管理的模块(如工具类)想要获取bean的一种方式'
+    ]}
+   
 ]
 
 }

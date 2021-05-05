@@ -68,12 +68,28 @@ content={
         '一个多线程版本的反应器'
     ]},
     {'服务器端启动器的使用':[
-        '1.创建反应器线程组，并赋值给ServerBootstrap启动器实例',
-        '2.设置通道的IO类型',
-        '3.设置监听端口',
-        '4.设置传输通道的配置选项',
-        '5.装配子通道的Pipeline流水线',
-        '6.开始绑定服务器新连接的监听端口',
+        {'':[
+            'ServerBootsrap b=new ServerBootstrap()'
+        ]}
+        {'1.创建反应器线程组，并赋值给ServerBootstrap启动器实例':[
+            'EventLoopGroup bossLoopGroup=New NioEventLoopGroup(1)',
+            'EventLoopGroup workLoopGroup=New NioEventLoopGroup(1)',
+            'b.group(bossLoopGroup,workLoopGroup)'
+        ]},
+        {'2.设置通道的IO类型':[
+            'b.channel(NioServerSocketChannel.class)'
+        ]},
+        {'3.设置监听端口':[
+            'b.localAddress(new InetSocketAddress(port))'
+        ]},
+        {'4.设置传输通道的配置选项':[
+            'b.option(ChannelOption.SO_KEEPALIVE, true):开启TCP底层心跳机制',
+            'b.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)',
+        ]},
+        {'5.装配子通道的Pipeline流水线':[
+            ''
+        ]},
+        '6.开始绑定服务器新连接的监听端口',}
         '7.自我阻塞，直到通道关闭',
         '8.关闭EventLoopGroup'
     ]},

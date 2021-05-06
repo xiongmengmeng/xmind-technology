@@ -47,6 +47,9 @@ content={
     '系统内核是主动发起IO请求的一方，用户空间的线程是被动接受方'
 ],
 '四种主要IO模型':[
+    {'IO模型':[
+        '用【什么样的通道】进行【数据的发送和接收】',
+    ]},
     '同步阻塞IO（Blocking IO)',
     '同步非阻塞IO（Non-blocking IO)',
     {'IO多路复用（IO Multiplexing）':[

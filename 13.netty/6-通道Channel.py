@@ -32,21 +32,19 @@ content={
                 ]}
             ]},
             {'读取FileChannel通道':[
-                'int read（ByteBufferbuf）',
-                '从通道读取到数据，写入到ByteBuffer缓冲区,并且返回读取到的数据量',
+                'int read（ByteBuffer buf）',
+                '从通道读取到数据，写入到ByteBuffer缓冲区,返回读取到的字节数',
                 {'例':[
-                    'ByteBuffer buf=ByteBuffer.allocate(20)'
-                    'int length=-1',
-                    'while((length=inChannel.read(buf)!=-1){',
-                    '   //处理读取到的数据',
-                    '}'
+                    'ByteBuffer buf=ByteBuffer.allocate(20)',
+                    'inChannel.read(buf)',
+                    'System.out.print(new String(buf.array()))',
                 ]}
             ]},
             {'写入FileChannel通道':[
-                'int write（ByteBufferbuf）',
-                '从ByteBuffer缓冲区中读取数据，然后写入到通道自身,最后返回写入成功的字节数',
+                'int write（ByteBuffer buf）',
+                '从ByteBuffer缓冲区中读取数据，然后写入到通道,返回写入成功的字节数',
                 {'例':[
-                    'buf.flip()'
+                    'buf.flip()',
                     'int outlength=0',
                     'while((length=outChannel.write(buf)!=0){',
                     '   //写入字节数据',
@@ -59,13 +57,19 @@ content={
                     'inChannel.close()'
                 ]}
             ]},
-            {'强制刷新到磁盘(保证写入通道的缓冲数据，都真正地写入磁盘)':[
+            {'强制刷新到磁盘(保证写入通道的缓冲数据，都真写入磁盘)':[
                 'force()',
                 {'例':[
                     'inChannel.force()'
                 ]}
             ]},
-            '更高效的文件复制，可以调用文件通道的transferFrom方法'
+            {'更高效的文件复制':[
+                'transferFrom(ReadableByteChannel target,long position,long count)',
+                '数据从目标通道复制给当前通道',
+                'transferTo(long position,long count,WritableByteChannel target)',
+                '数据从当前通道复制给目标通道'
+            ]}
+
         ]}
     ]},
     {'SocketChannel套接字通道':[

@@ -7,13 +7,12 @@ from xmind.core.markerref import MarkerId
 xmind_name="netty"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("序列化")
+s2.setTitle("netty:Decoder与Encoder")
 r2=s2.getRootTopic()
-r2.setTitle("序列化")
+r2.setTitle("netty:Decoder与Encoder")
 
 
 content={
-
 '粘包和拆包':[
     {'原因':[
         '发送端Netty的【应用层进程缓冲区】，程序以【ByteBuf】为单位来发送数据',

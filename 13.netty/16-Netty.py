@@ -14,12 +14,13 @@ r2.setTitle("Netty")
 
 content={
 '组件':[
-    '服务器启动器',
-    '缓冲区',
-    '反应器',
-    'Handler业务处理器',
+    'Bootstrap启动器',
+    'ByteBuf缓冲区',
+    'NioEventLoop反应器',
+    'Handler处理器',
     'Future异步任务监听',
-    '数据传输通道'
+    'Channel通道',
+    'Pipeline流水线',
 ],
 'Netty模型':[
     '1.Netty抽象出两组线程池，BossGroup专门负责接收客户端的连接，WorkerGroup专门负责网络的读写',

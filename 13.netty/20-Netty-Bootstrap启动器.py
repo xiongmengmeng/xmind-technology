@@ -80,7 +80,7 @@ content={
         'b.option(ChannelOption.SO_KEEPALIVE, true):开启TCP底层心跳机制',
         'b.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)',
         {'ChannelOption通道选项':[
-            '1．SO_RCVBUF, SO_SNDBUF:TCP连接的缓冲区大小'
+            '1．SO_RCVBUF, SO_SNDBUF:TCP连接的缓冲区大小',
             '2. TCP_NODELAY:立即发送数据',
             '3．SO_KEEPALIVE:底层TCP协议的心跳机制'
         ]},

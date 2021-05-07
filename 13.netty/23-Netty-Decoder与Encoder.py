@@ -7,39 +7,43 @@ from xmind.core.markerref import MarkerId
 xmind_name="netty"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("Decoder与Encoder重要组件")
+s2.setTitle("netty:Decoder与Encoder")
 r2=s2.getRootTopic()
-r2.setTitle("Decoder与Encoder重要组件")
+r2.setTitle("netty:Decoder与Encoder")
 
 
 content={
 
-'解码器':[
+'Decoder解码器':[
     {'定义':[
-        '将输入类型为ByteBuf缓冲区,或者Java POJO对象的数据进行解码，输出一个一个的Java POJO对象',
+        '将输入类型为ByteBuf缓冲区,或Java POJO对象的数据进行解码，输出一个一个的Java POJO对象',
         'Inbound入站处理器类型'
     ]},
-    {'ByteToMessageDecoder类':[
-        'decode方法:由子类来实现，将解码后得到的Object，加入到父类传递过来的List<Object>实参中',
-        'decode方法处理完成后，基类会继续后面的传递处理：将List<Object>结果列表中所得到的Object，一个一个地传递到下一个Inbound入站处理器',
-        '会自动调用ReferenceCountUtil.release(in)方法释放ByteBuf缓冲区的内存'
+    {'ByteToMessageDecoder':[
+        {'decode()':[
+            '子类实现，将解码后得到的Object，加入到父类传递过来的List<Object>实参中',
+        ]},
+        {'decode方法处理完后，基类会继续后面的传递处理':[
+            '将List<Object>结果传递到下一个Inbound入站处理器',
+            '调用ReferenceCountUtil.release(in)方法释放ByteBuf缓冲区的内存'
+        ]}
     ]},
-    {'ReplayingDecoder解码器':[
+    {'ReplayingDecoder':[
         {'作用':[
             '内部定义了一个新的二进制缓冲区类，对ByteBuf缓冲区进行了装饰，名为ReplayingDecoderBuffer',
-            '在读取ByteBuf缓冲区的数据之前，会检查缓冲区是否有足够的字节',
-            '若ByteBuf中有足够的字节，则会正常读取；反之，如果没有足够的字节，则会停止解码',
-            '适用于分包传输的应用场景'
+            '读取ByteBuf缓冲区的数据前，会检查缓冲区是否有足够的字节(内部进行)',
+            '若ByteBuf中有足够的字节，正常读取；反之，停止解码',
+            '适用于【分包传输】的应用场景'
         ]},
-        {'state成员属性':[
-            '保存当前解码器在解码过程中的当前阶段'
+        {'state属性':[
+            '当前解码器在解码过程中的阶段'
         ]},
         {'字符串的分包解码':[
-            {'可以采用普通的Header-Content内容传输协议':[
-                '1.在协议的Head部分放置字符串的字节长度。Head部分可以用一个整型int来描述',
+            {'可采用普通的Header-Content内容传输协议':[
+                '1.在协议的Head部分，放置字符串的字节长度',
                 '2.在协议的Content部分，放置字符串的字节数组'
             ]},
-            '在实际的传输过程中，一个Header-Content内容包，在发送端会被编码成为一个ByteBuf内容发送包'
+            '实际传输过程中，一个Header-Content内容包，在发送端会被编码成为一个ByteBuf内容发送包'
         ]},
         {'缺点':[
             '数据解析逻辑复杂的应用场景，性能较差'
@@ -47,7 +51,7 @@ content={
     ]},
     {'MessageToMessageDecoder<I>':[
         '将一种POJO对象解码成另外一种POJO对象',
-        '泛型实参<I>,作用就是指定入站消息Java POJO类型'
+        '泛型实参<I>：指定入站消息Java POJO类型'
     ]},
     {'Netty内置Decoder':[
         '固定长度数据包解码器——FixedLengthFrameDecoder',
@@ -71,12 +75,13 @@ content={
         '负责将“出站”的某种Java POJO对象编码成二进制ByteBuf，或者编码成另一种Java POJO对象'
     ]},
     {'MessageToByteEncoder编码器':[
-        'encode方法:由子类来实现'
+        {'encode()':[
+            '由子类实现'
+        ]}
     ]},
     {'MessageToMessageEncoder<I>':[
         '将一种POJO对象解码成另外一种POJO对象',
-        '泛型实参<I>。这个实参的作用就是指定入站消息Java POJO类型',
-        '现它的encode抽象方法'
+        '泛型实参<I>:指定入站消息Java POJO类型',
     ]},
 ],
 '解码器和编码器的结合':[

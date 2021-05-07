@@ -95,6 +95,9 @@ content={
             ]}
         ]}
     ]},
+    {'Future-Listener机制':[
+        '当Futrue对象刚创建时，处于非完成状态，调用者可通过返回的ChannelFuture来获取操作执行的状态，注册监听函数来执行完成后的操作'
+    ]}
 ]
 }
 

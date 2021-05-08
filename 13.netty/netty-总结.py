@@ -13,7 +13,9 @@ r2.setTitle("netty总结")
 
 
 content={
-'read&write两大系统调用':[],
+'IO基础':[
+    'read&write两大系统调用'
+],
 '四种主要IO模型':[
     {'阻塞IO（Blocking IO)':[
         'read函数'
@@ -39,14 +41,19 @@ content={
         'limit(读写的限制)'
     ]},
     {'Selector----选择器':[
-        'SelectableChannel可选择通道',
         'SelectionKey选择键'
     ]},
 ],
-'Reactor反应器模式':[
-    '一个线程处理一个连接(Connection Per Thread)模式',
-    '单线程Reactor反应器模式',
-    '多线程Reactor反应器模式'
+'线程模型':[
+    '传统阻塞IO服务模型',
+    {'Reactor反应器模式':[
+        'Reactor反应器+Handlers处理器',
+        {'分类':[
+            '单Reactor单线程',
+            '单Reactor多线程',
+            '主从Reactor多线程'
+        ]}
+    ]},
 ],
 '异步':[
     {'java':[
@@ -62,6 +69,22 @@ content={
         'Netty的Future接口',
         'GenericFutureListener接口'
     ]}
+],
+'netty':[
+    {'基础':[
+        '主从Reactor多线程'
+    ]},
+    {'核心组件':[
+        'Bootstrap启动器',
+        'NioEventLoop反应器',
+        'ByteBuf缓冲区',
+        'Channel通道',
+        'Pipeline流水线',
+        'Handler处理器--ChannelHandlerContext上下文'
+        'Future异步任务监听',
+        'Decoder与Encoder编解码器'
+    ]}
+
 ]
 
 

@@ -51,8 +51,9 @@ content={
         'addLast(null, name, handler)'
     ]},
     {'addLast(EventExecutorGroup group, String name, ChannelHandler handler)':[
+        '将handler封装到ctx,添加到pipeline,group为执行ctx时，使用的线程池',
         {'newCtx=newContext(group,filterName(name, handler),handler)':[
-            '创建一个 Context'
+            '创建一个 Context,属性executor为封装后的线程池'
         ]},
         {'addLast0(newCtx)':[
             '将Context追加到链表中'

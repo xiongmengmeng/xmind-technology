@@ -71,7 +71,7 @@ content={
                     'threadFactory.newThread(command).start()'
                 ]}
             ]}
-        ]}
+        ]},
         {'runAllTasks(long timeoutNanos)':[
             '无限循环执行任务',
             {'safeExecute(Runnable task)':[
@@ -106,7 +106,7 @@ content={
         ]},
         {'processSelectedKeys()':[
             '处理Nio事件',
-            {'processSelectedKeysOptimized();':[
+            {'processSelectedKeysOptimized()':[
                 'Object a = k.attachment()',
                 {'a是否是AbstractNioChannel类型':[
                     '是，执行processSelectedKey(k, (AbstractNioChannel) a)',

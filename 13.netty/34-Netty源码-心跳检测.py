@@ -7,28 +7,30 @@ from xmind.core.markerref import MarkerId
 xmind_name="netty"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("心跳检测")
+s2.setTitle("IdleStateHandler")
 r2=s2.getRootTopic()
-r2.setTitle("心跳检测")
+r2.setTitle("IdleStateHandler")
 
 
 content={
-'IdleStateHandler':[
-    '处理空闲状态的处理器',
-    {'属性':[
-        {'boolean observeOutput':[
-            '是否考虑出站时较慢的情况, 默认false'
-        ]},
-        {'long readerIdleTimeNanos':[
-            '读事件空闲时间，0则禁用事件'
-        ]},
-        {'long writerIdleTimeNanos':[
-            '写事件空闲时间，0则禁用事件'
-        ]},
-        {'long allIdleTimeNanos':[
-            '读或写空闲时间，0则禁用事件'
-        ]}
+'本质':[
+    '处理空闲状态的处理器'
+],
+'属性':[
+    {'boolean observeOutput':[
+        '是否考虑出站时较慢的情况, 默认false'
     ]},
+    {'long readerIdleTimeNanos':[
+        '读事件空闲时间，0则禁用事件'
+    ]},
+    {'long writerIdleTimeNanos':[
+        '写事件空闲时间，0则禁用事件'
+    ]},
+    {'long allIdleTimeNanos':[
+        '读或写空闲时间，0则禁用事件'
+    ]}
+],
+'方法':[
     {'IdleStateHandler(long readerIdleTime, long writerIdleTime, long allIdleTime,TimeUnit unit)':[
         {'long readerIdleTime':[
             '表示多长时间没有读, 会发送一个心跳检测包检测是否连接'

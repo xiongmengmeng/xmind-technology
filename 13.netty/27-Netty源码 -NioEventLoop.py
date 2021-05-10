@@ -45,7 +45,8 @@ content={
         ]},
         {'execute(Runnable task)':[
             '将任务加到任务队列',
-            {'判断该 EventLoop 的线程是否是当前线程':[
+            {'inEventLoop()':[
+                '判断当前线程是否是EventLoop的线程',
                 {'是':[
                     '将任务添加到队列中去',
                     {'addTask(task)':[
@@ -55,8 +56,8 @@ content={
                 {'不是':[
                     '尝试启动线程,随后再将任务添加到队列中去',
                     {'startThread()':[
-                        'state状态判断是否启动过了，保证 EventLoop 只有一个线程',
-                        '如没启动过，尝试使cas更新state为ST_STARTED(已启动),然后调用doStartThread方法'
+                        'state状态判断是否启动过了，保证EventLoop只有一个线程',
+                        '没启动过,尝试cas更新state为ST_STARTED(已启动),然后调用doStartThread()'
                     ]},
                     'addTask(task)'
                 ]}

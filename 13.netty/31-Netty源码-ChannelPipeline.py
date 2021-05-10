@@ -53,14 +53,15 @@ content={
     {'addLast(EventExecutorGroup group, String name, ChannelHandler handler)':[
         '将handler封装到ctx,添加到pipeline,group为执行ctx时，使用的线程池',
         {'newCtx=newContext(group,filterName(name, handler),handler)':[
-            '创建一个 Context,属性executor为封装后的线程池'
+            '创建一个Context',
+            '属性executor:封装后的线程池'
         ]},
         {'addLast0(newCtx)':[
             '将Context追加到链表中'
         ]}
     ]}
 ],
-'ChannelPipeline|ChannelHandler|ChannelHandlerContext创建过程':[
+'ChannelPipeline/ChannelHandler/ChannelHandlerContext创建过程':[
     {'Socket创建的时候创建pipeline':[
         '具体在AbstractChannel的构造器中'
     ]},

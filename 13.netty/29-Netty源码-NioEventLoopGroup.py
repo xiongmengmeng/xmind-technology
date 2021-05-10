@@ -16,7 +16,27 @@ content={
 'MultithreadEventExecutorGroup':[
     {'属性':[
         {'EventExecutorChooserFactory.EventExecutorChooser chooser':[
-            ''
+            'NioEventLoop选择器'
+        ]},
+        {'EventExecutor[] children':[
+            '存放创建的NioEventLoop'
+        ]}
+    ]},
+    {'MultithreadEventExecutorGroup(int nThreads, Executor executor, Object... args)':[
+        'this(nThreads, executor, DefaultEventExecutorChooserFactory.INSTANCE, args)->',
+        {'详细':[
+            {'1.创建指定线程数的执行器数组':[
+                'children = new EventExecutor[nThreads]'
+            ]},
+            {'2.创建new NioEventLoop':[
+                'children[i] = newChild(executor, args)'
+            ]},
+            {'3.为每一个单例线程池添加一个关闭监听器':[
+                'e.terminationFuture().addListener(terminationListener)'
+            ]},
+            {'4.将所有的单例线程池添加到一个HashSet中':[
+                'Collections.addAll(childrenSet, children)'
+            ]}
         ]}
     ]},
     {'next()':[
@@ -24,6 +44,13 @@ content={
     ]}
 ],
 'MultithreadEventLoopGroup':[
+    {'MultithreadEventLoopGroup(int nThreads, Executor executor, Object... args)':[
+        'super(nThreads == 0 ? DEFAULT_EVENT_LOOP_THREADS : nThreads, executor, args);',
+        {'DEFAULT_EVENT_LOOP_THREADS':[
+            '默认线程数:CPU核数的2倍',
+            'Runtime.getRuntime().availableProcessors()*2'
+        ]}
+    ]},
     {'next()':[
         '(EventLoop) super.next()'
     ]},
@@ -38,31 +65,31 @@ content={
         ]}
     ]},
     {'构造器':[
-        '默认线程个数n:Runtime.getRuntime().availableProcessors() * 2,CPU核数的2倍',
-        '创建指定线程数的执行器组children=new EventExecutor[n]',
-        '初始化执行器组，添加元素为NioEventLoop实例(实例化时，会初始化一个Selector)',
-        '每个NioEventLoop实例添加一个关闭监听器'
-    ]},
-],
-'Netty 接受请求过程梳理':[
-    {'总体流程':[
-        '接受连接',
-        '创建一个新的 NioSocketChannel',
-        '注册到一个 worker EventLoop 上',
-        '注册 selecot Read 事件'
-    ]},
-    {'详细':[
-        '1.服务器轮询Accept事件，获取事件后调用unsafe的read方法，unsafe是ServerSocket的内部类， 该方法内部由2部分组成',
-        {'2.doReadMessages()':[
-            '用于创建NioSocketChannel对象，该对象包装JDK的Nio Channel客户端',
-            '创建相关的pipeline,unsafe,config'
+        {'NioEventLoopGroup()':[
+            'this(0)->',
+            'this(nThreads, (Executor) null)->',
+            'this(nThreads, executor, SelectorProvider.provider())->',
+            'this(nThreads, executor, selectorProvider, DefaultSelectStrategyFactory.INSTANCE)->',
+            'super(nThreads, executor, selectorProvider, selectStrategyFactory, RejectedExecutionHandlers.reject());'
         ]},
-        {'3.pipeline.fireChannelRead()':[
-            '将自己绑定到一个chooser选择器选择的workerGroup中的一个EventLoop，并且注册'
+        {'NioEventLoopGroup(int nThreads)':[
+            'this(nThreads, (Executor) null)'
         ]}
-
+    ]},
+    {'newChild(Executor executor, Object... args)':[
+        'new NioEventLoop(...)->',
+        {'详细':[
+            {'1.初始化任务队列(默16)':[
+                'Queue<Runnable> tailTasks = newTaskQueue(maxPendingTasks)->',
+                'new LinkedBlockingQueue<Runnable>(maxPendingTasks)'
+            ]},
+            {'2.初始化选择器，类型为WindowsSelectorImpl':[
+                'selector = openSelector()'
+            ]}
+        ]}
     ]}
 ],
+
 
 
 

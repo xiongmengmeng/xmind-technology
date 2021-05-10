@@ -25,7 +25,7 @@ content={
             ''
         ]}
     ]},
-    {'构造器':[
+    {'构造器AbstractChannel(Channel parent)':[
         'id = newId();',
         'unsafe = newUnsafe();',
         'pipeline = newChannelPipeline();'
@@ -55,8 +55,13 @@ content={
 'AbstractNioChannel':[
     {'属性':[
         {'SelectableChannel ch':[
-            ''
+            'java nio中的channel'
         ]}
+    ]},
+    {'构造器AbstractNioChannel(Channel parent, SelectableChannel ch, int readInterestOp)':[
+        'super(parent)',
+        'this.ch = ch',
+        'this.readInterestOp = readInterestOp'
     ]}
 ],
 'AbstractNioMessageChannel':[
@@ -65,9 +70,39 @@ content={
             'doReadMessages(readBuf)：子类实现',
             'pipeline.fireChannelRead(readBuf.get(i))'
         ]}
+    ]},
+    {'构造器AbstractNioMessageChannel(Channel parent, SelectableChannel ch, int readInterestOp)':[
+        'super(parent, ch, readInterestOp)'
+    ]},
+    {'newUnsafe()':[
+        'new NioMessageUnsafe()'
+    ]},
+    {'内部类NioMessageUnsafe':[
+        {'read()':[
+            'doReadMessages(readBuf)',
+            'pipeline.fireChannelRead(readBuf.get(i))'
+        ]}
     ]}
 ],
 'NioServerSocketChannel':[
+    {'构造器NioServerSocketChannel()':[
+        'this(newSocket(DEFAULT_SELECTOR_PROVIDER))',
+        {'DEFAULT_SELECTOR_PROVIDER':[
+            '=SelectorProvider.provider()',
+            '返回WindowsSelectorProvider',
+            {'WindowsSelectorProvider.openSelector()':[
+                'new WindowsSelectorImpl(this)'
+            ]}
+        ]},
+        {'newSocket(SelectorProvider provider)':[
+            '=provider.openServerSocketChannel()',
+            '返回ServerSocketChannelImpl'
+        ]}
+    ]},
+    {'NioServerSocketChannel(ServerSocketChannel channel)':[
+        'super(null, channel, SelectionKey.OP_ACCEPT)',
+        'config = new NioServerSocketChannelConfig(this, javaChannel().socket())'
+    ]},
     {'doBind(SocketAddress localAddress)':[
         'javaChannel().bind(localAddress, config.getBacklog())'
     ]},

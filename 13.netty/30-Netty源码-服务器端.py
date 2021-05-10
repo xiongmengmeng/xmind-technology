@@ -18,11 +18,19 @@ content={
         'ServerBootstrap#doBind(localAddress)'
     ]},
     {'内容':[
-        '1.创建ServerSocketChannel,封闭在NioServerSocketChannel(反射创建)',
-        {'2.注册ServerSocketChannel到Selector上':[
-            '实现在AbstractChannel#register()'
+        {'1.创建ServerSocketChannel,封装为NioServerSocketChannel':[
+            '实现channelFactory.newChannel()->NioServerSocketChannel()'
         ]},
-        '3.ServerSocketChannel监听端囗',
+        {'2.初始化NioServerSocketChannel':[
+            '将配置参数，自定义处理器，ServerBootstrapAcceptor处理器，绑定到NioServerSocketChannel上',
+            '实现init(channel)'
+        ]},
+        {'3.注册ServerSocketChannel到Selector上':[
+            '实现config().group().register(channel)->AbstractChannel.register()'
+        ]},
+        {'4.ServerSocketChannel监听端囗':[
+            '实现doBind0(regFuture, channel, localAddress, promise)'
+        ]},
     ]}
 ],
 '客户端有io事件时':[
@@ -33,13 +41,13 @@ content={
     ]},
     {'详细':[
         {'1.调用serverSocketChannel.accept()创建SocketChannel,并将其封装进NioSocketChannel':[
-            '实现方法doReadMessages(List<Object> buf)'
+            '实现doReadMessages(List<Object> buf)'
         ]},
         {'2.执行调用链的读方法':[
-            '实现方法pipeline.fireChannelRead(readBuf.get(i))',
+            '实现pipeline.fireChannelRead(readBuf.get(i))',
         ]},
-        {'3.调用到入站处理器ServerBootstrapAcceptor的channelRead()方法':[
-            '将SocketChannel注册到childGroup中的一个EventLoop上的selector上'
+        {'3.将SocketChannel注册到childGroup中的一个EventLoop上的selector上':[
+            '实现入站处理器ServerBootstrapAcceptor的channelRead()方法'
         ]}
     ]}
 ]

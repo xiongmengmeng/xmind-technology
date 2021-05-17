@@ -12,13 +12,15 @@ r2.setTitle("ExtensionLoader")
 
 
 content={
+'属性':[
+    {'ConcurrentMap<Class<?>, ExtensionLoader<?>> EXTENSION_LOADERS':[
+        '每个Class都有一个对映的ExtensionLoader'
+    ]},
+    {'ConcurrentMap<Class<?>, Object> EXTENSION_INSTANCES':[
+        '每个Class都有一个实例'
+    ]},
+],
 
-'ConcurrentMap<Class<?>, ExtensionLoader<?>> EXTENSION_LOADERS':[
-    '每个Class都有一个对映的ExtensionLoader'
-],
-'ConcurrentMap<Class<?>, Object> EXTENSION_INSTANCES':[
-    '每个Class都有一个实例'
-],
 'getExtensionLoader(Class<T> type)':[
     '从缓存里取，取不到，就构造一个',
     'ExtensionLoader<T> loader = (ExtensionLoader<T>) EXTENSION_LOADERS.get(type);',
@@ -36,10 +38,12 @@ content={
             '获得实例'
         ]},
         {'injectExtension(instance);':[
-            'IOC依赖注入'
+            'IOC依赖注入,通过set方法注入需要的扩展点'
         ]},
         {'instance = injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance))':[
-            'AOP,通过包装类实现，装饰器模式'
+            'AOP,通过包装类实现，装饰器模式',
+            '包装类Wrapper',
+            '封闭了通用的逻辑,通过有无当前扩展参数构造函数来判断,并注入依赖扩展'
         ]}
     ]},
     {'getExtensionClasses()':[
@@ -71,6 +75,49 @@ content={
     {'injectExtension((T) wrapperClass.getConstructor(type).newInstance(instance))':[
         '同上',
         '传参为包装类的实例'
+    ]}
+],
+'getAdaptiveExtension()':[
+    {'属性':[
+        'Holder<Object> cachedAdaptiveInstance'
+    ]},
+    {'instance = this.createAdaptiveExtension()':[
+        '创建自适应类',
+        '核心this.injectExtension(this.getAdaptiveExtensionClass().newInstance())',
+        {'getAdaptiveExtensionClass()':[
+            {'this.getExtensionClasses();':[
+                '加载配置文件中的类'
+            ]},
+            {'this.createAdaptiveExtensionClass()':[
+                {'1.组装自适应类的代码':[
+                    'this.createAdaptiveExtensionClassCode()'
+                ]},
+                {'2.查找类加载器':[
+                    'ClassLoader classLoader = findClassLoader()'
+                ]},
+                {'3.通过spi方式加载Compiler类':[
+                    # 'Compiler compiler=(Compiler)getExtensionLoader(Compiler.class).getAdaptiveExtension()'
+                ]},
+                {'4.加载自适应类':[
+                    'compiler.compile(code, classLoader)'
+                ]}
+            ]}
+        ]}
+    ]},
+    {'this.cachedAdaptiveInstance.set(instance)':[
+        '将自适应类放入cachedAdaptiveInstance'
+    ]}
+],
+'getActivateExtension(URL url, String[] values, String group)':[
+    {'1.初始化所有扩展类实现的集合':[
+        'this.getExtensionClasses()'
+    ]},
+    {'2.遍历,根据传入URL匹配条件(匹配group> name等)，得到符合激活条件的扩展类实现':[
+        'this.isMatchGroup(group, activate.group())',
+        'T ext = this.getExtension(name)'
+    ]},
+    {'3.根据用户URL配置的顺序，调整扩展点激活顺序':[
+        'Collections.sort(exts, ActivateComparator.COMPARATOR);'
     ]}
 ]
 

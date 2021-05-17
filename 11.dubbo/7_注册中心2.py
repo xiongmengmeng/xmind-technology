@@ -59,7 +59,12 @@ content={
 '重试机制':[
     'FailbackRegistry实现',
     '引入ScheduledExecutorService,每经过固定间隔(默认为5秒)调用FailbackRegistry#retry()方法'
-]
+],
+'支持多注册中心':[
+    '同一服务向多注册中心同时注册',
+    '不同服务分别注册到不同注册中心',
+    '同时引用注册在不同注册中心上的同名服务'
+],
 }
 
 

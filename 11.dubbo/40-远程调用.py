@@ -12,9 +12,13 @@ r2.setTitle("Dubbo 远程调用")
 
 
 content={
-
-'服务消费者经过容错，Invoker 列表，路由和负载均衡以后，会对 Invoker 进行过滤，之后通过 Client 编码，序列化发给服务提供者':[],
 '过程':[
+    '1.从Directory获得Invoker 列表',
+    '2.Invoker 列表经过路由和负载均衡选择一个Invoker',
+    '3.对 Invoker 进行过滤',
+    '4.之后通过 Client 编码，序列化发给服务提供'
+],
+'负载均衡后的过程':[
     '1.服务消费者调用服务提供者的前后，都会调用 Filter（过滤器）',
     '2.调用请求经过过滤以后，会以 Invoker 的形式对 Client 进行调用',
     {'3.Client 会交由底层 I/O 线程池处理':[
@@ -26,6 +30,27 @@ content={
     '5.由于服务提供者在注册中心是通过 Exporter 的方式暴露服务的，服务消费者也是通过 Exporter 作为接口进行调用的',
     '6.Exporter 是将 Invoker 进行了包装，将拆开的 Invoker 进行 Filter 过滤链条进行过滤以后，再去调用服务实体。最后，将信息返回给服务消费者',
 
+],
+'通信过程:接囗方法调用':[
+    {'Invoke执行':[
+        '集群负载均衡处理',
+        '协议Invoker',
+    ]},
+    '请求、响应处理器',
+    {'发送请求获取结果':[  
+        '编解码',
+        '发送请求',
+        '获取结果'
+    ]},
+    {'服务端处理请求':[
+        '线程派发',
+        '获取结果',
+        '编解码'
+    ]}
+],
+'入囗InvokerInvocationHandler#invoke':[
+    'this.invoker.invoke(new RpcInvocation(method, args)).recreate()',
+    '注：this.invoker为DubboInVoker'
 ]
 
 }

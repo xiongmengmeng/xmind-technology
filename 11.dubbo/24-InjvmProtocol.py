@@ -24,7 +24,7 @@ content={
 'ProtocolFilterWrapper':[
     {'buildInvokerChain(final Invoker<T> invoker, String key, String group)':[
         {'1.获得过滤器':[
-            'List<Filter> filters = ExtensionLoader.getExtensionLoader(Filter.class).getActivateExtension(invoker.getUrl(), key, group);'
+            'List<Filter> filters=ExtensionLoader.getExtensionLoader(Filter.class).getActivateExtension(invoker.getUrl(), key, group)'
         ]},
         {'2.封装基于Invoker的Filter链':[
             'filter.invoke(last, invocation)'
@@ -55,12 +55,12 @@ content={
     {'export(Invoker<T> invoker)':[
         '(Exporter)("registry".equals(invoker.getUrl().getProtocol()) ? ',
         'this.protocol.export(invoker) :',
-        'new ListenerExporterWrapper(this.protocol.export(invoker), Collections.unmodifiableList(ExtensionLoader.getExtensionLoader(ExporterListener.class).getActivateExtension(invoker.getUrl(), "exporter.listener"))));'
+        'new ListenerExporterWrapper(this.protocol.export(invoker), Collections.unmodifiableList(ExtensionLoader.getExtensionLoader(ExporterListener.class).getActivateExtension(invoker.getUrl(), "exporter.listener"))))'
     ]},
     {'refer(Class<T> type, URL url)':[
         '(Invoker)("registry".equals(url.getProtocol()) ?',
         'this.protocol.refer(type, url) :',
-        'new ListenerInvokerWrapper(this.protocol.refer(type, url), Collections.unmodifiableList(ExtensionLoader.getExtensionLoader(InvokerListener.class).getActivateExtension(url, "invoker.listener"))));'
+        'new ListenerInvokerWrapper(this.protocol.refer(type, url), Collections.unmodifiableList(ExtensionLoader.getExtensionLoader(InvokerListener.class).getActivateExtension(url, "invoker.listener"))))'
     ]}
 ],
 '类似':[

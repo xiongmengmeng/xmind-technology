@@ -80,11 +80,75 @@ content={
             '5.若剩余次数小于0，删除key并发布锁释放的消息，解锁成功'
         ]}
     ]},
+    {'lock()':[
+        'lockInterruptibly()->',
+        'lockInterruptibly(-1, null)->'
+    ]},
+    {'lockInterruptibly(long leaseTime, TimeUnit unit)':[
+        'Long ttl = tryAcquire(leaseTime, unit, threadId)',
+    ]},
+    {'tryAcquire(long leaseTime, TimeUnit unit, long threadId)':[
+        'get(tryAcquireAsync(leaseTime, unit, threadId))'
+    ]},
+    {'tryAcquireAsync(long leaseTime, TimeUnit unit, final long threadId)':[
+        {'1.异步执行lua脚本':[
+            'tryLockInnerAsync(commandExecutor.getConnectionManager().getCfg().getLockWatchdogTimeout(), TimeUnit.MILLISECONDS, threadId, RedisCommands.EVAL_LONG)',
+            '返回值RFuture<Long> ttlRemainingFuture'
+        ]},
+        {'2.加监听器，回调相关方法':[
+            'ttlRemainingFuture.addListener()',
+            {'回调方法operationComplete(Future<Long> future)':[
+                'scheduleExpirationRenewal(threadId)'
+            ]},
+            {'scheduleExpirationRenewal(final long threadId)':[
+                '1.创建一个任务TimerTask，延时执行，默认10s执行一次,作用是将锁过期时间延长',
+                {'2.执行的脚本':[
+                    {"判断锁是否还存在":[
+                        "if (redis.call('hexists', KEYS[1], ARGV[2]) == 1)"
+                    ]},
+                    {'将过期时间重新设置为初始值':[
+                        "redis.call('pexpire', KEYS[1], ARGV[1])"
+                    ]}
+                ]},
+                '3.调用2的方法，实现递归'
+            ]}
+        ]}
+    ]},
+    {'tryLockInnerAsync(long leaseTime, TimeUnit unit, long threadId, RedisStrictCommand<T> command)':[
+        '异步执行一段lua脚本',
+        {'变量':[
+            'KEYS[1]',
+            'ARGV[1]:过期时间,默认30s',
+            'ARGV[2]:线程id'
+        ]},
+        {'1.如果key为KEYS[1]的变量不存在':[
+            "if (redis.call('exists', KEYS[1]) == 0)"
+        ]},
+        {'2.给变量赋值(线程id)并设置过期时间':[
+            "redis.call('hset', KEYS[1], ARGV[2], 1)",
+            "redis.call('pexpire', KEYS[1], ARGV[1])",
+            "return nil"
+        ]},
+        {'3.如果key为KEYS[1]的变量存在':[
+            "if (redis.call('hexists', KEYS[1], ARGV[2]) == 1)",
+        ]},
+        {'4.value值加1':[
+            "redis.call('hincrby', KEYS[1], ARGV[2], 1)",
+            "redis.call('pexpire', KEYS[1], ARGV[1])",
+            "return nil"
+        ]},
+        {'5.返回值':[
+            "return redis.call('pttl', KEYS[1])"
+        ]}
+    ]}
 ],
 '学习':[
     'redissionlock锁：https://www.jianshu.com/p/47fd7f86c848',
     'http://blog.itpub.net/31545684/viewspace-2221023/'
-]
+],
+'redisson学习文档':[
+    'https://github.com/redisson/redisson/wiki'
+],
 
 
 

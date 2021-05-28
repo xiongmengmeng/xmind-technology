@@ -23,7 +23,7 @@ content={
     ]},
     {'<T> Invoker<T> refer(Class<T> var1, URL var2)':[
         '方法注解@Adaptive',
-        '—引用一个远程服务'
+        '引用一个远程服务'
     ]},
     {'void destroy()':[
         '销毁'

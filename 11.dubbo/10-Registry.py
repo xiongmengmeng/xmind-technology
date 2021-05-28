@@ -33,7 +33,6 @@ content={
     ]},
     {'void subscribe(URL var1, NotifyListener var2)':[
         '订阅服务，订阅需要处理契约',
-        ''
     ]},
     {'void unsubscribe(URL var1, NotifyListener var2)':[
         '取消订阅服务，取消订阅需要处理契约',
@@ -46,7 +45,7 @@ content={
     ]}
 ],
 'Registry接囗':[
-    ''
+
 ],
 'AbstractRegistry抽象类':[
     '实现注册、订阅、查询、通知,磁盘文件持久化注册信息等方法',
@@ -70,11 +69,18 @@ content={
             '外层Map的key:消费者的 URL',
             '内层Map的key:分类，包含 providers> consumers> routes> configurators四种',
             'value:对应的服务列表'
+        ]},
+        {'URL registryUrl':[
         ]}
     ]},
     {'AbstractRegistry(URL url)':[
+        'this.setUrl(url)',
+        'File file=file(加载文件)',
         {'this.loadProperties()':[
             '会从本地磁盘文件中把持久化的注册数据读到Properties对象里，并加载到内存缓存中'
+        ]},
+        {'this.notify(url.getBackupUrls())':[
+            '调用this.notify(url, listener, filterEmpty(url, urls))'
         ]}
     ]},
     {'notify(URL url, NotifyListener listener, List<URL> urls)':[
@@ -88,6 +94,22 @@ content={
         ]}
        
     ]},
+    {'lookup(URL url)':[
+        {'1.Map<String, List<URL>> notifiedUrls = (Map)this.getNotified().get(url)':[
+            ''
+        ]},
+        {'2.如果notifiedUrls不为空':[
+            '遍历数据，过滤，返回'
+        ]}，
+        {'3.如果notifiedUrls为空':[
+            '1.创建一个NotifyListener',
+            {'NotifyListener':[
+                'void notify(List<URL> var1)'
+            ]},
+            '2.订阅服务,this.subscribe(url, listener)'
+        ]}
+
+    ]}
     {'register(URL url)':[
         'this.registered.add(url)'
     ]},
@@ -95,81 +117,14 @@ content={
         'this.registered.remove(url)'
     ]},
     {'subscribe(URL url, NotifyListener listener)':[
-        '向this.subscribed上的url添加listener'
+        '向this.subscribed上的url添加listener',
+        'Set<NotifyListener> listeners = (Set)this.subscribed.get(url)',
+        'listeners.add(listener)'
     ]},
     {'unsubscribe(URL url, NotifyListener listener)':[
         '向this.subscribed上的url删除listener'
     ]},
-],
-'FailbackRegistry抽象类':[
-    '重写了父类的注册、订阅、查询和通知等方法，并且添加了重试机制',
-    '还添加了四个未实现的抽象模板方法',
-    {'属性':[
-        {'Set<URL> failedRegistered':[
-            '失败的注册'
-        ]},
-        {'Set<URL> failedUnregistered':[
-            '失败的取消注册'
-        ]},
-        {'ConcurrentMap<URL, Set<NotifyListener>> failedSubscribed':[
-            '失败的订阅'
-        ]},
-        {'ConcurrentMap<URL, Set<NotifyListener>> failedUnsubscribed':[
-            '失败的取消订阅'
-        ]},
-        {'ConcurrentMap<URL, Map<NotifyListener, List<URL>>> failedNotified':[
-            '失败的通知'
-        ]},
-        {'ScheduledExecutorService retryExecutor':[
-            '定时器，每经过固定间隔(默认为5秒)调用this.retry()'
-        ]},
-    ]},
-    {'方法':[
-        {'register(URL url)':[
-            'super.register(url)',
-            'this.doRegister(url)',
-            '失败时执行:this.failedRegistered.add(url)'
-        ]},
-        {'subscribe(URL url, NotifyListener listener)':[
-            'super.subscribe(url, listener)',
-            'this.doSubscribe(url, listener)'
-        ]}
-    ]}
-
-],
-'ZookeeperRegistry':[
-    {'':[
-        {'ConcurrentMap<URL, ConcurrentMap<NotifyListener, ChildListener>> zkListeners':[
-            ''
-        ]},
-        {'ZookeeperClient zkClient':[
-            'dubbo封装的zk客户端'
-        ]}
-    ]},
-    {'ZookeeperRegistry(URL url, ZookeeperTransporter zookeeperTransporter)':[
-        {'创建zk客户端':[
-            'this.zkClient = zookeeperTransporter.connect(url)'
-        ]}
-    ]},
-    {'doRegister(URL url)':[
-        '创建zk节点到zk:',
-        'this.zkClient.create(this.toUrlPath(url), url.getParameter("dynamic", true));'
-    ]},
-    {'doUnregister(URL url)':[
-        '删除zk上的节点:',
-        'this.zkClient.delete(this.toUrlPath(url))'
-    ]},
-    {'doSubscribe(final URL url, final NotifyListener listener)':[
-        '最终调用this.notify(url, listener, urls)',
-    ]}
-],
-'DubboRegistry':[
-    {'属性':[
-        '',
-        'Invoker<RegistryService> registryInvoker',
-        'RegistryService registryService'
-    ]},
-],
+]
 }
 
 

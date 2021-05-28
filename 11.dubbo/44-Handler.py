@@ -14,7 +14,6 @@ r2.setTitle("Handler")
 content={
 'NettyHandler':[
     {'messageReceived(ChannelHandlerContext ctx, MessageEvent e)':[
-        ''
     ]}
 ],
 'DecodeHandler':[

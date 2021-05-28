@@ -34,27 +34,62 @@ content={
         'TIDYING -> TERMINATED:当terminated()执行完成时'
     ]}
 ],
-'工作线程Worker-runWorker':[
-    '1.task==null或者调用getTask从任务队列获取的任务返回null,跳3',
-    {'2.执行任务':[
-        '2.1获取工作线程内持有的独占锁',
-        '2.2执行扩展接口代码',
-        '2.3执行任务',
-        '2.4任务执行完毕后做一些事情',
-        '2.5统计当前Worker完成了多少个任务',
-        '2.6释放锁'
-    ]},
-    {'3.执行清理任务':[
-        {'统计信息':[
-            '加全局锁',
-            '统计线程池完成任务个数',
-            '把当前工作线程中完成任务累加到全局计数器',
-            '然后从工作集中删除当前Worker',
-            '释放锁'
+'Worker':[
+    '继承AQS和Runnable接口，具体承载任务的对象,实现了简单不可重入独占锁',
+    {'属性':[
+        {'int state':[
+            '锁状态',
+            '-1-创建Worker时默认的状态',
+            '0:锁未被获取',
+            '1-锁已被获取'
         ]},
-        '尝试设置线程池状态为TERMINATED',
-        '判断当前线程池里面线程个数<核心线程个数，如果是则新增一个线程',
-    ]}
+        {'Thread thread':[
+            '具体执行任务的线程'
+        ]},
+        {'Runnable firstTask':[
+            '工作线程执行的第一个任务'
+        ]},
+        {'long completedTasks':[
+            '统计当前worker完成了多少任务'
+        ]}
+    ]},
+    {'Worker(Runnable firstTask)':[
+        '设置state值为-1',
+        '设置firstTask值为传参firstTask'
+    ]},
+    {'run()':[
+        'runWorker(this)'
+    ]},
+    {'runWorker(Worker w)':[
+        {'1.取当前Worker里的任务':[
+            'Runnable task = w.firstTask'
+        ]},
+        {'2.如果当前worker里的任务为null,从队列中取任务(循环执行)':[
+            'while (task != null || (task = getTask()) != null) '
+        ]},
+        {'3.使用AQS加锁,执行task,执行完后将Worker里的task设置为null,回到2':[
+            'w.lock()',
+            'beforeExecute(wt, task)---空方法，一个扩展点'
+            'task.run()',
+            'task = null',
+            'w.completedTasks++',
+            'w.unlock()'
+        ]},
+        {'4.执行清理任务':[
+            'processWorkerExit(w, completedAbruptly)'
+        ]},
+        {'3.执行清理任务':[
+            {'统计信息':[
+                '加全局锁',
+                '统计线程池完成任务个数',
+                '把当前工作线程中完成任务累加到全局计数器',
+                '然后从工作集中删除当前Worker',
+                '释放锁'
+            ]},
+            '尝试设置线程池状态为TERMINATED',
+            '判断当前线程池里面线程个数<核心线程个数，如果是则新增一个线程',
+        ]}
+    ]},
 ],
 '用处':[
     '1.执行大量异步任务时提供更好的性能:线程的创建和销毁需要开销,线程池里线程可复用',

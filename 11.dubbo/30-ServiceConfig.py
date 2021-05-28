@@ -16,16 +16,16 @@ content={
 
 '属性':[
     {'ProxyFactory proxyFactory = (ProxyFactory)ExtensionLoader.getExtensionLoader(ProxyFactory.class).getAdaptiveExtension();':[
-        ''
+       
     ]},
     {'Protocol protocol = (Protocol)ExtensionLoader.getExtensionLoader(Protocol.class).getAdaptiveExtension();':[
-        ''
+        
     ]},
     {'List<URL> urls':[
-        ''
+        
     ]},
     {'List<Exporter<?>> exporters':[
-        ''
+       
     ]}
 ],
 'export()':[

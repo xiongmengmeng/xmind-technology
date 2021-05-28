@@ -12,7 +12,6 @@ r2.setTitle("Registry")
 
 
 content={
-
 'FailbackRegistry抽象类':[
     '重写了父类的注册、订阅、查询和通知等方法，并且添加了重试机制',
     '还添加了四个未实现的抽象模板方法',
@@ -50,7 +49,7 @@ content={
 
 ],
 'ZookeeperRegistry':[
-    {'':[
+    {'属性':[
         {'ConcurrentMap<URL, ConcurrentMap<NotifyListener, ChildListener>> zkListeners':[
             ''
         ]},
@@ -77,7 +76,6 @@ content={
 ],
 'DubboRegistry':[
     {'属性':[
-        '',
         'Invoker<RegistryService> registryInvoker',
         'RegistryService registryService'
     ]},

@@ -76,8 +76,47 @@ content={
         ]}
     ]},
     {'await()':[
+        'dowait(false, 0L)',
         '1.获取独占锁lock，如parties=10，后面9个调用线程会调用await()方法阻塞',
         '2.第10个线程调用时，执行CyclicBarrier的任务，唤醒其他9个线程，重置CyclicBarrier'
+    ]},
+    {'dowait(false, 0L)':[
+        {'1.获取独占锁lock':[
+            'ReentrantLock lock = this.lock',
+            'lock.lock()'
+        ]},
+        {'2将count值减1,并执行后续操作':[
+            'index = --count',
+            {'index==0':[
+                {'执行构造器中传入的方法':[
+                    'Runnable command = barrierCommand',
+                    'command.run()',
+                    {'构造器CyclicBarrier(int parties, Runnable barrierAction)':[
+                        'this.parties = parties',
+                        'this.count = parties',
+                        'this.barrierCommand = barrierAction'
+                    ]}
+                ]},
+                {'开启下一轮循环nextGeneration()':[
+                    {'唤醒条件队列里所有等待的线程':[
+                        'trip.signalAll()',
+                        '区别notify(),唤醒的线程还是要去竟然锁的',
+                        '这里唤醒的线程可以直接执行后续方法'
+                    ]},
+                    {'将parties值传给count':[
+                        'count = parties'
+                    ]}
+                ]},
+            ]},
+        ]},
+        {'3.进入一个for循环，线程进入锁的条件队列':[
+            {'释放当前线程持有的锁，进入等待状态':[
+                'trip.await()'
+            ]}
+        ]},
+        {'4.释放锁':[
+            'lock.unlock()'
+        ]}
     ]},
     {'与CountDownLatch对比':[
         {'CountDownLatch':[

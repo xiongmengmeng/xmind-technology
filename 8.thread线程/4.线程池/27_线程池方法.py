@@ -14,25 +14,69 @@ r2.setTitle("线程池_方法")
 
 content={
 'execute(Runnable command)':[
-    '1.线程池线程个数<corePoolSize，向workers里新增一个核心线程执行任务',
-    '2.线程池线程个数>=corePoolSize',
-    {'2.1判断线程池状态':[
-        '2.1.1 RUNNING:添加当前任务到任务队列',
-        {'二次检查线程池状态':[
-            'RUNNING:当前线程池里是否有线程，没有则新增一个',
-            '不是RUNNING:把任务从队列移除，执行拒绝策略'
-        ]},
-        '2.1.2 非RUNNING:抛弃新任务'
+    {'1.线程总个数<corePoolSize，向workers里新增一个核心线程执行任务':[
+        'c = ctl.get()'
+        '如workerCountOf(c) < corePoolSize',
+        '执行addWorker(command, true)'
     ]},
-    {'3.尝试开启线程执行该任务,判断线程池线程个数>maximumPoolSize':[
-        '否：开启线程执行该任务',
-        '是：执行拒绝策略'
-    ]}
+    {'2.线程池线程个数>=corePoolSize,向队列中添加任务':[
+        {'判断线程池状态':[
+            {'线程池状态为RUNNING，添加当前任务到任务队列':[
+                'isRunning(c)&&workQueue.offer(command)'
+            ]},
+            {'二次检查线程池状态':[
+                'RUNNING:当前线程池里是否有线程，没有则新增一个',
+                '不是RUNNING:把任务从队列移除，执行拒绝策略'
+            ]},
+            {'非RUNNING:抛弃新任务':[
+                'remove(command)+reject(command)'
+            ]}
+        ]},
+    ]},
+    {'3.尝试开启线程执行该任务':[
+        '如线程池线程个数>maximumPoolSize,开启线程执行该任务',
+        'if (!addWorker(command, false))'
+    ]},
+    {'4.执行拒绝策略(3尝试失败)':[
+        'reject(command)'
+    ]},
+    '注:一个任务只可能有1-4中的一种情况'
 ], 
-'addWorkder()':[
+'addWorker(Runnable firstTask, boolean core)':[
     '新增线程',
-    '1.双重循环通过CAS操作增加线程数',
-    '2.把并发安全的任务添加到workers里，并启动任务执行'
+    {'1.创建工作线程':[
+        'Worker w = new Worker(firstTask)'
+    ]},
+    {'2.加全局锁':[
+        'mainLock.lock()'
+    ]},
+    {'3.将工作线程添加到工作线程集合中':[
+        'workers.add(w)'
+    ]},
+    {'4.释放锁':[
+        'mainLock.unlock()'
+    ]}
+],
+'processWorkerExit(Worker w, boolean completedAbruptly)':[
+    {'1.加全局锁':[
+        'ReentrantLock mainLock = this.mainLock',
+        'mainLock.lock()'
+    ]},
+    {'2.统计线程池完成任务个数':[
+        'completedTaskCount += w.completedTasks'
+    ]},
+    {'3.从工作集中删除当前Worker':[
+        'workers.remove(w)'
+    ]},
+    {'4.释放锁':[
+        'mainLock.unlock()'
+    ]},
+    {'5.尝试设置线程池状态为TERMINATED':[
+        'tryTerminate()'
+    ]},
+    {'6.判断当前线程池里面线程个数<核心线程个数，如果是则新增一个线程':[
+        'addWorker(null, false)'
+    ]}
 ],
 'shutdown()':[
     '检查权限',

@@ -41,7 +41,7 @@ content={
             ]},
             {'ReferenceAnnotationBeanPostProcessor':[
                 '实现InstantiationAwareBeanPostProcessor接口',
-                'Spring的Bean中初始化前会触发postProcessPropertyValues方法:'
+                'Spring的Bean中初始化前会触发postProcessPropertyValues方法:',
                 '1.获取类中标注的Reference注解的字段和方法',
                 '2.反射设置字段或方法对应的引用',
                 '注：inject方法注入ReferenceBean类(继承自ReferenceConfig,增加了Spring初始化等生命周期方法)',

@@ -40,7 +40,7 @@ content={
     {'方法':[
         {'getRegistry(URL url)':[
             'LOCK.lock()',
-            {'Registry registry = (Registry)REGISTRIES.get(key)':[
+            {'Registry registry = this.createRegistry(url)':[
                 '模版方法',
                 '根据url来创建具体的注册中心'
             ]},

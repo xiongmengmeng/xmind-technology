@@ -13,17 +13,18 @@ r2.setTitle("其他数据类型")
 
 
 content={
-'基础命令':[
-    '获得符合规则的键名列表（*:多个字符，？：一个字符）:keys *',
-    '判断一个键是否存在 exists key',
-    '删除键,不支持通配符 del key',
-    '获得键值的数据类型 type key'
-],
+# '基础命令':[
+#     '获得符合规则的键名列表（*:多个字符，？：一个字符）:keys *',
+#     '判断一个键是否存在 exists key',
+#     '删除键,不支持通配符 del key',
+#     '获得键值的数据类型 type key'
+# ],
 'bitmap':[
     '位图,byte 数组,用二进制表示,只有0和1两个数字',
     {'原理':[
-        '8bit = 1b = 0.001kb',
-        '通过最小的单位bit来进行0或者1的设置，表示某个元素对应的值或者状态'
+        '8位=8bit=1byte=1b=1字节 = 0.001kb',
+        '通过对bit进行0或1的设置，表示某个元素对应的值'，
+        '本质是string类型数据',
     ]},
     {'命令':[
         'setbit key offset value:返回该位在setbit之前的值,value只能取0或1',
@@ -51,6 +52,7 @@ content={
         'georadius key member 300 km   :以给定的经纬度为中心， 返回与中心的距离不超过给定最大距离的所有位置元素',
         'geohash key member:返回一个或多个位置元素的 Geohash 表示',
     ]},
+    '本质是zset类型数据',
     '学习：https://www.imooc.com/article/288961'
 ],
 'Hyperloglog（基数）':[
@@ -59,15 +61,19 @@ content={
         'pfcount key：统计值',
         'pfmerge newKey key1 key2:合并key1,key2到newKey'
     ]},
+    '本质是string类型数据',
     '使用场景：统计页面访客量',
     '缺点：HyperLogLog的计数统计是有一定的误差的，误差最大在1%以下',
 ],
-'LUA脚本':[
-    '减少网络开销（一个脚本只发送一个请求）',
-    '原子操作',
-    '可复用',
-    'https://blog.csdn.net/qq_39172525/article/details/105779727'
-],
+'血液':[
+    '以上三种数据结构本质也是六种数据结构中的一种'
+]
+# 'LUA脚本':[
+#     '减少网络开销（一个脚本只发送一个请求）',
+#     '原子操作',
+#     '可复用',
+#     'https://blog.csdn.net/qq_39172525/article/details/105779727'
+# ],
     
 }
 

@@ -30,7 +30,6 @@ content={
     'Exporter的包装类',
     {'属性':[
         {'Exporter<T> exporter':[
-            ''
         ]}
     ]},
     {'ListenerExporterWrapper(Exporter<T> exporter, List<ExporterListener> listeners)':[

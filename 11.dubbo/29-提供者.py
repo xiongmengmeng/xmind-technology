@@ -14,7 +14,7 @@ r2.setTitle("服务提供者")
 content={
 'URL':[
     '一个重要的契约,所有扩展点都要遵守',
-    '所有扩展点参数都包含URL参数,URL作为上下文信息贯穿整个扩展点设计体系'
+    '所有扩展点参数都包含URL参数,URL作为上下文信息贯穿整个扩展点设计体系',
     {'URL标准格式':[
         'protocol://username:password@host:port/path?key=value&key1=value1'
     ]}

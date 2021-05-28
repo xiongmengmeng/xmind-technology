@@ -16,13 +16,30 @@ content={
     {'类注解':[
         '@SPI("javassist")'
     ]},
+    {'<T> T getProxy(Invoker<T> var1)':[
+        '方法注解@Adaptive({"proxy"})'
+    ]},
+    {'<T> T getProxy(Invoker<T> var1, boolean var2)':[
+        '方法注解@Adaptive({"proxy"})'
+    ]},
     {'<T> Invoker<T> getInvoker(T var1, Class<T> var2, URL var3)':[
         '方法注解@Adaptive({"proxy"})'
     ]},
-    {'spi对映文件内容':[
-        'stub=com.alibaba.dubbo.rpc.proxy.wrapper.StubProxyFactoryWrapper',
-        'jdk=com.alibaba.dubbo.rpc.proxy.jdk.JdkProxyFactory',
-        'javassist=com.alibaba.dubbo.rpc.proxy.javassist.JavassistProxyFactory'
+    # {'spi对映文件内容':[
+    #     'stub=com.alibaba.dubbo.rpc.proxy.wrapper.StubProxyFactoryWrapper',
+    #     'jdk=com.alibaba.dubbo.rpc.proxy.jdk.JdkProxyFactory',
+    #     'javassist=com.alibaba.dubbo.rpc.proxy.javassist.JavassistProxyFactory'
+    # ]}
+],
+'AbstractProxyFactory':[
+    {'重写<T> T getProxy(Invoker<T> invoker)':[
+        'return this.getProxy(invoker, false)'
+    ]},
+    {'重写<T> T getProxy(Invoker<T> invoker, boolean generic)':[
+        'return this.getProxy(invoker, interfaces)'
+    ]},
+    {'<T> T getProxy(Invoker<T> var1, Class<?>[] var2)':[
+        '模版方法'
     ]}
 ],
 'JavassistProxyFactory':[
@@ -31,7 +48,7 @@ content={
             'Wrapper wrapper=Wrapper.getWrapper(proxy.getClass().getName().indexOf(36)<0?proxy.getClass():type)'
         ]},
         {'2.创建一个继承自AbstractProxyInvoker的对象':[
-            'new AbstractProxyInvoker<T>(proxy, type, url)'
+            'new AbstractProxyInvoker<T>(proxy, type, url)',
         ]},
         {'3.重写其doInvoke()方法':[
             '核心wrapper.invokeMethod(proxy, methodName, parameterTypes, arguments)'
@@ -42,7 +59,10 @@ content={
     ]},
 ],
 'InvokerInvocationHandler':[
-    '实现InvocationHandler接囗，重写其invoke(Object proxy, Method method, Object[] args)方法',
+    '实现InvocationHandler接囗，重写其invoke()方法',
+    {'属性':[
+        {'Invoker<?> invoker':[]}
+    ]},
     {'invoke(Object proxy, Method method, Object[] args)':[
         '核心this.invoker.invoke(new RpcInvocation(method, args)).recreate()'
     ]}

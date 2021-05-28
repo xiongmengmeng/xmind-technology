@@ -36,7 +36,7 @@ content={
             'List<Invoker<T>> invokers = this.list(invocation)',
         ]},
         {'2.获得负载均衡器':[
-            'loadbalance = (LoadBalance)ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(((Invoker)invokers.get(0)).getUrl().getMethodParameter(RpcUtils.getMethodName(invocation), "loadbalance", "random"));'
+            'loadbalance=(LoadBalance)ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(((Invoker)invokers.get(0)).getUrl().getMethodParameter(RpcUtils.getMethodName(invocation), "loadbalance", "random"))'
         ]},
         {'3.调用doInvoke模版方法':[
             'this.doInvoke(invocation, invokers, loadbalance)'
@@ -50,7 +50,7 @@ content={
     ]},
     {'select(LoadBalance loadbalance, Invocation invocation, List<Invoker<T>> invokers, List<Invoker<T>> selected)':[
         {'1.检查URL中是否有配置粘滞连接':[
-            'boolean sticky = ((Invoker)invokers.get(0)).getUrl().getMethodParameter(methodName, "sticky", false);'
+            'boolean sticky = ((Invoker)invokers.get(0)).getUrl().getMethodParameter(methodName, "sticky", false)'
         ]},
         {'2.有,如果有则使用粘滞连接的Invoker':[
             '返回this.stickyInvoker'
@@ -60,13 +60,13 @@ content={
         ]}
     ]},
     {'doSelect(LoadBalance loadbalance, Invocation invocation, List<Invoker<T>> invokers, List<Invoker<T>> selected)':[
-        {'1.':[
-            'loadbalance = (LoadBalance)ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension("random");'
+        {'1.获得LoadBalance':[
+            'loadbalance = (LoadBalance)ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension("random")'
         ]},
-        {'':[
+        {'2.选择一个可执行Invoker':[
             'Invoker<T> invoker = loadbalance.select(invokers, this.getUrl(), invocation)'
         ]},
-        {'':[
+        {'3.LoadBalance重新选择一个Invoker':[
             'Invoker<T> rinvoker = this.reselect(loadbalance, invocation, invokers, selected, this.availablecheck);'
         ]}
     ]}
@@ -88,6 +88,11 @@ content={
         ]}
     ]}
 ],
+'AbstractInvoker<T>':[
+    {'invoke(Invocation inv)':[
+        '核心this.doInvoke(invocation)'
+    ]}
+],
 'DubboInvoker<T>':[
     {'参数':[
         {'ExchangeClient[] clients':[
@@ -107,6 +112,19 @@ content={
         {'同步执行有返回值的方法':[
             '(Result)currentClient.request(inv, timeout).get()'
         ]}
+    ]}
+],
+'AbstractProxyInvoker<T>':[
+    {'属性':[
+        {'T proxy':[
+            '内部封装了客户端'
+        ]}
+    ]},
+    {'invoke(Invocation invocation)':[
+        'return new RpcResult(this.doInvoke(this.proxy, invocation.getMethodName(), invocation.getParameterTypes(), invocation.getArguments()));'
+    ]},
+    {'doInvoke(T var1, String var2, Class<?>[] var3, Object[] var4)':[
+        '模版方法'
     ]}
 ]
 

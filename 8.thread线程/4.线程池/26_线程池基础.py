@@ -56,25 +56,45 @@ content={
     '6.如线程池有3个线程处于空闲状态,corePoolSize=1,超出的2个空闲线程,空闲超过60s,会给回收掉'
 ],
 '类图':[
-    {'ctl':[
-        'Integer的原子变量，记录线程池状态和线程池中线程个数'
+    {'AtomicInteger ctl':[
+        '记录线程池状态和线程池中线程个数'
     ]},
-    {'mainLock':[
+    {'ReentrantLock mainLock':[
         '独占锁，控制新增Worker线程操作的原子性'
     ]},
-    {'termination':[
+    {'Condition termination':[
         '锁对应的条件队列，在线程调用awaitTermination时存放阻塞的线程'
+    ]},
+    {'HashSet<Worker> workers':[
+        '工作线程的集合'
     ]},
     {'Worker':[
         '继承AQS和Runnable接口，具体承载任务的对象,实现了简单不可重入独占锁',
-        'state:锁状态，0-锁未被获取，1-锁已被获取，-1-创建Worker时默认的状态',
-        'firstTask：工作线程执行的第一个任务',
-        'thread：具体执行任务的线程'
     ]},
-    {'DefaultThreadFactory线程工厂':[
+    {'int corePoolSize':[
+        '核心线程数'
+    ]},
+    {'int maximumPoolSize':[
+        '最大线程数'
+    ]},
+    {'long keepAliveTime':[
+        '活跃时间'
+    ]},
+    {'BlockingQueue<Runnable> workQueue':[
+        '阻塞队列，用来存放任务'
+    ]}
+    {'ThreadFactory threadFactory':[
+        '线程工厂',
         'newThread方法是对线程的一个修饰',
         'poolNumber：静态的原子变量，统计线程工厂的个数',
         'threadNumber：记录每个线程工厂创建了多少线程'
+    ]},
+    {'RejectedExecutionHandler handler':[
+        '拒绝策略,默认抛弃',
+        'RejectedExecutionHandler defaultHandler =new AbortPolicy()'
+    ]}
+    {'long completedTaskCount':[
+        '已经完成的任务数'
     ]}
 ]
 }

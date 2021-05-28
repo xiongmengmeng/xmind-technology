@@ -18,8 +18,8 @@ content={
     {'Map<String, ExchangeServer> serverMap = new ConcurrentHashMap()':[
         '存入暴露的服务'
     ]},
-    {'Map<String, ExchangeServer> serverMap':[
-        '存入'
+    {'ExchangeHandler requestHandler':[
+        '本质为ExchangeHandlerAdapter,在类中创建',
     ]}
 ],
 'export(Invoker<T> invoker)':[
@@ -38,8 +38,10 @@ content={
     ]},
 ],
 'openServer(URL url)':[
-    '将Exporter存入map中',
-    '调用this.serverMap.put(key, this.createServer(url));'
+    '1.从serverMap中取ExchangeServer',
+    '2.取到，调用server.reset(url)',
+    '3.否则创建一个ExchangeServer,并将其放到serverMap中:',
+    'this.serverMap.put(key, this.createServer(url))',
 ],
 'createServer(URL url)':[
     {'创建NettyServer并且初始化Handler':[
@@ -50,7 +52,7 @@ content={
 ],
 'refer(Class<T> serviceType, URL url)':[
     '服务引用',
-    'DubboInvoker<T> invoker = new DubboInvoker(serviceType, url, this.getClients(url), this.invokers)',
+    'DubboInvoker<T> invoker=new DubboInvoker(serviceType, url, this.getClients(url), this.invokers)',
     {'注参数 ':[
         'this.getClients(url)'
     ]}
@@ -81,7 +83,7 @@ content={
 'getInvoker(Channel channel, Invocation inv)':[
     {'1.组装key':[
         'key由四部分组成：端囗，接囗名，接囗版本，接囗分组',
-        'String serviceKey = serviceKey(port, path, (String)inv.getAttachments().get("version"), (String)inv.getAttachments().get("group"));'
+        'String serviceKey=serviceKey(port, path, (String)inv.getAttachments().get("version"), (String)inv.getAttachments().get("group"))'
     ]},
     {'2.根据key拿到exporter':[
         'DubboExporter<?> exporter = (DubboExporter)this.exporterMap.get(serviceKey)'

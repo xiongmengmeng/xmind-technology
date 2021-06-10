@@ -12,45 +12,84 @@ r2.setTitle("kafka概述")
 
 
 content={
-'一个多分区、多副本且基于ZooKeeper协调的分布式消息系统':[],
-'三大角色':[
-    '消息系统',
-    '存储系统',
+'介绍':[
+    '一个多分区、多副本且基于ZooKeeper协调的分布式消息系统',
+],
+'三大作用':[
+    {'消息系统':[
+        {'系统解耦':[
+            '1.物流的包裹流转数据，各平台都需要，如使用RPC调用成本高,只需发下消息，各方订阅即可',
+            '2.提升系统稳定性，如果调用服务报错，会影响平台功能'
+        ]},
+        {'异步调用':[
+            '客户下单时，生成订单信息即可，对于订单的后续拆分，传递都可以通过消息来操作',
+        ]},
+        {'流量削峰':[
+            '用有限的机器资源承载高并发请求，',
+            '如业务场景允许异步削峰，高峰期积压一些请求在MQ里，高峰期过了，系统在一定时间内消费完毕'
+        ]},
+    ]},
+    {'存储系统':[
+        '日志收集',
+        '用户活动跟踪',
+        '运营指标'
+    ]},
     '流式处理平台'
 ],
-'体系结构':[
-    'Producer：生产者',
-    'Consumer：消费者',
-    'Broker：服务代理节点',
-    '主题（Topic）',
-    {'分区（Partition）':[
-        '一个分区只属于单个主题',
-        '分区有序而不是主题有序',
-        '引入了多副本（Replica）机制，提升容灾能力',
-        'AR（Assigned Replicas）:分区中的所有副本',
-        'ISR（In-Sync Replicas）:所有与leader副本保持一定程度同步的副本',
-        'OSR（Out-of-Sync Replicas）:与leader副本同步滞后过多的副本',
-        'AR=ISR+OSR',
-        {'HW(High Watermark)':[
-            '高水位',
-            '标识一个特定的消息偏移量（offset）',
-            '消费者只能拉取到这个offset之前的消息',
-            'ISR集合中最小的LEO即为分区的HW'
+'缺点':[
+    {'系统可用性降低':[
+        '多一台应用，有挂掉风险'
+    ]},
+    {'系统稳定性降低':[
+        '网络故障等问题导致消息丢失',
+        '重复发送消息，导致脏数据',
+        '宕机了几个小时，导致无法消费消息'
+    ]},
+    {'分布式一致性':[
+        '系统消费消息失败，导致系统整体数据不一致'
+    ]},
+],
+'安装与配置':[
+    {'JDK':[
+        'kafka由Scala语言开发的，但也运行在JVM上'
+    ]},
+    {'ZooKeeper':[
+        '实施对元数据信息的管理，包括集群、broker、主题、分区等内容'
+    ]},
+    {'Kafka':[
+        {'服务端参数配置':[
+            {'broker.id':[
+                'Kafka集群中broker的唯一标识，默认值为-1'
+            ]},
+            {'listeners':[
+                'kafka部署的机器ip和提供服务的端口号'
+            ]},
+            {'log.dir和log.dirs':[
+                'kafka的消息存储文件'
+            ]},
+            {'zookeeper.connect':[
+                'broker要连接的ZooKeeper集群的服务地址（含端口号）'
+            ]},
+            {'message.max.bytes':[
+                'broker所能接收消息的最大值'
+            ]},
+            {'log.retention.hours':[
+                '每个日志文件删除之前保存的时间,默168'
+            ]},
+            {'num.partitions':[
+                '创建topic的默认分区数,默1'
+            ]},
+            {'default.replication.factor':[
+                'default.replication.factor,默1'
+            ]},
+            {'min.insync.replicas':[
+                '当producer设置acks为-1时，min.insync.replicas指定replicas的最小数目'
+            ]}
         ]}
     ]}
 ],
-'安装与配置':[
-    'JDK',
-    'ZooKeeper:实施对元数据信息的管理，包括集群、broker、主题、分区等内容',
-    'Kafka'
-],
-'服务端参数配置':[
-    'zookeeper.connect:broker要连接的ZooKeeper集群的服务地址（含端口号）',
-    'listeners:客户端要连接broker的入口地址列表',
-    'broker.id:指定Kafka集群中broker的唯一标识，默认值为-1',
-    'log.dir和log.dirs:配置 Kafka 日志文件存放的根目录',
-    'message.max.bytes:指定broker所能接收消息的最大值'
-]
+
+
   
 }
 

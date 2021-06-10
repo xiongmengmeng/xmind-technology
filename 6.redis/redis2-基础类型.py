@@ -77,6 +77,9 @@ content={
     ]},
     '增加元素:zadd key score member score1 member1',
     '获得元素分数 :zscore key membe'
+],
+'Streams':[
+    'redis5.x后出现的'
 ]
     
 }

@@ -12,7 +12,50 @@ r2.setTitle("KafkaAdminClient")
 
 
 content={
+'分区（Partition）':[
+    '可引入了多副本（Replica）机制，提升容灾能力',
+    '一个有序的message序列，这些message按顺序添加到一个叫做commit log的文件中',
+    '每个partition中的消息都有一个唯一的编号，称之为offset，用来唯一标示某个分区中的message',
 
+    'kafka一般不会删除消息，只会根据配置的日志保留时间(log.retention.hours)确认消息多久被删除',
+    {'consumer':[
+        '基于自己在commit log中的消费进度(offset)来进行工作的',
+        '在kafka中，消费offset由consumer自己来维护'
+    ]}
+
+],
+'分区概念':[
+    {'leader节点':[
+        '负责给定partition的所有读写请求'
+    ]},
+    {'AR（Assigned Replicas）':[
+        '分区中的所有副本',
+        'AR=ISR+OSR'
+    ]},
+    {'ISR（In-Sync Replicas）':[
+        '所有与leader副本保持一定程度同步的副本'
+    ]},
+    {'OSR（Out-of-Sync Replicas）':[
+        '与leader副本同步滞后过多的副本'
+    ]},
+    {'HW(High Watermark)':[
+        '高水位',
+        'ISR集合中最小的LEO即为分区的HW',
+        '消费者只能拉取到这个offset之前的消息',
+        '每个replica都有HW,leader和follower各自负责更新自己的HW的状态',
+        {'作用':[
+            '保证消费者消费数据的一致性'
+        ]}
+    ]},
+    {'LEO(log-end-offset)':[
+        '一个partition的最大的offset'
+    ]}
+],
+'理解Topic，Partition和Broker':[
+    'topic：代表逻辑上的一个业务数据集，对比数据库里的表',
+    'Partition：数据库中的表做了分表，Partition代表其中的一张表',
+    'Broker:对比一个数据库'
+]
 '可以用来管理主题、broker、配置和ACL（Access Control List）':[],
 '继承了org.apache.kafka.clients.admin.AdminClient抽象类，并提供了多种方法':[
     '创建主题：CreateTopicsResult createTopics（Collection＜NewTopic＞newTopics）',

@@ -12,37 +12,43 @@ r2.setTitle("生产者(下)")
 
 
 content={
-
-'7.分区器':[
-    {'消息在通过send()方法发往broker':[
-        '拦截器（Interceptor）',
-        '序列化器（Serializer）',
-        '分区器（Partitioner）'
-    ]},
-    'ProducerRecord中指定partition字段，不需要分区器',
-    'ProducerRecord中未指定partition字段，无key，轮询，有key,根据key计算partition(先hash，再根据分区数取模)',
-    {'Partitioner接口':[
-        'partition（）:计算分区号，返回值为int类型',
-        'close（）:关闭分区器的时候用来回收一些资源',
-        'configure（）:获取配置信息及初始化数据(继承自父类)'
-    ]}
-],
-'8.RecordAccumulator':[
-    '缓存消息以便Sender线程可批量发送，减少网络传输的资源消耗',
-    '缓存大小:通过buffer.memory 配置，默认值32MB',
-    '生产者发送消息的速度>发送到服务器的速度:生产者空间不足，此时send()方法调用要么被阻塞，要么抛出异常',
-    '内部为每个分区都维护了一个双端队列，队列中的内容就是ProducerBatch，即 Deque＜ProducerBatch＞'
-],
-'9.Sender 线程':[
-    'Sender从RecordAccumulator中获取＜分区，Deque＜ProducerBatch＞＞的缓存消息',
-    '转变为：＜Node，List＜ ProducerBatch＞的形式，其中Node表示Kafka集群的broker节点',
-    '封装为：＜Node，Request＞的形式',
-    'Map＜NodeId，Deque＜Request＞＞:缓存了已经发出去但还没有收到响应的请求'
-],
+# '8.分区器':[
+#     {'消息在通过send()方法发往broker':[
+#         '拦截器（Interceptor）',
+#         '序列化器（Serializer）',
+#         '分区器（Partitioner）'
+#     ]},
+#     {'计算分区':[
+#         '1.ProducerRecord中指定partition字段',
+#         '2.未指定partition字段，有key,根据key计算partition(先hash，再根据分区数取模)',
+#         '3.无key,轮询'
+#     ]},
+#     {'Partitioner接口':[
+#         'partition（）:计算分区号，返回值为int类型',
+#         'close（）:关闭分区器的时候用来回收一些资源',
+#         'configure（）:获取配置信息及初始化数据(继承自父类)'
+#     ]}
+# ],
+# '9.RecordAccumulator':[
+#     '缓存消息以便Sender线程可批量发送，减少网络传输的资源消耗',
+#     '缓存大小:通过buffer.memory 配置，默认值32MB',
+#     '生产者发送消息的速度>发送到服务器的速度:生产者空间不足，此时send()方法调用要么被阻塞，要么抛出异常',
+#     '内部为每个分区都维护了一个双端队列，队列中的内容就是ProducerBatch，即 Deque＜ProducerBatch＞'
+# ],
+# '10.Sender 线程':[
+#     'Sender从RecordAccumulator中获取＜分区，Deque＜ProducerBatch＞＞的缓存消息',
+#     '转变为：＜Node，List＜ ProducerBatch＞的形式，其中Node表示Kafka集群的broker节点',
+#     '封装为：＜Node，Request＞的形式',
+#     'Map＜NodeId，Deque＜Request＞＞:缓存了已经发出去但还没有收到响应的请求'
+# ],
 '整体架构':[
     '生产者客户端由两个线程协调运行：主线程和Sender线程（发送线程）',
-    '主线程:由KafkaProducer创建消息，然后通过可能的拦截器、序列化器和分区器的作用之后缓存到消息累加器',
-    'Sender线程:从RecordAccumulator中获取消息并将其发送到Kafka中',
+    {'主线程':[
+        '由KafkaProducer创建消息，然后通过可能的拦截器、序列化器和分区器的作用之后缓存到消息累加器'
+    ]},
+    {'Sender线程':[
+        '从RecordAccumulator中获取消息并将其发送到Kafka中'
+    ]}
 ],
 '重要的生产者参数':[
     {'acks':[
@@ -50,10 +56,13 @@ content={
         '配置的值是一个字符串类型',
         'acks=0:生产者发送消息后不需等待服务端响应,认为消息发送成功',
         'acks=1:只要分区的leader副本成功写入消息，收到来自服务端的成功响应，认为消息发送成功',
-        'acks=-1:等待ISR中的所有副本都成功写入消息后，收到来自服务端的成功响应，认为消息发送成功'
+        {'acks=-1':[
+            '等待ISR中的所有副本都成功写入消息后，收到来自服务端的成功响应，认为消息发送成功',
+            '需配合min.insync.replicas参数使用，其值要大于或者等于2,否则acks=-1作用只是acks=1'
+        ]}
     ]},
     {'retries':[
-        '生产者重试的次数，默认0'
+        '生产者重试的次数，默认0,注意消费时实现幂等'
     ]},
     {'retry.backoff.ms':[
         '两次重试之间的时间间隔,默认100'
@@ -62,7 +71,7 @@ content={
         '批次大小,默认16K,可提高增加系统吞吐量'
     ]},
     {'linger.ms':[
-        '发送时间限制,Batch没满也发送'
+        '发送时间限制,Batch没满也发送，默0'
     ]},
     {'buffer.memory':[
         '缓冲区大小,默认32M',
@@ -75,7 +84,7 @@ content={
         'Producer等待请求响应的最长时间，默认30s',
         '请求超时之后可以选择进行重试,防止因网络抖动导致的数据丢失，限制等待时间'
     ]}
-]
+],
 }
 
 #构建xmind

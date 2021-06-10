@@ -12,7 +12,19 @@ r2.setTitle("生产者(上)")
 
 
 content={
-'1.配置生产者客户端参数，创建生产者实例KafkaProducer':[
+'生产者':[
+    '将消息发送到topic中去',
+    '选择将message发送到topic的哪一个partition中',
+    '通过round­robin做简单的负载均衡,也可根据消息中的某一个关键字来进行区分'
+],
+'1.引入maven依赖':[
+    '<dependency>',
+    '   <groupId>org.apache.kafka</groupId>',
+    '   <artifactId>kafka‐clients</artifactId>',
+    '   <version>2.4.1</version>',
+    '</dependency>',
+],
+'2..配置生产者客户端参数，创建生产者实例KafkaProducer':[
     'bootstrap.servers:Kafka集群的broker地址清单',
     'key.serializer和value.serializer:序列化方式',
     'client.id：KafkaProducer对应的客户端id',
@@ -23,7 +35,7 @@ content={
         'KafkaProducer<String, String> producer = new KafkaProducer<String, String>(props)'
     ]}
 ],
-'2.构建消息ProducerRecord':[
+'3.构建消息ProducerRecord':[
     'topic:消息要发往的主题',
     'artition:分区号',
     'headers:消息头部,用来设定一些与应用相关的信息',
@@ -34,33 +46,32 @@ content={
         'ProducerRecord<String, String> record = new ProducerRecord<>("test-topic", "test-value");'
     ]}
 ],
-'3.发送消息':[
-    '发后即忘（fire-and-forget）',
-    '同步（sync）',
-    '异步（async）',
-    {'代码':[
-        '异步发送的模式',
+'4.发送消息':[
+    {'同步（sync）':[
+        '*RecordMetadata metadata=producer.send(record).get()'
+    ]},
+    {'异步（async）':[
         'Future future=producer.send(record, new Callback() {...})'
     ]}
 ],
-'4.关闭生产者实例':[
+'5.关闭生产者实例':[
     'producer.close();'
 ],
-'5.生产者拦截器':[
-    {'ProducerInterceptor接口':[
-        'onSend（）:在将消息序列化和计算分区之前会调用',
-        'onAcknowledgement（）:消息被应答之前或发送失败时调用',
-        'close（）:在关闭拦截器时执行一些资源的清理工'
-    ]},
-    '自定义的拦截器,需在 KafkaProducer 的配置参数interceptor.classes中指定拦截器',
-],
-'6.序列化':[
-    {'Serializer接口':[
-        'configure（）:配置当前类',
-        'serialize（）:执行序列化操作:将String类型转为byte[]类型',
-        'close（）:关闭当前的序列化器'
-    ]}
-],
+# '6.生产者拦截器':[
+#     {'ProducerInterceptor接口':[
+#         'onSend（）:在将消息序列化和计算分区之前会调用',
+#         'onAcknowledgement（）:消息被应答之前或发送失败时调用',
+#         'close（）:在关闭拦截器时执行一些资源的清理工'
+#     ]},
+#     '自定义的拦截器,需在 KafkaProducer 的配置参数interceptor.classes中指定拦截器',
+# ],
+# '7.序列化':[
+#     {'Serializer接口':[
+#         'configure（）:配置当前类',
+#         'serialize（）:执行序列化操作:将String类型转为byte[]类型',
+#         'close（）:关闭当前的序列化器'
+#     ]}
+# ],
 
   
 }

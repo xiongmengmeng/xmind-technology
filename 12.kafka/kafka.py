@@ -25,7 +25,6 @@ content={
         'topic注册和记录配置' 
     ]},
     {'consumer':[
-        '老版存储offset',
         'consumer注册',
         '分区注册'
     ]}
@@ -33,12 +32,12 @@ content={
 'Producer':[
     'KafkaProducer',
     'ProducerRecord',
-    'ProducerInterceptor',
-    '序列化',
-    '分区器',
-    'RecordAccumulator',
-    'Sender',
-    '参数'
+    # 'ProducerInterceptor',
+    # '序列化',
+    # '分区器',
+    # 'RecordAccumulator',
+    # 'Sender',
+    # '参数'
 ],
 'Broker':[
     '主从架构',
@@ -52,7 +51,6 @@ content={
         '页缓存技术 + 磁盘顺序写',
         '零拷贝技术'
     ]},
-
 ],
 'Consumer':[
     'Consumer Group',
@@ -62,21 +60,24 @@ content={
     '选择一个Broker做为coordinator'
 ],
 'Topic':[
-    'Message'
-],
-'Partition':[
-    '多副本，leader--follower',
-    'LEO',
-    'ISR',
-    'HW'
+    'Message',
+    {'Partition':[
+        '多副本，leader--follower',
+        'LEO',
+        'ISR',
+        'HW'
+    ]}
 ],
 '监控':[
     'Monitor',
     'Manager',
     'Eagle'
 ],
-'遇到问题':[],
-'源码':[]
+'遇到问题':[
+    '消息丢失',
+    '消息重复消费',
+],
+# '源码':[]
 }
 
 #构建xmind

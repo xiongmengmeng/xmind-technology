@@ -12,7 +12,6 @@ r2.setTitle("Kafka高可用：分布式存储架构")
 
 
 content={
-
 '分区':[
     '一个topic数据集合拆分为多个数据分区',
     '每个Partition可以在不同机器上，储存部分数据'

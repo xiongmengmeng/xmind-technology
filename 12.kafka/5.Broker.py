@@ -37,12 +37,11 @@ content={
             '为Zookeeper中的/brokers/topics节点添加TopicChangeListener，用来处理topic增减的变化',
             '为Zookeeper中的/admin/delete_topics节点添加TopicDeletionListener，用来处理删除topic的动作'
         ]},
-        {'3.监听所有与topic、partition以及broker的信息':[
-            '对于所有topic所对应的Zookeeper中的/brokers/topics/[topic]节点添加PartitionModificationsListener',
+        {'3.监听所有与topic、partition以及broker':[
+            '对topic对应Zookeeper中的/brokers/topics/[topic]节点添加PartitionModificationsListener',
             '用来监听topic中的分区分配变化'
         ]},
         {'4.更新集群的元数据信息，同步到其他普通的broker节点中':[
-            ''
         ]}
     ]}
 ],

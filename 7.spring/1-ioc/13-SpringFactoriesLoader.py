@@ -29,6 +29,20 @@ content={
         '从文件中筛选出要加载的类，将类的名称返回'
     ]},
 ],
+"@EnableConfigurationProperties({ServerProperties.class})":[
+    '将配置文件中对应的值和ServerProperties绑定起来',
+    '并把ServerProperties加入到IOC容器中',
+    '并注册ConfigurationPropertiesBindingPostProcessor用于将@ConfigurationProperties的类和配置进行绑定',
+    {'ServerProperties':[
+        '通过@ConfigurationProperties注解将配置文件与自身属性绑定',
+        '把全局配置文件中的值绑定到实体类JavaBean上面（将配置文件中的值与ServerProperites绑定起来）'
+    ]},
+    {'应用':[
+        'application.properties声明spring.application.name是通过@ConfigurationProperties注解',
+        '绑定到对应的XxxxProperties配置实体类上',
+        '然后再通过@EnableConfigurationProperties注解导入到Spring容器中'
+    ]}
+],
 'SpringFactoriesLoader':[
     {'loadFactoryNames(Class<?> factoryType, @Nullable ClassLoader classLoader)':[
         '参数getSpringFactoriesLoaderFactoryClass()：EnableAutoConfiguration.class',

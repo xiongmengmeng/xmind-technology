@@ -16,6 +16,9 @@ r2.setTitle("SpringApplication类的构造方法")
 
 content={
 '构造方法':[
+    {'将启动类放入primarySources':[
+        'this.primarySources=new LinkedHashSet<>(Arrays.asList(primarySources));'
+    ]},
     {'推断应用类型':[
         'this.webApplicationType = deduceWebApplicationType();',
         '根据类型初始化对应的环境,常用的一般是servlet环境'
@@ -76,6 +79,12 @@ content={
         '通过ApplicationEvent类和ApplicationListener接口，实现对spring容器全生命周期的监听，当然也可以自定义监听事件',
         
     ]}
+],
+'总结':[
+    '1. 获取启动类',
+    '2.获取web应用类型',
+    '3.读取了对外扩展的ApplicationContextInitializer ,ApplicationListener',
+    '4. 根据main推算出所在的类'
 ]
 }
 

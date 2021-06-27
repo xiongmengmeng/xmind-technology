@@ -24,6 +24,32 @@ content={
     '3.Cntroller:处理request，并返回ModelAndView对象',
     '4.视图解析器解析ModelAndView对象并返回对应的视图给客户端'
 ],
+'HandlerAdapter':[
+    '调用处理器（Handler|Controller）',
+    'Spring mvc采用适配器模式来适配调用指定Handler，根据Handler的不同种类采用不同的Adapter',
+    {'Handler与 HandlerAdapter':[
+        'Handler类别        对应适配器                      描述',
+        'Controller         SimpleControllerHandlerAdapter 标准控制器(实现Controller接口)，返回ModelAndView',
+        'HttpRequestHandler HttpRequestHandlerAdapter      实现HttpRequestHandler接囗,不需要通过modelAndView转到视图',
+        'Servlet            SimpleServletHandlerAdapter    基于标准的servlet处理',
+        'HandlerMethod      RequestMappingHandlerAdapter   用注解@Controller配置控制器,用@requestMapping配置方法'
+
+    ]},
+    '前后端交互通过json数据，利用@RequestBody和@ResponseBody实现数据到 java对象的绑定',
+    {'请求参数封装':[
+        '支持基本类型，POJO 类型和集合类型',
+        {'RequestParam':[
+            '@RequestParam():注解内容作为参数名',
+            'request.getParameterValues():根据参数名获取的参数值'
+        ]},
+        {'RequestBody':[
+            '把请求的json数组转为对象'
+        ]},
+        {'PathVariable':[
+            '把请求URL中的参数，给我们控制器方法的形参赋值'
+        ]}
+    ]}
+],
 'AbstractHandlerMethodAdapter':[
     {'handle()->':[
         'handleInternal(request, response, (HandlerMethod) handler)'

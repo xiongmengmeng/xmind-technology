@@ -61,7 +61,11 @@ content={
     ]},
     {'RoundRobinLoadBalance':[
         '轮询',
-        '按公约后的权重设置轮询比率'
+        {'平滑加权轮询':[
+            '每个服务器对应两个权重，weight(固定)和currentWeight(会动态调整,初始值为0)',
+            '有新的请求进来，遍历服务器列表，让它的currentWeight加上⾃身权重',
+            '遍历完成，找到最⼤的currentWeight，并将其减去权重总和，然后返回相应的服务器'
+        ]}
     ]},
     {'LeastActiveLoadBalance':[
         '最少活跃调用数',

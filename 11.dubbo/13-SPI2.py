@@ -72,7 +72,7 @@ content={
         'AdaptiveCompiler编译器:管理其他Compile,抽象类，无法实例化，在里面封装了通用的模板逻辑'
     ]}
 ],
-'get Extension (Class<T> type. String name)来获取扩展点接口的具体实现':[
+'get Extension (Class<T> type,String name)来获取扩展点接口的具体实现':[
     '对传入的Class做校验，判断是否是接口',
     '是否有@SPI注解'
 ]

@@ -1,4 +1,4 @@
-import os,sys 
+ import os,sys 
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
 sys.path.insert(0,parentdir) 
 
@@ -15,11 +15,16 @@ r2.setTitle("Bean的注册跟加载")
 content={
 '入囗：AnnotationConfigApplicationContext':[],
 '1.this():AnnotationConfigApplicationContext初始化':[
-    '先执行父类GenericApplicationContext的无参构造函数：创建一个DefaultListableBeanFactory',
-    {'再执行子类的无参构造函数':[
-        '初始化参数：AnnotatedBeanDefinitionReader reader,会初始化类加载器AppClassLoader',
-        '初始化参数：ClassPathBeanDefinitionScanner scanner'
-    ]}
+    '执行父类GenericApplicationContext的无参构造函数：创建一个DefaultListableBeanFactory',
+    {'创建AnnotatedBeanDefinitionReader':[
+        '1.注册内置BeanPostProcessor',
+        '2.注册相关的BeanDefinition',
+        {'AnnotationConfigUtils.registerAnnotationConfigProcessors(this.registry);':[
+            '创建ConfigurationClassPostProcessor'
+        ]}
+    ]},
+    '创建ClassPathBeanDefinitionScanner'
+
 ],
 '2.register(componentClasses):Bean注册':[
     '实现类，AnnotatedBeanDefinitionReader，持有BeanDefinitionRegistry',
@@ -29,10 +34,10 @@ content={
         '3.注册:先验证，然后把BeanDefinition放到beanDefinitionMap，beanDefinitionNames中',
     ]},
     '1.new AnnotatedGenericBeanDefinition(beanClass):将类转化为AnnotatedGenericBeanDefinition',
-    '2.conditionEvaluator.shouldSkip():判断@Conditional是否被启用,如类没有被@Conditional注解修饰',
-    '3.this.scopeMetadataResolver.resolveScopeMetadata(abd):查作用域',
+    '2.conditionEvaluator.shouldSkip():判断需不需要跳过注册，@Condition注解，如不满足条件，跳过这个类的注册',
+    '3.this.scopeMetadataResolver.resolveScopeMetadata(abd):是解析作用域，如果没有设置的话，默认为单例',
     '4.this.beanNameGenerator.generateBeanName(abd, this.registry))：获得beanName',
-    '5.AnnotationConfigUtils.processCommonDefinitionAnnotations(abd):处理Bean定义类中通用注解:@lazy注解->@primary-> @DependsOn->@Role-> @Description',
+    '5.AnnotationConfigUtils.processCommonDefinitionAnnotations(abd):解析通用注解，填充到AnnotatedGenericBeanDefinition，@lazy注解->@primary-> @DependsOn->@Role-> @Description',
     '6.针对@Qualifier注解:配置自动依赖注入装配的限定条件',
     '7.customizer.customize(abd):允许使用lambda 表达式来自定义注册一个bean',
     '8.new BeanDefinitionHolder(abd, beanName):把BeanDefination简单的封装为BeanDefinitionHolder',
@@ -42,7 +47,6 @@ content={
         '2.对容器中已经存在了一个同名bean的处理方法,报错或覆盖',
         '3.将beanName和beanDefinition放到beanDefinitionMap'
     ]},
-    '11.registry.registerAlias(beanName, alias):给bean注册别名',
 ],
 '3.refresh():Bean的预加载':[
     '实现类，AbstractApplicationContext',

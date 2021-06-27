@@ -15,7 +15,7 @@ r2.setTitle("redisDB主体数据结构")
 content={
 'redis':[
     {'数组结构--hash':[
-        '数据：O(1)',
+        '数组：O(1)',
         '链表：O(n)'
     ]},
     {'使用':[

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.2.xsd
+           http://code.alibabatech.com/schema/dubbo
+           http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	   ">
+
+    <!--载入使用到的配置文件-->
+    <context:property-placeholder order="9" location="classpath:ops_dubbo.properties"/>
+
+    <!--注册中心配置-->
+    <dubbo:registry id="registryConfig" port="${ops.dubbo.registry.port}"
+                    address="${ops.dubbo.zookeeper.registry.address}"/>
+    <!--应用信息配置-->
+    <!--name可以直接用app.properties的应用名字-->
+    <dubbo:application name="baturu-cat-dubbo-combination" owner="JunYong.Liu" />
+    <!--服务提供者协议配置-->
+    <dubbo:protocol name="${ops.dubbo.protocol.name}" port="${ops.dubbo.protocol.port}" />
+    <!--服务提供者缺省值配置(全局配置负载均衡策略为轮询)-->
+    <dubbo:provider loadbalance="${ops.dubbo.service.loadbalance}"
+                    filter="ProviderCatLogFilter,default"/>
+    <!--服务消费者缺省值配置-->
+    <dubbo:consumer check="false" retries="0" timeout="5000" loadbalance="roundrobin"
+                    filter="ConsumerCatLogFilter,default"/>
+
+</beans>

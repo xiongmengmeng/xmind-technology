@@ -27,7 +27,7 @@ content={
         '创建线程的工厂'
     ]},
     {'keeyAliveTime':[
-        '如 线程数量 > corePoolSize，多出线程在keepAliveTime后释放'
+        '如 线程数量>corePoolSize，多出线程在keepAliveTime后释放'
     ]},
     {'TimeUnit':[
         'keepAliveTime的时间单位'
@@ -82,7 +82,7 @@ content={
     ]},
     {'BlockingQueue<Runnable> workQueue':[
         '阻塞队列，用来存放任务'
-    ]}
+    ]},
     {'ThreadFactory threadFactory':[
         '线程工厂',
         'newThread方法是对线程的一个修饰',
@@ -92,7 +92,7 @@ content={
     {'RejectedExecutionHandler handler':[
         '拒绝策略,默认抛弃',
         'RejectedExecutionHandler defaultHandler =new AbortPolicy()'
-    ]}
+    ]},
     {'long completedTaskCount':[
         '已经完成的任务数'
     ]}

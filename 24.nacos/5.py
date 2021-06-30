@@ -7,137 +7,66 @@ from xmind.core.markerref import MarkerId
 xmind_name="Sentinel"
 w = xmind.load(os.path.dirname(os.path.abspath(__file__))+"\\"+xmind_name+".xmind") 
 s2=w.createSheet()
-s2.setTitle("Ribbon")
+s2.setTitle("Nacos")
 r2=s2.getRootTopic()
-r2.setTitle("Feign")
+r2.setTitle("Nacos")
 
 
 content={
-'接口调用':[
-     {'1.Httpclient':[
-        'Apache Jakarta Common下的子项目',
-        '支持HTTP协议最新版本',
-    ]},
-    {'2.Okhttp':[
-        '一个处理网络请求的开源项目，安卓端最火的轻量级框架，由Square公司贡献',
-        '拥有简洁的API、高效的性能',
-    ]},
-    {'3.HttpURLConnection':[
-        'Java的标准类，它继承自URLConnection',
-        '使用比较复杂，不像HttpClient那样容易使用',
-    ]},
-    {'4.RestTemplate':[
-        'Spring提供的用于访问Rest服务的客户端',
-        '提供了多种便捷访问远程HTTP服务的方法',
-    ]},
+'作用':[
+    '动态服务发现',
+    '服务配置',
+    '服务元数据及流量管理'
 ],
-'Feign':[
-    'Netflix开发的声明式、模板化的HTTP客户端',
-    {'Spring Cloud openfeign':[
-        '对Feign进行了增强，使其支持Spring MVC注解',
-        '整合了Ribbon和Eureka，从而使得Feign的使用更加方便',
+'架构':[
+    {'NamingService':[
+        '命名服务，注册中心核心接口'
     ]},
-    {'设计架构':[
-        '1.基于面向接囗的动态代理方式生成实现类',
-        '2.根据接囗类的注解声明规则，解析出底层MethodHandler',
-        '3.基于RequestBean,动态生成Request',
-        '4.Encoder将Bean包装成请求',
-        '5.拦截器负责对请求和返回进行装饰处理',
-        '6.日志记录',
-        '7.基于重试器发送http请求，可基于不同的http框架处理'
+    {'ConfigService':[
+        '配置服务，配置中心核心接口'
     ]}
 ],
-'单独使用':[
-    {'引入依赖':[
-        'com.netflix.feign.feign‐core',
-        'com.netflix.feign.feign‐jackson'
+'注册中心':[
+    {'注册表':[
+        'mysql存储',
+        'server-register',
     ]},
-    {'编写接口':[
-        '方法上添加@Headers(),@RequestLine()'
+    {'过程':[
+        '1.A,B服务启动时，调用注册接囗，执行insert,并且定时发送心跳给注册中心',
+        '2.A服务定时拉取B服务列表，缓存到本地',
+        '3.A服务根据2过程获取结果，选择一个服务进行远程调用'
     ]},
-    {'调用':[
-    ]},
-],
-'整合Spring Cloud Alibaba':[
-    {'1.引入依赖':[
-        'spring‐cloud‐starter‐openfeign'
-    ]},
-    {'2.编写调用接口+@FeignClient注解':[
-        '接囗上添加@FeignClient(value = "mall‐order",path = "/order")',
-        '方法上添加@RequestMapping("/findOrderByUserId/{userId}")'
-    ]},
-    {'3.调用端在启动类上添加@EnableFeignClients注解':[
-    ]},
-    {'4.发起调用':[
-        '像调用本地方式一样调用远程服务',
-    ]},
-],
-'自定义配置':[
-    {'日志配置':[
-        'feign:client:config:loggerLevel:FULL',
-        {'日志等级有4种':[
-            {'NONE':[
-                '【性能最佳，适用于生产】',
-                '不记录任何日志（默认值）'
-            ]},
-            {'BASIC':[
-                '【适用于生产环境追踪问题】',
-                '仅记录请求方法、URL、响应状态代码以及执行时间'
-            ]},
-            {'HEADERS':[
-                '记录BASIC级别的基础上',
-                '记录请求和响应的header'
-            ]},
-            {'FULL':[
-                '【适用于测试环境定位问题】',
-                '记录请求和响应的header、body和元数据'
-            ]},
-        ]}
-    ]},
-    {'拦截器配件':[
-        '自定义拦截器：实现RequestInterceptor接囗，重写apply()方法',
-        'feign:client:config:requestInterceptors[0]: xxxRequestInterceptor'
-    ]},
-    {'超时时间配置':[
-        'feign:client:config:mall‐order:',
-        '# 连接超时时间，默认2s',
-        'connectTimeout: 5000',
-        '# 请求处理超时时间，默认5s',
-        'readTimeout: 10000'
-    ]},
-    {'客户端组件配置':[
-        {'默认':[
-            '使用JDK原生的URLConnection发送HTTP请求'
+    {'核心功能':[
+        {'服务注册':[
+            'Nacos Client会通过发送REST请求的方式向Nacos Server注册自己的服务',
+            '提供自身的元数据，比如ip地址、端口等信息',
+            'Nacos Server接收到注册请求后，就会把这些元数据信息存储在一个双层的内存Map中'
         ]},
-        '可以集成别的组件来替换掉URLConnection，比如Apache HttpClient，OkHttp',
-        'Feign发起调用真正执行逻辑：feign.Client#execute （扩展点）',
-        {'配置Apache HttpClient':[
-            {'引入依赖':[
-                'httpclient',
-                'feign‐httpclient'
-            ]},
-            {'修改yml配置':[
-                'feign:httpclient:enabled:true'
-            ]},
-            {'测试':[
-                '调用会进入feign.httpclient.ApacheHttpClient#execute'
-            ]},
-            '配置可参考源码:org.springframework.cloud.openfeign.FeignAutoConfiguration'
-        ]}
-    ]},
-    {'编码器解码器配置':[
-        {'扩展点':[
-            'Encoder',
-            'Decoder'
+        {'服务心跳':[
+            '服务注册后，Nacos Client会维护一个定时心跳来持续通知Nacos Server',
+            '说明服务一直处于可用状态，防止被剔除',
+            '默认5s发送一次心跳'
         ]},
-        {'yml配置方式':[
-            'feign:client:config:',
-            '# 配置编解码器',
-            'encoder: feign.jackson.JacksonEncoder',
-            'decoder: feign.jackson.JacksonDecoder',
-        ]}
+        {'服务同步':[
+            'Nacos Server集群之间会互相同步服务实例，用来保证服务信息的一致性'
+        ]},
+        {'服务发现':[
+            '服务消费者（Nacos Client）在调用服务提供者的服务时，会发送一个REST请求给Nacos Server',
+            '获取上面注册的服务清单，并且缓存在Nacos Client本地',
+            '同时在NacosClient本地开启一个定时任务定时拉取服务端最新的注册表信息更新到本地缓存'
+        ]},
+        {'服务健康检查':[
+            'Nacos Server会开启一个定时任务用来检查注册服务实例的健康情况',
+            '对于超过15s没有收到客户端心跳的实例会将它的healthy属性置为false',
+            '如某个实例超过30秒没有收到心跳，直接剔除该实例(被剔除的实例如果恢复发送心跳则会重新注册'
+        ]},
+    ]},
+    {'使用':[
+        '属性文件：配置项',
+        'RestTemplate进行服务调用：可使用微服务名称（spring.application.name）'
     ]}
-],
+]
+
 
 }
 

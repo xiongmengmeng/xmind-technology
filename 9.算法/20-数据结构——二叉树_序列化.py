@@ -14,7 +14,7 @@ r2.setTitle("二叉树——序列化")
 
 content={
 '按层遍历序列化':[
-    'Node buildByLevleQueue(Queue<String> levelList)'
+    'Node buildByLevleQueue(Queue<String> levelList)',
     '   if(levelList==null||levelList.size()==0){',
     '       return null;',
     '   }',

@@ -37,7 +37,7 @@ content={
         ]},
         {'queueDeclare().getQueue()':[
             '创建临时队列'
-        ]}
+        ]},
         {'basicQos(1)':[
             '一次只接受一条未确认的消息'
         ]},

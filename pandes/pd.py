@@ -2,6 +2,7 @@
 
 import pandas 
 import csv 
+import requests
 
 #1.加载数据集
 df=pandas.read_excel("c:\\Users\\btr\\Desktop\\screeSharesInfo1.xlsx")
